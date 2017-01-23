@@ -1,0 +1,8 @@
+prefix=/home/romain/catkin_ws/install
+
+Name: joystick_teleop
+Description: Description of joystick_teleop
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/romain/catkin_ws/install/lib 
+Requires: roscpp joy

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/romain/catkin_ws/devel/.private/ros_bubble_rob/setup.sh

@@ -1,0 +1,27 @@
+[rosbuild] Building package keyboard_teleop
+Failed to invoke /opt/ros/kinetic/bin/rospack deps-manifests keyboard_teleop
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/dist-packages/rosdep2/rospack.py", line 58, in init_rospack_interface
+    lookup = _get_default_RosdepLookup(Options())
+  File "/usr/lib/python2.7/dist-packages/rosdep2/main.py", line 127, in _get_default_RosdepLookup
+    verbose=options.verbose)
+  File "/usr/lib/python2.7/dist-packages/rosdep2/sources_list.py", line 607, in create_default
+    sources = load_cached_sources_list(sources_cache_dir=sources_cache_dir, verbose=verbose)
+  File "/usr/lib/python2.7/dist-packages/rosdep2/sources_list.py", line 504, in load_cached_sources_list
+    with open(cache_index, 'r') as f:
+IOError: [Errno 13] Permission denied: '/home/romain/.ros/rosdep/sources.cache/index'
+[rospack] Error: could not call python function 'rosdep2.rospack.init_rospack_interface'
+
+
+[31m[1mCMake Error[0m at /opt/ros/kinetic/share/ros/core/rosbuild/public.cmake:129 (message):
+
+
+  Failed to invoke rospack to get compile flags for package
+  'keyboard_teleop'.  Look above for errors from rospack itself.  Aborting.
+  Please fix the broken dependency!
+
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/kinetic/share/ros/core/rosbuild/public.cmake:207 (rosbuild_invoke_rospack)
+  CMakeLists.txt:12 (rosbuild_init)
+
+

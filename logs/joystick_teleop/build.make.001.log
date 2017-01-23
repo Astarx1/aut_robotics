@@ -1,0 +1,10 @@
+[35m[1mScanning dependencies of target joystick_teleop[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/joystick_teleop.dir/src/joystick_teleop_node.cpp.o[0m
+[01m[K/home/romain/catkin_ws/src/joystick_teleop/src/joystick_teleop_node.cpp:1:21:[m[K [01;31m[Kfatal error: [m[Kros/ros.h: Aucun fichier ou dossier de ce type
+compilation terminated.
+CMakeFiles/joystick_teleop.dir/build.make:62 : la recette pour la cible « CMakeFiles/joystick_teleop.dir/src/joystick_teleop_node.cpp.o » a échouée
+CMakeFiles/Makefile2:227 : la recette pour la cible « CMakeFiles/joystick_teleop.dir/all » a échouée
+Makefile:138 : la recette pour la cible « all » a échouée
+make[2]: *** [CMakeFiles/joystick_teleop.dir/src/joystick_teleop_node.cpp.o] Erreur 1
+make[1]: *** [CMakeFiles/joystick_teleop.dir/all] Erreur 2
+make: *** [all] Erreur 2
