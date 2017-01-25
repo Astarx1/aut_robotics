@@ -1,0 +1,1 @@
+/home/romain/catkin_ws/devel/.private/collision_avoidance_base/share/collision_avoidance_base/cmake/collision_avoidance_baseConfig.cmake

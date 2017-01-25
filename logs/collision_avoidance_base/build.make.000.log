@@ -1,0 +1,4 @@
+[35m[1mScanning dependencies of target collision_avoidance_base[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/collision_avoidance_base.dir/src/collision_avoidance.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/romain/catkin_ws/devel/.private/collision_avoidance_base/lib/collision_avoidance_base/collision_avoidance_base[0m
+[100%] Built target collision_avoidance_base

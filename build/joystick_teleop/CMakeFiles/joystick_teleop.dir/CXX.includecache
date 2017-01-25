@@ -13,8 +13,6 @@ geometry_msgs/Twist.h
 -
 sensor_msgs/Joy.h
 -
-iostream
--
 
 /opt/ros/kinetic/include/XmlRpcDecl.h
 ros/macros.h

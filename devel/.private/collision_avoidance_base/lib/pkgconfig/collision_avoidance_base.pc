@@ -1,0 +1,8 @@
+prefix=/home/romain/catkin_ws/devel/.private/collision_avoidance_base
+
+Name: collision_avoidance_base
+Description: Description of collision_avoidance_base
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/romain/catkin_ws/devel/.private/collision_avoidance_base/lib 
+Requires: 

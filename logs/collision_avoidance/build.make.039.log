@@ -1,0 +1,12 @@
+[35m[1mScanning dependencies of target collision_avoidance[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/collision_avoidance.dir/src/coll_avoid.cpp.o[0m
+[01m[K/home/romain/catkin_ws/src/collision_avoidance/src/coll_avoid.cpp:[m[K In member function ‘[01m[Kvoid coll_avoid::joyCallback(geometry_msgs::Twist)[m[K’:
+[01m[K/home/romain/catkin_ws/src/collision_avoidance/src/coll_avoid.cpp:39:2:[m[K [01;31m[Kerror: [m[K‘[01m[Kstdcout[m[K’ was not declared in this scope
+  stdcout << "linear.x" << twist.linear.x << std::endl;
+[01;32m[K  ^[m[K
+CMakeFiles/collision_avoidance.dir/build.make:62 : la recette pour la cible « CMakeFiles/collision_avoidance.dir/src/coll_avoid.cpp.o » a échouée
+make[2]: *** [CMakeFiles/collision_avoidance.dir/src/coll_avoid.cpp.o] Erreur 1
+CMakeFiles/Makefile2:67 : la recette pour la cible « CMakeFiles/collision_avoidance.dir/all » a échouée
+make[1]: *** [CMakeFiles/collision_avoidance.dir/all] Erreur 2
+Makefile:138 : la recette pour la cible « all » a échouée
+make: *** [all] Erreur 2
