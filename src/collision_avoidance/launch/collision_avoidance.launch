@@ -16,6 +16,7 @@
 
 	<param name="treshold_bottom" value="0.5" type="double"/>
 	<param name="treshold_up" value="1" type="double"/>
+  <param name="max_speed" value="2" type="double"/>
 	<node pkg="collision_avoidance" type="collision_avoidance" name="collision" output="screen"/>
 </launch>
 

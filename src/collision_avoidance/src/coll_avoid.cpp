@@ -16,7 +16,7 @@ private:
 
 	ros::NodeHandle nh_;
 
- 	double treshold_bottom, treshold_up, down_scale;
+ 	double treshold_bottom, treshold_up, max_speed;
  	geometry_msgs::Twist command_twist;
 
 	ros::Publisher vel_pub;
@@ -25,8 +25,11 @@ private:
 
 
 coll_avoid::coll_avoid() {
+	max_speed = 2.0;
+
 	nh_.param("treshold_bottom", treshold_bottom, treshold_bottom);
 	nh_.param("treshold_up", treshold_up, treshold_up);
+	nh_.param("max_speed", max_speed, max_speed);
 
 	vel_pub = nh_.advertise<geometry_msgs::Twist>("/vrep/twistCommand", 1);
 
@@ -51,8 +54,8 @@ void coll_avoid::pc_callback(const sensor_msgs::PointCloud2 msg) {
 	
 	if ((double) command_twist.linear.x > 0) {
 		double rapport = std::min(std::max((double) m / (treshold_up - treshold_bottom) - treshold_bottom / (treshold_up - treshold_bottom), (double) 0.0), (double) 1.0);
-		std::cout << "m = " << m << ", rapport = " << rapport << std::endl;
-		command_twist.linear.x = command_twist.linear.x*rapport;
+		std::cout << "m = " << m << ", rapport = " << rapport << " vitesse  : " << command_twist.linear.x*rapport << std::endl;
+		command_twist.linear.x = max_speed*rapport;
 	}
 	
 	vel_pub.publish(command_twist);

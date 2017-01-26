@@ -1,8 +1,0 @@
-prefix=/home/romain/catkin_ws/devel/.private/collision_avoidance
-
-Name: collision_avoidance
-Description: Description of collision_avoidance
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/romain/catkin_ws/devel/.private/collision_avoidance/lib 
-Requires: pcl_ros roscpp joy
