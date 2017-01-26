@@ -1,8 +1,0 @@
-prefix=/home/romain/catkin_ws/install
-
-Name: vrep_skeleton_msg_and_srv
-Description: Description of vrep_skeleton_msg_and_srv
-Version: 3.1.2
-Cflags: -I/home/romain/catkin_ws/install/include
-Libs: -L/home/romain/catkin_ws/install/lib 
-Requires: message_runtime

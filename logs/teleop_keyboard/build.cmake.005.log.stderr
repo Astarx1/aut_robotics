@@ -1,6 +1,0 @@
-[rosbuild] Building package keyboard_teleop
-[rosbuild] Cached build flags older than manifests; calling rospack to get flags
-[rosbuild] using multiarch 'x86_64-linux-gnu' for finding Boost
-[rosbuild] Including /opt/ros/kinetic/share/roslisp/rosbuild/roslisp.cmake
-[rosbuild] Including /opt/ros/kinetic/share/roscpp/rosbuild/roscpp.cmake
-[rosbuild] Including /opt/ros/kinetic/share/rospy/rosbuild/rospy.cmake

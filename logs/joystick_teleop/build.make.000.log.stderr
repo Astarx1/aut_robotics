@@ -1,5 +1,0 @@
-[01m[K/home/romain/catkin_ws/src/joystick_teleop/src/joyTeleNode.cpp:1:21:[m[K [01;31m[Kfatal error: [m[Kros/ros.h: Aucun fichier ou dossier de ce type
-compilation terminated.
-make[2]: *** [CMakeFiles/joystick_teleop.dir/src/joyTeleNode.cpp.o] Erreur 1
-make[1]: *** [CMakeFiles/joystick_teleop.dir/all] Erreur 2
-make: *** [all] Erreur 2

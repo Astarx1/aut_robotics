@@ -1,7 +1,0 @@
-[01m[K/home/romain/catkin_ws/src/collision_avoidance/src/coll_avoid.cpp:[m[K In function ‘[01m[Kvoid pc_callback(sensor_msgs::PointCloud2ConstPtr)[m[K’:
-[01m[K/home/romain/catkin_ws/src/collision_avoidance/src/coll_avoid.cpp:7:7:[m[K [01;31m[Kerror: [m[K‘[01m[Ki[m[K’ was not declared in this scope
-  for (i=0;i<pc.size();i++) {
-[01;32m[K       ^[m[K
-make[2]: *** [CMakeFiles/collision_avoidance.dir/src/coll_avoid.cpp.o] Erreur 1
-make[1]: *** [CMakeFiles/collision_avoidance.dir/all] Erreur 2
-make: *** [all] Erreur 2

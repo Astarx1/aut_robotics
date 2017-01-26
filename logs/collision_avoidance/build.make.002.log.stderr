@@ -1,6 +1,0 @@
-/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o : Dans la fonction « _start » :
-(.text+0x20) : référence indéfinie vers « main »
-collect2: error: ld returned 1 exit status
-make[2]: *** [/home/romain/catkin_ws/devel/.private/collision_avoidance/lib/collision_avoidance/collision_avoidance] Erreur 1
-make[1]: *** [CMakeFiles/collision_avoidance.dir/all] Erreur 2
-make: *** [all] Erreur 2

@@ -1,7 +1,0 @@
-[01m[K/home/romain/catkin_ws/src/collision_avoidance/src/coll_avoid.cpp:[m[K In member function ‘[01m[Kvoid coll_avoid::joyCallback(geometry_msgs::Twist)[m[K’:
-[01m[K/home/romain/catkin_ws/src/collision_avoidance/src/coll_avoid.cpp:39:2:[m[K [01;31m[Kerror: [m[K‘[01m[Kstdcout[m[K’ was not declared in this scope
-  stdcout << "linear.x" << twist.linear.x << std::endl;
-[01;32m[K  ^[m[K
-make[2]: *** [CMakeFiles/collision_avoidance.dir/src/coll_avoid.cpp.o] Erreur 1
-make[1]: *** [CMakeFiles/collision_avoidance.dir/all] Erreur 2
-make: *** [all] Erreur 2
