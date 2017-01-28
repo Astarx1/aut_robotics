@@ -1,9 +1,5 @@
 <launch>
-	<remap from="/out_speed_from_joy" to="/treated_speed" />
-
-
-  <node respawn="true" pkg="joy"
-        type="joy_node" name="turtle_joy" >
+  <node respawn="true" pkg="joy" type="joy_node" name="turtle_joy">
     <param name="dev" type="string" value="/dev/input/js1" />
     <param name="deadzone" value="0.12" />
   </node>
@@ -14,9 +10,17 @@
   <param name="scale_angular" value="2" type="double"/>
   <node pkg="joystick_teleop" type="joystick_teleop" name="teleop"/>
 
-	<param name="treshold_bottom" value="0.5" type="double"/>
-	<param name="treshold_up" value="1" type="double"/>
-  <param name="max_speed" value="2" type="double"/>
-	<node pkg="collision_avoidance" type="collision_avoidance" name="collision" output="screen"/>
+	<node pkg="collision_avoidance" type="collision_avoidance" name="collision" output="screen">
+    <param name="treshold_bottom" value="0.005" type="double"/>
+    <param name="treshold_up" value="0.01" type="double"/>
+    <param name="max_speed" value="0.5" type="double"/>
+
+    <remap from="~/output_vel" to="/vrep/twistCommand" />
+    <remap from="~/pointcloud" to="/vrep/hokuyoSensor" />
+    <remap from="~/out_speed_from_joy" to="/out_speed_from_joy" />
+    
+    <!--<remap from="~/output_vel" to="/mobile_base/commands/velocity" />-->
+    <!--<remap from="/mobile_base/sensors/bumper_pointcloud" to="~/pointcloud" />-->
+  </node>
 </launch>
 

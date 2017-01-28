@@ -24,22 +24,22 @@ private:
 };
 
 
-coll_avoid::coll_avoid() {
+coll_avoid::coll_avoid() : nh_("~") {
 	max_speed = 2.0;
 
 	nh_.param("treshold_bottom", treshold_bottom, treshold_bottom);
 	nh_.param("treshold_up", treshold_up, treshold_up);
 	nh_.param("max_speed", max_speed, max_speed);
 
-	vel_pub = nh_.advertise<geometry_msgs::Twist>("/vrep/twistCommand", 1);
+	vel_pub = nh_.advertise<geometry_msgs::Twist>("output_vel", 1);
 
-	speed_sub = nh_.subscribe<geometry_msgs::Twist>("/out_speed_from_joy", 2, &coll_avoid::joyCallback, this);
-	distance_sub = nh_.subscribe<sensor_msgs::PointCloud2>("/vrep/hokuyoSensor", 2, &coll_avoid::pc_callback, this);
+	speed_sub = nh_.subscribe<geometry_msgs::Twist>("out_speed_from_joy", 2, &coll_avoid::joyCallback, this);
+	distance_sub = nh_.subscribe<sensor_msgs::PointCloud2>("pointcloud", 2, &coll_avoid::pc_callback, this);
 }
 
 void coll_avoid::joyCallback(const geometry_msgs::Twist twist) {
 	command_twist = twist;
-	std::cout << "linear.x" << twist.linear.x << std::endl;
+	std::cout << "linear.x : " << twist.linear.x << std::endl;
 }
 
 void coll_avoid::pc_callback(const sensor_msgs::PointCloud2 msg) {
@@ -51,7 +51,7 @@ void coll_avoid::pc_callback(const sensor_msgs::PointCloud2 msg) {
 		a = std::min(m, std::sqrt(pc[i].x*pc[i].x+pc[i].y*pc[i].y+pc[i].z*pc[i].z));
 		m = a > 0.01 ? a : m;
 	}
-	
+
 	if ((double) command_twist.linear.x > 0) {
 		double rapport = std::min(std::max((double) m / (treshold_up - treshold_bottom) - treshold_bottom / (treshold_up - treshold_bottom), (double) 0.0), (double) 1.0);
 		std::cout << "m = " << m << ", rapport = " << rapport << " vitesse  : " << command_twist.linear.x*rapport << std::endl;
