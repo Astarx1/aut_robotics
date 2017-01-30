@@ -32,7 +32,7 @@ namespace floor_nav {
             void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr msg) ;
             void pointCloud2DCallback(const sensor_msgs::PointCloud2ConstPtr msg) ;
             void laserScanCallback(const sensor_msgs::LaserScanConstPtr msg) ;
-
+            
             bool manualControl;
             std::string joystick_topic;
             std::string auto_topic;
