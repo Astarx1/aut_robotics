@@ -4,8 +4,8 @@
 #include "task_manager_lib/TaskDefinition.h"
 #include "floor_nav/SimTasksEnv.h"
 #include "floor_nav/TaskWaitForFaceConfig.h"
-#include "face_detect_base/perso_roi_type.h"
 
+#include "face_detect_base/perso_roi_type.h"
 #include "ros/ros.h"
 #include <sensor_msgs/RegionOfInterest.h>
 #include <std_msgs/Int16.h>
@@ -21,6 +21,8 @@ namespace floor_nav {
 			//std::vector<std_msgs::Int16> buf_ints;
 
 			void ROICallback(const face_detect_base::perso_roi_type& msg) {
+				if (!msg.regions.size())
+					return;
 				ROS_INFO("Received ROI");
 				triggered = true;
 			}
