@@ -41,7 +41,7 @@ if __name__ == '__main__':
 	
 	rospy.init_node('facedetect')
 	display = rospy.get_param("~display",True)
-	pub = rospy.Publisher("Region_Of_Interest", perso_roi_type)
+	pub = rospy.Publisher("Region_Of_Interest", perso_roi_type, queue_size=2)
 
 	def detect_and_draw(imgmsg):
 		l = perso_roi_type()
