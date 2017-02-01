@@ -4,7 +4,7 @@ project(floor_nav)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS face_detect_base geometry_msgs pcl_ros roscpp rospy sensor_msgs std_msgs tf dynamic_reconfigure)
+find_package(catkin REQUIRED COMPONENTS face_detect_base face_detect geometry_msgs pcl_ros roscpp rospy sensor_msgs std_msgs tf dynamic_reconfigure)
 
 ## System dependencies are found with CMake's conventions
 find_package(task_manager_msgs REQUIRED)
@@ -37,6 +37,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 # )
 generate_dynamic_reconfigure_options(
   cfg/TaskGoTo.cfg
+  cfg/TaskGoToPose.cfg
   cfg/TaskPlanTo.cfg
   cfg/TaskSetHeading.cfg
   cfg/TaskSetManual.cfg
@@ -142,6 +143,10 @@ ADD_LIBRARY( TaskStareAtFace SHARED tasks/TaskStareAtFace.cpp)
 TARGET_LINK_LIBRARIES(TaskStareAtFace ${catkin_LIBRARIES} dl)
 add_dependencies(TaskStareAtFace ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(TaskStareAtFace ${PROJECT_NAME}_gencfg)
+
+ADD_LIBRARY( TaskGoToPose SHARED tasks/TaskGoToPose.cpp)
+TARGET_LINK_LIBRARIES(TaskGoToPose ${catkin_LIBRARIES} dl)
+add_dependencies(TaskGoToPose ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 #############
 ## Install ##
