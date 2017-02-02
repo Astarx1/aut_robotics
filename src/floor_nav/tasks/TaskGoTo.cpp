@@ -47,7 +47,7 @@ TaskIndicator TaskGoTo::iterate()
         env->publishVelocity(0,rot);
     } else {
         double vel = cfg.k_v * r;
-        double rot = std::max(std::min(cfg.k_alpha*alpha,cfg.max_angular_velocity),-cfg.max_angular_velocity);
+        double rot = std::max(std::min(cfg.k_alpha*alpha,cfg.max_angular_velocity), cfg.max_angular_velocity);
         if (vel > cfg.max_velocity) vel = cfg.max_velocity;
 #ifdef DEBUG_GOTO
         printf("Cmd v %.2f r %.2f\n",vel,rot);

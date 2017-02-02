@@ -12,15 +12,15 @@ tc = TaskClient(server_node,default_period)
 rospy.loginfo("Mission connected to server: " + server_node)
 
 scale = 1.5
-vel = 0.5
-k_a = 8.0
-k_b = -1.5
+vel = 1
+k_a = 0.5
+k_b = 0
 
 tc.WaitForAuto()
 try:
-    tc.GoToPose(goal_x=-scale,goal_y=-scale,goal_theta=-pi/4,max_velocity=vel,k_beta=k_b)
+    tc.GoToPose(goal_x=-scale,goal_y=-scale,goal_theta=-pi/4,k_alpha=k_a, k_r=vel, k_beta=k_b, smart=1, dist_threshold=0.2, angle_threshold=0.5)
     tc.Wait(duration=1.0)
-    tc.GoToPose(goal_x=scale,goal_y=scale,goal_theta=pi/2,max_velocity=vel,k_beta=k_b)
+    tc.GoToPose(goal_x=scale,goal_y=scale,goal_theta=pi/2,k_alpha = k_a, k_r=vel, k_beta=k_b, smart=1, dist_threshold=0.2, angle_threshold=0.5)
     tc.Wait(duration=1.0) 
 
 

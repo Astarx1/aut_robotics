@@ -20,10 +20,6 @@ namespace floor_nav {
 
 		public:
 			TaskGoToPose(TaskDefinitionPtr def, TaskEnvironmentPtr env) : Parent(def,env) {
-				if (cfg.smart == 1)
-					type_machine = SMART;
-				else 
-					type_machine = DUMB;
 
 				actuel = INIT;
 

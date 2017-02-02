@@ -1,5 +1,5 @@
 #!/usr/bin/python
-'''
+
 # Code de Nora et Romain 
 # ROS specific imports
 import roslib; roslib.load_manifest('floor_nav')
@@ -28,8 +28,9 @@ if not rospy.core.is_shutdown():
 
 
 rospy.loginfo("Mission completed")
-'''
 
+
+'''
 # Code de Gregoire et Remi
 
 #!/usr/bin/python
@@ -61,3 +62,4 @@ while True:
 				" or ".join([str(c) for c in e.conditions])) 
 
 rospy.loginfo("Mission completed")
+'''

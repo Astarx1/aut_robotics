@@ -13,6 +13,11 @@ using namespace floor_nav;
 
 TaskIndicator TaskGoToPose::initialise() 
 {
+	if (cfg.smart == 1)
+		type_machine = Machine(SMART);
+	else 
+		type_machine = Machine(DUMB);
+	
 	ROS_INFO("Going to %.2f %.2f",cfg.goal_x,cfg.goal_y);
 	if (cfg.relative) {
 		const geometry_msgs::Pose2D & tpose = env->getPose2D();
@@ -36,9 +41,9 @@ TaskIndicator TaskGoToPose::iterate()
 {
 	const geometry_msgs::Pose2D & tpose = env->getPose2D();
 
-	if (type_machine == DUMB) {
+	if (type_machine == Machine(DUMB)) {
 		if (actuel == TRAVELLING) {
-			double r = hypot(y_init + cfg.goal_y-tpose.y,x_init + cfg.goal_x-tpose.x);
+			double r = hypot(cfg.goal_y-tpose.y,cfg.goal_x-tpose.x);
 
 			if (r < cfg.dist_threshold) {
 				ROS_INFO("GotoPose en mode reached, Machine : %d, Etat : %d", type_machine, actuel);
@@ -48,7 +53,7 @@ TaskIndicator TaskGoToPose::iterate()
 			}
 			else {
 				ROS_INFO("Dist : %f", r);
-				double vel = std::min (r*cfg.k_r, cfg.max_velocity);
+				double vel = std::min (r*cfg.k_r+0.1, cfg.max_velocity);
 				env->publishVelocity(vel, 0);
 			}
 		}
@@ -63,7 +68,7 @@ TaskIndicator TaskGoToPose::iterate()
 			double alpha = remainder(theta_obj-tpose.theta,2*M_PI);
 
 			if (fabs(alpha) > cfg.angle_threshold) {
-				double rot = std::min(((alpha>0)?+alpha:-alpha)*cfg.k_alpha, ((alpha>0)?+1:-1)*cfg.max_angular_velocity);
+				double rot = (fabs(alpha) < cfg.max_angular_velocity) ? (alpha*cfg.k_alpha+((alpha>0)?+1:-1)*0.1) : ((alpha>0)?+1:-1)*cfg.max_angular_velocity;
 				ROS_INFO ("Angle : %f, vitesse angulaire : %f", fabs(alpha), rot);
 				env->publishVelocity(0,rot);
 			} 
@@ -81,6 +86,27 @@ TaskIndicator TaskGoToPose::iterate()
 					return TaskStatus::TASK_COMPLETED;
 				}
 			}
+		}
+	}
+	else {
+		double dist_actuel = hypot(y_init + cfg.goal_y-tpose.y,x_init + cfg.goal_x-tpose.x);	
+		double theta_but = atan2(cfg.goal_y-tpose.y, cfg.goal_x-tpose.x);
+		
+		double theta = tpose.theta;
+		double alpha =  remainder(theta_but - theta, 2 * M_PI);
+
+		if (dist_actuel > cfg.dist_threshold) {
+			double v = std::min(cfg.k_r * dist_actuel, cfg.max_velocity);
+			double val = cfg.k_alpha * alpha; 
+			double omega = fabs(val) < cfg.max_angular_velocity ? val : (val > 0 ? 1 : -1) * cfg.max_angular_velocity;
+
+			ROS_INFO("Smart move, obj = %f, cur = %f, alpha = %f, w = %f", theta_but,theta,  alpha, omega);
+
+			env->publishVelocity(v, omega);
+		}
+		else {
+			ROS_INFO("Position atteinte");
+			return TaskStatus::TASK_COMPLETED;
 		}
 	}
 	return TaskStatus::TASK_RUNNING;
