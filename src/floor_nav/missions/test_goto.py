@@ -12,9 +12,9 @@ tc = TaskClient(server_node,default_period)
 rospy.loginfo("Mission connected to server: " + server_node)
 
 scale = 1.5
-vel = 1
-k_a = 0.5
-k_b = 0
+k_a = 3
+vel = k_a/3
+k_b =k_a/16
 
 tc.WaitForAuto()
 try:

@@ -93,11 +93,12 @@ TaskIndicator TaskGoToPose::iterate()
 		double theta_but = atan2(cfg.goal_y-tpose.y, cfg.goal_x-tpose.x);
 		
 		double theta = tpose.theta;
-		double alpha =  remainder(theta_but - theta, 2 * M_PI);
+		double alpha = remainder(theta_but-tpose.theta,2*M_PI);
+		double beta  = - cfg.goal_theta - alpha;
 
-		if (dist_actuel > cfg.dist_threshold) {
+		if (dist_actuel > cfg.dist_threshold || fabs(theta) > cfg.angle_threshold) {
 			double v = std::min(cfg.k_r * dist_actuel, cfg.max_velocity);
-			double val = cfg.k_alpha * alpha; 
+			double val = cfg.k_alpha * alpha + cfg.k_beta*beta; 
 			double omega = fabs(val) < cfg.max_angular_velocity ? val : (val > 0 ? 1 : -1) * cfg.max_angular_velocity;
 
 			ROS_INFO("Smart move, obj = %f, cur = %f, alpha = %f, w = %f", theta_but,theta,  alpha, omega);
