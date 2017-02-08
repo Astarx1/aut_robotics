@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(collision_avoidance_base)
+project(rover_driver_base)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
-  pcl_ros
-  roscpp
+  rospy
   sensor_msgs
   std_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -19,7 +19,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -83,8 +84,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES collision_avoidance
-#  CATKIN_DEPENDS geometry_msgs pcl_ros roscpp sensor_msgs std_msgs
+#  LIBRARIES rover_driver_base
+#  CATKIN_DEPENDS geometry_msgs rospy sensor_msgs std_msgs tf
 #  DEPENDS system_lib
 )
 
@@ -100,25 +101,39 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(collision_avoidance
-#   src/${PROJECT_NAME}/collision_avoidance.cpp
+# add_library(rover_driver_base
+#   src/${PROJECT_NAME}/rover_driver_base.cpp
 # )
 
 ## Declare a cpp executable
-add_executable(collision_avoidance_base src/collision_avoidance.cpp)
+# add_executable(rover_driver_base_node src/rover_driver_base_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(collision_avoidance_node collision_avoidance_generate_messages_cpp)
+# add_dependencies(rover_driver_base_node rover_driver_base_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(collision_avoidance_base
-  ${catkin_LIBRARIES}
-)
+# target_link_libraries(rover_driver_base_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
 #############
+install(PROGRAMS
+  nodes/rover_command.py
+  nodes/rover_odom.py
+  nodes/rover_teleop.py
+  nodes/rover_keyboard.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY src/rover_driver/
+  DESTINATION ${CATKIN_PACKAGE_PYTHON_DESTINATION}
+  USE_SOURCE_PERMISSIONS
+  PATTERN ".svn" EXCLUDE
+)
+
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
@@ -131,7 +146,7 @@ target_link_libraries(collision_avoidance_base
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS collision_avoidance collision_avoidance_node
+# install(TARGETS rover_driver_base rover_driver_base_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -156,7 +171,7 @@ target_link_libraries(collision_avoidance_base
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_collision_avoidance.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_rover_driver_base.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
