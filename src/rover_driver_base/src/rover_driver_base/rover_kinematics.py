@@ -5,7 +5,8 @@ from geometry_msgs.msg import Twist
 import numpy
 from numpy.linalg import pinv
 from numpy import dot
-from math import atan2, hypot, pi, cos, sin, degrees, radians, matmul
+from numpy import matmul
+from math import atan2, hypot, pi, cos, sin, degrees, radians
 
 prefix=["FL","FR","CL","CR","RL","RR"]
 
@@ -53,6 +54,10 @@ class RoverKinematics:
 				motors.drive[k] = speed * hypot(dist_y,dist_x)
 		return motors
 
+	def handler (self, a, b):
+		c = ((a+b/2)%b) - b/2
+		return c
+
 	def integrate_odometry(self, motor_state, drive_cfg, skidsteer=False):
 		if self.first_run:
 			self.motor_state.copy(motor_state)
@@ -94,15 +99,15 @@ class RoverKinematics:
 			S = numpy.zeros((len(prefix)*2,1))
 			for i in range(len(prefix)):
 				k = prefix[i]
-				S[2*1,0] = radians(degrees(motor_state.drive[k] - self.motor_state.drive[k]))*2*drive_cfg[prefix[i]].radius*cos(motor_state.steering[k])
-				S[2*1+1,0] = radians(degrees(motor_state.drive[k] - self.motor_state.drive[k]))*2*drive_cfg[prefix[i]].radius*sin(motor_state.steering[k])
+				S[2*i,0] = self.handler(motor_state.drive[k] - self.motor_state.drive[k], 2*pi)*2*drive_cfg[prefix[i]].radius*cos(motor_state.steering[k])
+				S[2*i+1,0] = self.handler(motor_state.drive[k] - self.motor_state.drive[k], 2*pi)*2*drive_cfg[prefix[i]].radius*sin(motor_state.steering[k])
 
 			Ds = numpy.matmul(A, S)
 
 			self.X[0,0] += Ds[0,0] * cos (self.X[2,0]) + Ds[1,0] * sin(self.X[2,0])
 			self.X[1,0] += - Ds[0,0] * sin (self.X[2,0]) + Ds[1,0] * cos(self.X[2,0])
 			self.X[2,0] += Ds[2,0] 
-			self.X[2,0] = radians(degrees(self.X[2,0]))
+			self.X[2,0] = self.handler(self.X[2,0],2*pi)
 
 		self.number_intodom += 1
 		if self.number_intodom % 5 == 0:
