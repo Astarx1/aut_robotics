@@ -50,7 +50,6 @@ class RoverDriver:
         motors = RoverMotors()
         motors.steering = dict(zip(self.steering_sub.keys(),steering_val))
         motors.drive = dict(zip(self.drive_sub.keys(),drive_val))
-        #print (motors)
         self.odo_cb(args[0].header.stamp,motors)
 
     def odo_cb(self,timestamp,motors):
