@@ -32,7 +32,7 @@ namespace floor_nav {
             void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr msg) ;
             void pointCloud2DCallback(const sensor_msgs::PointCloud2ConstPtr msg) ;
             void laserScanCallback(const sensor_msgs::LaserScanConstPtr msg) ;
-            
+
             bool manualControl;
             std::string joystick_topic;
             std::string auto_topic;
@@ -57,6 +57,8 @@ namespace floor_nav {
             const pcl::PointCloud<pcl::PointXYZ>& getPointCloud2D() const {return pointCloud2D;}
 
             void publishVelocity(double linear, double angular) ;
+            void publishVelocity(double linear_x, double linear_y, double angular) ;
+            void publishVelocity(const geometry_msgs::Twist & twist) ;
 
             void setManualControl();
             void setComputerControl();

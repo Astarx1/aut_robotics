@@ -101,9 +101,15 @@ TaskIndicator TaskGoToPose::iterate()
 			double val = cfg.k_alpha * alpha + cfg.k_beta*beta; 
 			double omega = fabs(val) < cfg.max_angular_velocity ? val : (val > 0 ? 1 : -1) * cfg.max_angular_velocity;
 
+			float y_nav = y_init + cfg.goal_y-tpose.y;
+			float x_nav = x_init + cfg.goal_x-tpose.x;
+
 			ROS_INFO("Smart move, obj = %f, cur = %f, alpha = %f, w = %f", theta_but,theta,  alpha, omega);
 
-			env->publishVelocity(v, omega);
+			if (!cfg.holonomic)
+				env->publishVelocity(v, omega);
+			else
+				env->publishVelocity(x_nav*cos(theta) + y_nav*sin(theta), -x_nav*sin(theta) + y_nav*cos(theta), omega);	
 		}
 		else {
 			ROS_INFO("Position atteinte");

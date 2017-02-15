@@ -40,18 +40,12 @@ TaskIndicator TaskGoTo::iterate()
             cfg.goal_x,cfg.goal_y,r,alpha*180./M_PI);
 #endif
     if (fabs(alpha) > M_PI/9) {
-        double rot = ((alpha>0)?+1:-1)*cfg.max_angular_velocity;
-#ifdef DEBUG_GOTO
-        printf("Cmd v %.2f r %.2f\n",0.,rot);
-#endif
+        double rot = ((alpha>0)?+1:-1)*cfg.max_angular_velocity; 
         env->publishVelocity(0,rot);
     } else {
         double vel = cfg.k_v * r;
         double rot = std::max(std::min(cfg.k_alpha*alpha,cfg.max_angular_velocity), cfg.max_angular_velocity);
         if (vel > cfg.max_velocity) vel = cfg.max_velocity;
-#ifdef DEBUG_GOTO
-        printf("Cmd v %.2f r %.2f\n",vel,rot);
-#endif
         env->publishVelocity(vel, rot);
     }
 	return TaskStatus::TASK_RUNNING;
