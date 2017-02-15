@@ -25,9 +25,6 @@ class RoverKF(RoverKinematics):
         R[1,0] = sin(theta); R[1,1] = cos(theta)
         return R
     
-    def getRotationFromWorldToRobot(self):
-        return getRotation(-self.X[2,0])
-
     def predict(self, motor_state, drive_cfg, encoder_precision):
         self.lock.acquire()
         # The first time, we need to initialise the state
@@ -35,75 +32,39 @@ class RoverKF(RoverKinematics):
             self.motor_state.copy(motor_state)
             self.first_run = False
             self.lock.release()
-            return (self.X, self.P)
+            return 
         # Prepare odometry matrices (check rover_odo.py for usage)
         iW = self.prepare_inversion_matrix(drive_cfg)
         S = self.prepare_displacement_matrix(self.motor_state,motor_state,drive_cfg)
         self.motor_state.copy(motor_state)
         
         # Implement Kalman prediction here
-        theta = self.X[2,0]
-        Rtheta = mat([[cos(theta), -sin(theta), 0], 
-                      [sin(theta),  cos(theta), 0],
-                      [         0,           0, 1]]);
-        DeltaX = iW*S
-        self.X = self.X + Rtheta*DeltaX
-        Jx = mat([[1, 0, -sin(theta)*DeltaX[0,0]-cos(theta)*DeltaX[1,0]],
-                  [0, 1,  cos(theta)*DeltaX[0,0]-sin(theta)*DeltaX[1,0]],
-                  [0, 0,                       1                       ]])
-        Js = Rtheta*iW
-        Qs = mat(diag([encoder_precision]*len(S)))
-        self.P = Jx * self.P * Jx.T + Js * Qs * Js.T
+        # TODO
+
+        # ultimately : 
+        # self.X =  
+        # self.P = 
+
         self.lock.release()
-        return (self.X,self.P)
 
     def update_ar(self, Z, L, uncertainty):
         self.lock.acquire()
-        # print "Update: L="+str(L.T)+" X="+str(self.X.T)
+        print "Update: L="+str(L.T)+" X="+str(self.X.T)
         # Implement kalman update using landmarks here
         # TODO
-        print "Update: L="+str(L.T)+" X="+str(self.X.T)
-        R = mat(diag([uncertainty,uncertainty]))
-        theta = self.X[2,0]
-        Rmtheta = self.getRotation(-theta)
-        Zpred = Rmtheta*mat([L[0,0]-self.X[0,0], L[1,0]-self.X[1,0]]).T
-        # print "      : Z=" + str(Z.T) + " Zpred="+str(Zpred.T)
-        H = mat([[-cos(theta), -sin(theta), -(L[0,0]-self.X[0,0])*sin(theta) + (L[1,0]-self.X[1,0])*cos(theta)],
-                 [ sin(theta), -cos(theta), -(L[0,0]-self.X[0,0])*cos(theta) - (L[1,0]-self.X[1,0])*sin(theta)]])
-        S = H * self.P * H.T + R
-        K = self.P * H.T * inv(S)
-        # print "P="; print self.P
-        # print "H="; print H
-        # print "S="; print S
-        # print "K="; print K
-        # print "I="; print Z-Zpred
-        # print "G="; print K*(Z-Zpred)
-        self.X = self.X + K * (Z - Zpred)
-        self.P = (mat(eye(3)) - K * H) * self.P
+        # self.X = 
+        # self.P = 
         self.lock.release()
-        return (self.X,self.P)
 
     def update_compass(self, Z, uncertainty):
         self.lock.acquire()
         print "Update: S="+str(Z)+" X="+str(self.X.T)
         # Implement kalman update using compass here
         # TODO
-        print "Update: S="+str(Z)+" X="+str(self.X.T)
-        R = mat(diag([uncertainty]))
-        Zpred = self.X[2,0]
-        H = mat(hstack([0,0,1]))
-        S = H * self.P * H.T + R
-        K = self.P * H.T * inv(S)
-        # print "P="; print self.P
-        # print "H="; print H
-        # print "S="; print S
-        # print "K="; print K
-        # print "I="; print Z-Zpred
-        # print "G="; print K*(Z-Zpred)
-        self.X = self.X + K * (Z - Zpred)
-        self.P = (mat(eye(3)) - K * H) * self.P
+        # self.X = 
+        # self.P = 
         self.lock.release()
-        return (self.X,self.P)
+        return 
 
     # this publishes the pose but also the pose with covariance and the error ellipse in rviz
     def publish(self, pose_pub, target_frame, stamp):
