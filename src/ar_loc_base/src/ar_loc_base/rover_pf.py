@@ -57,11 +57,11 @@ class RoverPF(RoverKinematics):
 		
 		deltaX = iW*S
 		
-		incertitude = encoder_precision*20
+		incertitude = encoder_precision
 
 		self.motor_state.copy(motor_state)
 
-		self.particles = [self.MotionModel(self.X,deltaX, incertitude) for X in self.particles]
+		self.particles = [self.MotionModel(Xpart,deltaX, incertitude) for Xpart in self.particles]
 
 		print ("Particles made with %f + %f - %f + %f - %f + %f & i = %f" % (self.X[0,0],self.X[1,0],self.X[2,0],
 			deltaX[0,0],deltaX[1,0],deltaX[2,0],incertitude))
@@ -73,14 +73,13 @@ class RoverPF(RoverKinematics):
 		err = (X-L)/incertitude
 		return exp(-0.5*err.T*err)
 
-	def update_ar(self, Z, L, Uncertainty):
+	def update_ar(self, Z, L, Uncertainty): 
 		self.lock.acquire()
 		print "Update: L="+str(L.T)
 		# Implement particle filter update using landmarks here
 		# Note: the function bisect.bisect_left could be useful to implement
 		# the resampling process efficiently
 		# TODO
-
 
 		poids=[self.poids_particule(x,Z,L,Uncertainty) for x in self.particles]
 		a = sum (poids)
