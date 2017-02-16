@@ -51,8 +51,8 @@ class RoverKinematics:
                 #     V_wheel = V_body + Omega x R
                 vw_x = twist.linear.x - twist.angular.z*drive_cfg[k].y
                 vw_y = twist.linear.y + twist.angular.z*drive_cfg[k].x
-                motors.steering[k] = atan2(vw_y,vw_x); 
-                motors.drive[k] = hypot(vw_y,vw_x) / drive_cfg[k].radius
+                motors.steering[k] = 5*atan2(vw_y,vw_x); 
+                motors.drive[k] = 5*hypot(vw_y,vw_x) / drive_cfg[k].radius
                 if motors.steering[k] > pi/2:
                     motors.steering[k] -= pi
                     motors.drive[k] = -motors.drive[k]

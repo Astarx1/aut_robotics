@@ -57,7 +57,7 @@ class RoverPF(RoverKinematics):
 		
 		deltaX = iW*S
 		
-		incertitude = encoder_precision*10
+		incertitude = encoder_precision*20
 
 		self.motor_state.copy(motor_state)
 
