@@ -49,6 +49,7 @@ class RoverPF(RoverKinematics):
 			self.motor_state.copy(motor_state)
 			self.first_run = False
 			self.lock.release() 
+			self.X = numpy.zeros((3,1))
 			return 
 
 		iW = self.prepare_inversion_matrix(drive_cfg)
@@ -56,11 +57,14 @@ class RoverPF(RoverKinematics):
 		
 		deltaX = iW*S
 		
-		incertitude = vstack (encoder_precision)
+		incertitude = encoder_precision*10
 
 		self.motor_state.copy(motor_state)
 
-		self.particles = [self.MotionModel(X,deltaX, incertitude) for X in self.particles]
+		self.particles = [self.MotionModel(self.X,deltaX, incertitude) for X in self.particles]
+
+		print ("Particles made with %f + %f - %f + %f - %f + %f & i = %f" % (self.X[0,0],self.X[1,0],self.X[2,0],
+			deltaX[0,0],deltaX[1,0],deltaX[2,0],incertitude))
 
 		self.lock.release()
 

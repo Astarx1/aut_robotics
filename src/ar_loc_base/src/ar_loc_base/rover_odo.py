@@ -43,6 +43,7 @@ class RoverOdo(RoverKinematics):
         # Estimate DeltaX using the pseudo-inverse method
         DeltaX = iW*S
         self.X = self.X + Rtheta*DeltaX
+        print ("New position : %f - %f - %f" % (self.X[0,0], self.X[1,0], self.X[2,0]))
         self.lock.release()
 
     def update_ar(self, Z, L, uncertainty):
