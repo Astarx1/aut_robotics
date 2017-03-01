@@ -30,8 +30,9 @@ class Landmark:
 
         RotateMatrix = mat([[cos(t), -sin(t)],[sin(t), cos(t)]])
 
-        self.L = vstack([X[0,0], X[1,0]] + RotateMatrix * Z)
-        print "Update Landmark [" + str(self.L[0,0]) + ", " + str(self.L[1,0]) + "]" 
+        self.L = (mat(mat([X[0,0], X[1,0]]) + mat((RotateMatrix * Z).T))).T
+
+        print "Update Landmark " + str(self.L.T)
 
         return
         
