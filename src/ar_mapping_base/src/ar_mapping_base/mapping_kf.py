@@ -22,6 +22,7 @@ class Landmark:
         self.P = R
 
         print "Init Landmark [" + str(self.L[0,0]) + ", " + str(self.L[1,0]) + "]" 
+
     def update(self,Z, X, R):
         self.X = X
         self.P = R
@@ -36,8 +37,6 @@ class Landmark:
 
         return
         
-
-
 class MappingKF:
     def __init__(self):
         self.lock = threading.Lock()

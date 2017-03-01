@@ -18,7 +18,7 @@ class RoverKF(RoverKinematics):
         self.P = mat(diag(initial_uncertainty))
         self.ellipse_pub = rospy.Publisher("~ellipse",Marker,queue_size=1)
         self.pose_with_cov_pub = rospy.Publisher("~pose_with_covariance",PoseWithCovarianceStamped,queue_size=1)
-
+        self.Q = eye(3)
     def getRotation(self, theta):
         R = mat(zeros((2,2)))
         R[0,0] = cos(theta); R[0,1] = -sin(theta)
@@ -37,23 +37,43 @@ class RoverKF(RoverKinematics):
         iW = self.prepare_inversion_matrix(drive_cfg)
         S = self.prepare_displacement_matrix(self.motor_state,motor_state,drive_cfg)
         self.motor_state.copy(motor_state)
-        
-        # Implement Kalman prediction here
-        # TODO
+    
+        t = self.X[2,0]
 
-        # ultimately : 
-        # self.X =  
-        # self.P = 
+        RotateMatrix = mat([[cos(t), -sin(t), 0], 
+                            [sin(t),  cos(t), 0],
+                            [0, 0, 1]]);
+
+        DeltaX = iW*S
+        
+        self.X = self.X + RotateMatrix*DeltaX
+        
+        A = mat([[1,0, -sin(t)*DeltaX[0,0]-cos(t)*DeltaX[1,0]],
+                 [0,1,  cos(t)*DeltaX[0,0]-sin(t)*DeltaX[1,0]],
+                 [0,0,  1 ]])
+
+        self.P = A * self.P * A.T + self.Q
 
         self.lock.release()
 
     def update_ar(self, Z, L, uncertainty):
         self.lock.acquire()
         print "Update: L="+str(L.T)+" X="+str(self.X.T)
-        # Implement kalman update using landmarks here
-        # TODO
-        # self.X = 
-        # self.P = 
+        
+        R = mat(diag([uncertainty,uncertainty]))
+        theta = self.X[2,0]
+        Rmt = self.getRotation(-theta)
+
+        z = Rmt*mat([L[0,0]-self.X[0,0], L[1,0]-self.X[1,0]]).T
+        H = mat([[-cos(theta), -sin(theta), -(L[0,0]-self.X[0,0])*sin(theta) + (L[1,0]-self.X[1,0])*cos(theta)],
+                 [ sin(theta), -cos(theta), -(L[0,0]-self.X[0,0])*cos(theta) - (L[1,0]-self.X[1,0])*sin(theta)]])
+        S = H * self.P * H.T + R
+        Kk = self.P * H.T * inv(S)
+
+        self.X = self.X + Kk *(Z - z)
+        self.P = (eye(3) - Kk * H) * self.P
+
+        print "update \nX : " + str(self.X) + "\n P : " + str(self.P) + "\n"
         self.lock.release()
 
     def update_compass(self, Z, uncertainty):
