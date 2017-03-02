@@ -22,7 +22,7 @@ class MappingKF(RoverKinematics):
         self.idx = {}
         self.pose_pub = rospy.Publisher("~pose",PoseStamped,queue_size=1)
         self.marker_pub = rospy.Publisher("~landmarks",MarkerArray,queue_size=1)
-        self.Q = eye(3)
+        self.Q = 0.01*eye(3)
         self.posMatrixId = {}
 
     def getRotation(self, theta):
@@ -91,7 +91,7 @@ class MappingKF(RoverKinematics):
 
         (n,m) = self.X.shape
 
-        R = mat(diag([uncertainty,uncertainty]))
+        R = 0.01*mat(diag([uncertainty,uncertainty]))
         theta = self.X[2,0]
         Rmt = self.getRotation(-theta)
 
@@ -108,7 +108,7 @@ class MappingKF(RoverKinematics):
             Kk = self.P * H.T * inv(S)
             self.X = self.X + Kk * (Z - z)
             self.P = (mat(eye(n)) - Kk * H) * self.P
-            
+
         else:
             self.posMatrixId[id] = n 
             posLm = self.X[0:2,0]+(R*Z)
