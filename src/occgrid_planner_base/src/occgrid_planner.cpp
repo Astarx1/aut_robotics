@@ -40,7 +40,7 @@ class OccupancyGridPlanner {
 		bool ready;
 		bool debug;
 
-		typedef std::multimap<float, cv::Point> Heap;
+		typedef std::multimap<float, cv::Point3f> Heap;
 
 		// Callback for Occupancy Grids
 		void og_callback(const nav_msgs::OccupancyGridConstPtr & msg) {
@@ -151,34 +151,34 @@ class OccupancyGridPlanner {
 			}
 			// Now scale the target to the grid resolution and shift it to the
 			// grid center.
-			cv::Point target = cv::Point(pose.pose.position.x / info_.resolution, pose.pose.position.y / info_.resolution)
-				+ og_center_;
+			cv::Point3f target = cv::Point3f(pose.pose.position.x / info_.resolution+og_center_.x, pose.pose.position.y / info_.resolution+og_center_.y,0);
 			ROS_INFO("Planning target: %.2f %.2f -> %d %d",
 						pose.pose.position.x, pose.pose.position.y, target.x, target.y);
-			cv::circle(og_rgb_marked_,target, 10, cv::Scalar(0,0,255));
+			cv::Point Target2d = cv::Point(target.x, target.y);
+			cv::circle(og_rgb_marked_,Target2d, 10, cv::Scalar(0,0,255));
 			cv::imshow( "OccGrid", og_rgb_marked_ );
-			if (!isInGrid(target)) {
+			if (!isInGrid(Target2d)) {
 				ROS_ERROR("Invalid target point (%.2f %.2f) -> (%d %d)",
 						pose.pose.position.x, pose.pose.position.y, target.x, target.y);
 				return;
 			}
 			// Only accept target which are FREE in the grid (HW, Step 5).
-			if (og_(target) != FREE) {
-				ROS_ERROR("Invalid target point: occupancy = %d",og_(target));
+			if (og_(Target2d) != FREE) {
+				ROS_ERROR("Invalid target point: occupancy = %d",og_(Target2d));
 				return;
 			}
 
 			// Now get the current point in grid coordinates.
-			cv::Point start;
+			cv::Point3f start;
 			if (debug) {
-				start = og_center_;
+				start.x = og_center_.x;
+				start.y = og_center_.y; 
 			} else {
-				start = cv::Point(transform.getOrigin().x() / info_.resolution, transform.getOrigin().y() / info_.resolution)
-					+ og_center_;
+				start = cv::Point3f(transform.getOrigin().x() / info_.resolution + og_center_.x, transform.getOrigin().y() / info_.resolution + og_center_.y, 0);
 			}
 			ROS_INFO("Planning origin %.2f %.2f -> %d %d",
 					transform.getOrigin().x(), transform.getOrigin().y(), start.x, start.y);
-			cv::circle(og_rgb_marked_,start, 10, cv::Scalar(0,255,0));
+			cv::circle(og_rgb_marked_,cv::Point(start.x, start.y), 10, cv::Scalar(0,255,0));
 			cv::imshow( "OccGrid", og_rgb_marked_ );
 			if (!isInGrid(start)) {
 				ROS_ERROR("Invalid starting point (%.2f %.2f) -> (%d %d)",
@@ -187,8 +187,8 @@ class OccupancyGridPlanner {
 			}
 			// If the starting point is not FREE there is a bug somewhere, but
 			// better to check
-			if (og_(start) != FREE) {
-				ROS_ERROR("Invalid start point: occupancy = %d",og_(start));
+			if (og_(cv::Point(start.x, start.y)) != FREE) {
+				ROS_ERROR("Invalid start point: occupancy = %d",og_(cv::Point(start.x, start.y)));
 				return;
 			}
 			ROS_INFO("Starting planning from (%d, %d) to (%d, %d)",start.x,start.y, target.x, target.y);
@@ -198,14 +198,14 @@ class OccupancyGridPlanner {
 			cv::Mat_<float> cell_value(og_.size(), NAN);
 			// For each cell we need to store a pointer to the coordinates of
 			// its best predecessor. 
-			cv::Mat_<cv::Vec2s> predecessor(og_.size());
+			cv::Mat_<cv::Vec3s> predecessor(og_.size());
 
 			// The neighbour of a given cell in relative coordinates. The order
 			// is important. If we use 4-connexity, then we can use only the
 			// first 4 values of the array. If we use 8-connexity we use the
 			// full array.
-			cv::Point neighbours[8] = {cv::Point(1,0), cv::Point(0,1), cv::Point(-1,0), cv::Point(0, -1),
-				cv::Point(1,1), cv::Point(-1,1), cv::Point(-1,-1), cv::Point(1,-1)};
+			cv::Point3f neighbours[8] = {cv::Point3f(1,0,90), cv::Point3f(0,1,0), cv::Point3f(-1,0,-90), cv::Point3f(0, -1,180),
+				cv::Point3f(1,1,45), cv::Point3f(-1,1,-135), cv::Point3f(-1,-1,-135), cv::Point3f(1,-1,135)};
 			// Cost of displacement corresponding the neighbours. Diagonal
 			// moves are 44% longer.
 			float cost[8] = {1, 1, 1, 1, sqrt(2), sqrt(2), sqrt(2), sqrt(2)};
@@ -218,37 +218,37 @@ class OccupancyGridPlanner {
 				// Select the cell at the top of the heap
 				Heap::iterator hit = heap.begin();
 				// the cell it contains is this_cell
-				cv::Point this_cell = hit->second;
+				cv::Point3f this_cell = hit->second;
 				// and its score is this_cost
 				float this_cost = hit->first;
 				// We can remove it from the heap now.
 				heap.erase(hit);
 				// Now see where we can go from this_cell
 				for (unsigned int i=0;i<neighbourhood_;i++) {
-					cv::Point dest = this_cell + neighbours[i];
+					cv::Point3f dest = this_cell + neighbours[i];
 					if (!isInGrid(dest)) {
 						// outside the grid
 						continue;
 					}
-					uint8_t og = og_(dest);
+					uint8_t og = og_(cv::Point(dest.x, dest.y));
 					if (og != FREE) {
 						// occupied or unknown
 						continue;
 					}
-					float cv = cell_value(dest);
-					cv::Point diff = (dest+neighbours[i]-target);
+					float cv = cell_value(dest.x,dest.y,dest.z);
+					cv::Point3f diff = (dest+neighbours[i]-target);
 					float new_cost = this_cost + cost[i] + cv::sqrt(diff.x*diff.x+diff.y*diff.y);
 					if (isnan(cv) || (new_cost < cv)) {
 						// found shortest path (or new path), updating the
 						// predecessor and the value of the cell
-						predecessor.at<cv::Vec2s>(dest) = cv::Vec2s(this_cell.x,this_cell.y);
-						cell_value(dest) = new_cost;
+						predecessor.at<cv::Vec3s>(dest.x,dest.y,dest.z) = cv::Vec3s(this_cell.x,this_cell.y, this_cell.z);
+						cell_value(dest.x,dest.y, dest.z) = new_cost;
 						// And insert the selected cells in the map.
 						heap.insert(Heap::value_type(new_cost,dest));
 					}
 				}
 			}
-			if (isnan(cell_value(target))) {
+			if (isnan(cell_value(target.x,target.y,target.z))) {
 				// No path found
 				ROS_ERROR("No path found from (%d, %d) to (%d, %d)",start.x,start.y,target.x,target.y);
 				return;
@@ -256,10 +256,10 @@ class OccupancyGridPlanner {
 			ROS_INFO("Planning completed");
 			// Now extract the path by starting from goal and going through the
 			// predecessors until the starting point
-			std::list<cv::Point> lpath;
+			std::list<cv::Point3f> lpath;
 			while (target != start) {
 				lpath.push_front(target);
-				cv::Vec2s p = predecessor(target);
+				cv::Vec3s p = predecessor(target.x,target.y,target.z);
 				target.x = p[0]; target.y = p[1];
 			}
 			lpath.push_front(start);
@@ -268,13 +268,13 @@ class OccupancyGridPlanner {
 			path.header.stamp = ros::Time::now();
 			path.header.frame_id = frame_id_;
 			path.poses.resize(lpath.size());
-			std::list<cv::Point>::const_iterator it = lpath.begin();
+			std::list<cv::Point3f>::const_iterator it = lpath.begin();
 			unsigned int ipose = 0;
 			while (it != lpath.end()) {
 				// time stamp is not updated because we're not creating a
 				// trajectory at this stage
 				path.poses[ipose].header = path.header;
-				cv::Point P = *it - og_center_;
+				cv::Point3f P = *it - cv::Point3f(og_center_.x, og_center_.y, 0);
 				path.poses[ipose].pose.position.x = (P.x) * info_.resolution;
 				path.poses[ipose].pose.position.y = (P.y) * info_.resolution;
 				ipose++;
@@ -284,7 +284,14 @@ class OccupancyGridPlanner {
 			ROS_INFO("Request completed");
 		}
 
-
+		bool isInGrid(cv::Point3f & P) {
+			if ((P.x < 0) || (P.x >= info_.width) || (P.y < 0) || (P.y >= info_.height)) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
 
 	public:
 		OccupancyGridPlanner() : nh_("~") {
