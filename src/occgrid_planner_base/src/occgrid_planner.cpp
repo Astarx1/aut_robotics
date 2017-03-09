@@ -220,7 +220,8 @@ class OccupancyGridPlanner {
 			// element is always the closer to the start.
 			Heap heap;
 			heap.insert(Heap::value_type(0, start));
-			while (!heap.empty()) {
+			bool arrived = false;
+			while (!heap.empty() && !arrived) {
 				// Select the cell at the top of the heap
 				Heap::iterator hit = heap.begin();
 				// the cell it contains is this_cell
@@ -229,23 +230,29 @@ class OccupancyGridPlanner {
 				float this_cost = hit->first;
 				// We can remove it from the heap now.
 				heap.erase(hit);
-				if (this_cell == target)
-					break;
 				// Now see where we can go from this_cell
 				for (unsigned int i=0;i<neighbourhood_;i++) {
 					cv::Point3f dest = this_cell + neighbours[i];
+					
+					if (dest == target)
+						arrived = true;
+
 					if (!isInGrid(dest)) {
 						// outside the grid
 						continue;
 					}
+
 					uint8_t og = og_(cv::Point(dest.x, dest.y));
 					if (og != FREE) {
 						// occupied or unknown
 						continue;
 					}
+					
+
 					float cv = cell_value(dest.x,dest.y,dest.z);
 					cv::Point3f diff = (dest+neighbours[i]-target);
 					float new_cost = this_cost + cost[i] + cv::sqrt(diff.x*diff.x+diff.y*diff.y);
+					
 					if (isnan(cv) || (new_cost < cv)) {
 						// found shortest path (or new path), updating the
 						// predecessor and the value of the cell
