@@ -19,6 +19,7 @@
 #define UNKNOWN 0x80
 #define OCCUPIED 0x00
 #define WIN_SIZE 800
+#define ROTATING_SPEED_COST 0.1
 
 class OccupancyGridPlanner {
 	protected:
@@ -204,11 +205,16 @@ class OccupancyGridPlanner {
 			// is important. If we use 4-connexity, then we can use only the
 			// first 4 values of the array. If we use 8-connexity we use the
 			// full array.
-			cv::Point3f neighbours[8] = {cv::Point3f(1,0,90), cv::Point3f(0,1,0), cv::Point3f(-1,0,-90), cv::Point3f(0, -1,180),
-				cv::Point3f(1,1,45), cv::Point3f(-1,1,-135), cv::Point3f(-1,-1,-135), cv::Point3f(1,-1,135)};
+			cv::Point3f neighbours[11] = {cv::Point3f(1,0,90), cv::Point3f(0,1,0), cv::Point3f(-1,0,-90), cv::Point3f(0, -1,180),
+				cv::Point3f(1,1,45), cv::Point3f(-1,1,-135), cv::Point3f(-1,-1,-135), cv::Point3f(1,-1,135),
+				cv::Point3f(0,0,90), cv::Point3f(0,0,180), cv::Point3f(0,0,-90)};
 			// Cost of displacement corresponding the neighbours. Diagonal
 			// moves are 44% longer.
-			float cost[8] = {1, 1, 1, 1, sqrt(2), sqrt(2), sqrt(2), sqrt(2)};
+			float cost[11] = {1+neighbours[0].z*ROTATING_SPEED_COST, 1+neighbours[1].z*ROTATING_SPEED_COST, 
+					1+neighbours[2].z*ROTATING_SPEED_COST, +neighbours[3].z*ROTATING_SPEED_COST, 
+					sqrt(2)+neighbours[4].z*ROTATING_SPEED_COST, sqrt(2)+neighbours[5].z*ROTATING_SPEED_COST, 
+					sqrt(2)+neighbours[6].z*ROTATING_SPEED_COST, sqrt(2)+neighbours[7].z*ROTATING_SPEED_COST,
+					neighbours[8].z*ROTATING_SPEED_COST,neighbours[9].z*ROTATING_SPEED_COST,neighbours[10].z*ROTATING_SPEED_COST};
 
 			// The core of Dijkstra's Algorithm, a sorted heap, where the first
 			// element is always the closer to the start.
@@ -223,6 +229,8 @@ class OccupancyGridPlanner {
 				float this_cost = hit->first;
 				// We can remove it from the heap now.
 				heap.erase(hit);
+				if (this_cell == target)
+					break;
 				// Now see where we can go from this_cell
 				for (unsigned int i=0;i<neighbourhood_;i++) {
 					cv::Point3f dest = this_cell + neighbours[i];
