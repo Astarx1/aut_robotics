@@ -108,9 +108,12 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-add_executable(occgrid_planner_b src/occgrid_planner.cpp)
+# add_executable(occgrid_planner_b src/occgrid_planner.cpp)
+## Declare a cpp executable
+add_executable(occgrid_planner_b src/own_astar.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
+#add_dependencies(occgrid_planner_b occgrid_planner_base_generate_messages_cpp)
 add_dependencies(occgrid_planner_b occgrid_planner_base_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(occgrid_planner_b ${catkin_LIBRARIES})

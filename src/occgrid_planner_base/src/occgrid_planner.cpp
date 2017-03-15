@@ -257,7 +257,7 @@ class OccupancyGridPlanner {
 						// found shortest path (or new path), updating the
 						// predecessor and the value of the cell
 						predecessor.at<cv::Vec3s>(dest.x,dest.y,dest.z) = cv::Vec3s(this_cell.x,this_cell.y, this_cell.z);
-						cell_value(dest.x,dest.y, dest.z) = new_cost;
+						cell_value(dest.x,dest.y, dest.z) = this_cost + cost[i];
 						// And insert the selected cells in the map.
 						heap.insert(Heap::value_type(new_cost,dest));
 					}
