@@ -1,0 +1,2 @@
+occgrid_planner_base
+-DCATKIN_DEVEL_PREFIX=/home/GTL/ramuat/aut_robotics/devel -DCMAKE_INSTALL_PREFIX=/home/GTL/ramuat/aut_robotics/install -G Unix Makefiles
