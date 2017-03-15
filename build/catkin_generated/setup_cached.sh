@@ -7,8 +7,10 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/GTL/ramuat/aut_robotics/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/GTL/ramuat/aut_robotics/devel/lib:$LD_LIBRARY_PATH"
-export PWD="/home/GTL/ramuat/aut_robotics/build"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/GTL/ramuat/aut_robotics/devel/share/common-lisp"
-export ROS_PACKAGE_PATH="/home/GTL/ramuat/aut_robotics/src:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/romain/LaDernierechance/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/romain/LaDernierechance/devel/lib:/opt/ros/kinetic/lib:/home/romain/Github/torch/install/lib:/home/romain/Github/torch/install/lib"
+export PKG_CONFIG_PATH="/home/romain/LaDernierechance/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PWD="/home/romain/LaDernierechance/build"
+export PYTHONPATH="/home/romain/LaDernierechance/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/romain/LaDernierechance/devel/share/common-lisp"
+export ROS_PACKAGE_PATH="/home/romain/LaDernierechance/src:$ROS_PACKAGE_PATH"

@@ -8,7 +8,6 @@
   </node>
 
  <!-- Axes -->
-
   <node pkg="vrep_ros_teleop" type="teleop.py" name="teleop">
       <param name="axis_linear" value="1" type="int"/>
       <param name="axis_angular" value="0" type="int"/>
@@ -17,19 +16,17 @@
       <remap from="/teleop/joy" to="/joy"/>
   </node>
 
-  <!-- Kinect -->
-  <node pkg="nodelet" type="nodelet" name="nodelet_manager" output="screen" respawn="true" args="manager"/>
+   <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pc_laser">
+    <param name="min_height" value="-1.0" />
+    <param name="max_height" value="1.0" />
+    <param name="range_min" value="0.20" />
+    <param name="range_max" value="10.0" />
+    <param name="use_inf" value="false" />
 
-  <!-- Fake Laser -->
-  <node pkg="nodelet" type="nodelet" name="pc_laser" args="load pointcloud_to_laserscan/CloudToScan nodelet_manager" respawn="true">
-    <param name="output_frame_id" value="/Hokuyo"/>
-    <!-- heights are in the (optical?) frame of the kinect -->
-    <param name="min_height" value="-1.00"/>
-    <param name="max_height" value="1.00"/>
-    <remap from="cloud" to="/vrep/hokuyoSensor"/>
+    <remap from="cloud_in" to="/vrep/hokuyoSensor" />
   </node>
 
-  <!-- 
+  <!--
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="base_frame" value="/body"/>
     <param name="odom_frame" value="/odom"/>
@@ -43,10 +40,10 @@
     <param name="ymax" value="15"/>
   </node>
 
-  <node pkg="robot_control" type="bubble_odom.py" name="odom" output="screen">
+  <node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
   </node>
 
-  <node pkg="robot_control" type="goto_xy.py" name="goto_xy" output="screen">
+  <node pkg="robot_control_base" type="goto_xy.py" name="goto_xy" output="screen">
     <param name="reference_frame" value="/map"/>
     <param name="body_frame" value="/body"/>
     <param name="radius" value="0.1"/>
