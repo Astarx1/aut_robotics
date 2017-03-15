@@ -1,2 +1,2 @@
-occgrid_planner_base
+obstacle_avoidance_base:occgrid_planner_base:vrep_ros_teleop
 -DCATKIN_DEVEL_PREFIX=/home/GTL/ramuat/aut_robotics/devel -DCMAKE_INSTALL_PREFIX=/home/GTL/ramuat/aut_robotics/install -G Unix Makefiles
