@@ -1,7 +1,7 @@
 <launch>
   <!-- joy node -->
   <node respawn="true" pkg="joy" type="joy_node" name="joy" >
-    <!-- <param name="dev" type="string" value="/dev/input/js0" /> -->
+    <param name="dev" type="string" value="/dev/input/js1" />
     <!-- <param name="deadzone" value="0.12" /> -->
     <param name="autorepeat_rate" value="10.0" />
   </node>
@@ -16,23 +16,23 @@
     <remap from="/teleop/twistCommand" to="/vrep/twistCommand"/>
   </node>
 
-  <!-- Kinect -->
-  <node pkg="nodelet" type="nodelet" name="nodelet_manager" output="screen" respawn="true" args="manager"/>
+   <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pc_laser">
+    <param name="min_height" value="-1.0" />
+    <param name="max_height" value="1.0" />
+    <param name="range_min" value="0.20" />
+    <param name="range_max" value="10.0" />
+    <param name="use_inf" value="false" />
 
-  <!-- Fake Laser -->
-  <node pkg="nodelet" type="nodelet" name="pc_laser" args="load pointcloud_to_laserscan/CloudToScan nodelet_manager" respawn="true">
-    <param name="output_frame_id" value="/Hokuyo"/>
-    <!-- heights are in the (optical?) frame of the kinect -->
-    <param name="min_height" value="-1.00"/>
-    <param name="max_height" value="1.00"/>
-    <remap from="cloud" to="/vrep/hokuyoSensor"/>
+    <remap from="cloud_in" to="/vrep/hokuyoSensor" />
   </node>
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="base_frame" value="/body"/>
     <param name="odom_frame" value="/odom"/>
+    <param name="maxURange" value="8.0"/>
     <param name="maxRange" value="10.0"/>
     <param name="map_update_interval" value="1.0"/>
+    <param name="temporalUpdate" value="1.0"/>
     <param name="linearUpdate" value="0.1"/>
     <param name="angularUpdate" value="0.1"/>
     <param name="xmin" value="-15"/>
@@ -41,7 +41,7 @@
     <param name="ymax" value="15"/>
   </node>
 
-  <node pkg="robot_control" type="bubble_odom.py" name="odom" output="screen">
+  <node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
   </node>
 
   <node pkg="topic_tools" type="mux" name="cmd_mux" 

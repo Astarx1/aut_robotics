@@ -2,7 +2,7 @@
 
   <node pkg="map_server" type="map_server" name="map_server" output="screen" args="$(find vrep_gmapping)/map.yaml">
   </node>
-  <node pkg="vrep_gmapping" type="publish_map_tf.py" name="publish_map_tf" output="screen">
+  <node pkg="gmapping" type="publish_map_tf.py" name="publish_map_tf" output="screen">
     <param name="zero" value="True"/>
   </node>
 

@@ -171,16 +171,16 @@ class ObstacleAvoidance {
 			double max_wd = current_velocity_.angular.z + max_angular_accel_*time_horizon_;
 
 			double min_v = std::max(-max_linear_velocity_, min_vd);
-			double max_v = std::min(max_linear_velocity_, min_vd);
-			double min_w = std::max(-max_angular_velocity_, max_wd);
+			double max_v = std::min(max_linear_velocity_, max_vd);
+			double min_w = std::max(-max_angular_velocity_, min_wd);
 			double max_w = std::min(max_angular_velocity_, max_wd);
 			 
 			// TODO: First update min_v/max_v and min_w/max_w to compute the intersection of Vs and Vd.
 
 			// From that, we know which velocities we need to consider and we
 			// creat a small matrix to help visualising Va (Vr)
-			unsigned int n_v = ceil((max_v-min_v)/linear_velocity_resolution_+1); 
-			unsigned int n_w = ceil((max_w-min_w)/angular_velocity_resolution_+1); 
+			unsigned int n_v = round((max_v-min_v)/linear_velocity_resolution_+1); 
+			unsigned int n_w = round((max_w-min_w)/angular_velocity_resolution_+1); 
 			cv::Mat_<uint8_t> Va(n_v,n_w,FREE); // Vs inter Vd
 			cv::Mat_<uint8_t> scores(n_v,n_w,(uint8_t)OCCUPIED); // Vs inter Vd
 

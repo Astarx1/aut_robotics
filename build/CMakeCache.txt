@@ -450,10 +450,10 @@ sensor_msgs_DIR:PATH=/opt/ros/kinetic/share/sensor_msgs/cmake
 smclib_DIR:PATH=/opt/ros/kinetic/share/smclib/cmake
 
 //Value Computed by CMake
-src_BINARY_DIR:STATIC=/home/romain/LaDernierechance/build/vrep_ros_teleop
+src_BINARY_DIR:STATIC=/home/romain/LaDernierechance/build/vrep_gmapping
 
 //Value Computed by CMake
-src_SOURCE_DIR:STATIC=/home/romain/LaDernierechance/src/vrep_ros_teleop
+src_SOURCE_DIR:STATIC=/home/romain/LaDernierechance/src/vrep_gmapping
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/kinetic/share/std_msgs/cmake
