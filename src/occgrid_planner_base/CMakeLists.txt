@@ -108,18 +108,18 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-add_executable(occgrid_treasure_b src/occgrid_planner.cpp)
-add_executable(occgrid_treasure_b src/occgrid_treasure.cpp)
+add_executable(occgrid_planner_base src/occgrid_planner.cpp)
+add_executable(occgrid_treasure_base src/occgrid_treasure.cpp)
 ## Declare a cpp executable
-add_executable(occgrid_planner_b src/own_astar.cpp)
+#add_executable(occgrid_planner_b src/own_astar.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 #add_dependencies(occgrid_planner_b occgrid_planner_base_generate_messages_cpp)
-add_dependencies(occgrid_planner_b occgrid_planner_base_generate_messages_cpp)
-add_dependencies(occgrid_treasure_b occgrid_planner_base_generate_messages_cpp) #a verifier
+add_dependencies(occgrid_planner_base occgrid_planner_base_generate_messages_cpp)
+add_dependencies(occgrid_treasure_base occgrid_planner_base_generate_messages_cpp) #a verifier
 ## Specify libraries to link a library or executable target against
-target_link_libraries(occgrid_planner_b ${catkin_LIBRARIES})
-target_link_libraries(occgrid_treasure_b ${catkin_LIBRARIES})
+target_link_libraries(occgrid_planner_base ${catkin_LIBRARIES})
+target_link_libraries(occgrid_treasure_base ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
 add_executable(path_follower_b src/path_follower.cpp)

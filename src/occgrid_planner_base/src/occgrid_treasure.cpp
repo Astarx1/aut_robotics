@@ -1,9 +1,7 @@
-
 #include <vector>
 #include <string>
 #include <map>
 #include <list>
-
 
 #include <ros/ros.h>
 #include <tf/tf.h>
@@ -13,6 +11,7 @@
 
 #include <nav_msgs/OccupancyGrid.h>
 #include <nav_msgs/Path.h>
+#include <std_msgs/Float32.h>
 #include <geometry_msgs/PoseStamped.h>
 
 #define FREE 0xFF
@@ -26,13 +25,14 @@ class OccupancyGridTreasure {
 		ros::NodeHandle nh_;
 		ros::Subscriber og_sub_;
 		ros::Subscriber target_sub_;
+		ros::Subscriber signal_sub_;
 		ros::Publisher path_pub_;
 		tf::TransformListener listener_;
 
 		cv::Rect roi_;
-		cv::Mat_<uint8_t> og_, cropped_og_;
+		cv::Mat_<uint8_t> og_, cropped_og_, og_treasure_, og_treasure_temp;
 		cv::Mat_<cv::Vec3b> og_rgb_, og_rgb_marked_;
-		cv::Point og_center_;
+		cv::Point og_center_, prev_og_center_;
 		nav_msgs::MapMetaData info_;
 		std::string frame_id_;
 		std::string base_link_;
@@ -40,6 +40,8 @@ class OccupancyGridTreasure {
 		double robot_radius_;
 		bool ready;
 		bool debug;
+		float signal_value;
+
 
 		typedef std::multimap<float, cv::Point3f> Heap;
 
@@ -49,8 +51,22 @@ class OccupancyGridTreasure {
 			frame_id_ = msg->header.frame_id;
 			// Create an image to store the value of the grid.
 			og_ = cv::Mat_<uint8_t>(msg->info.height, msg->info.width,0xFF);
+			og_treasure_temp = cv::Mat_<uint8_t>(msg->info.height, msg->info.width,0xFF);
+
 			og_center_ = cv::Point(-info_.origin.position.x/info_.resolution,
 					-info_.origin.position.y/info_.resolution);
+
+			int x_shift = og_center_.x - prev_og_center_.x;
+			int y_shift = og_center_.y - prev_og_center_.y;
+
+			for (unsigned int j=0;j<msg->info.height;j++) {
+				for (unsigned int i=0;i<msg->info.width;i++) {
+					og_treasure_temp(j, i) = og_treasure_(j-x_shift, i-y_shift);
+				}
+			}
+
+			og_treasure_ = og_treasure_temp;
+			prev_og_center_ = og_center_;
 
 			// Some variables to select the useful bounding box 
 			unsigned int maxx=0, minx=msg->info.width, 
@@ -126,6 +142,24 @@ class OccupancyGridTreasure {
 			}
 			return true;
 		}
+
+		void signal_callback(const std_msgs::Float32 & msg){
+			signal_value = msg.data;
+
+			
+			// this gets the current pose in transform
+			tf::StampedTransform transform;
+			listener_.lookupTransform(frame_id_,base_link_, ros::Time(0), transform);
+			cv::Point3f current;
+			current.x = (transform.getOrigin().x())/(info_.resolution);
+			current.y = (transform.getOrigin().y()) /(info_.resolution); 
+
+
+			og_treasure_(current.x,current.y) = signal_value*255;
+			cv::imshow( "og_treasure_", og_treasure_ );
+
+		}
+
 
 		// This is called when a new goal is posted by RViz. We don't use a
 		// mutex here, because it can only be called in spinOnce.
@@ -325,12 +359,13 @@ class OccupancyGridTreasure {
 			}
 			og_sub_ = nh_.subscribe("occ_grid",1,&OccupancyGridTreasure::og_callback,this);
 			target_sub_ = nh_.subscribe("goal",1,&OccupancyGridTreasure::target_callback,this);
+			signal_sub_ = nh_.subscribe("metal",1,&OccupancyGridTreasure::signal_callback,this);
 			path_pub_ = nh_.advertise<nav_msgs::Path>("path",1,true);
 		}
 };
 
 int main(int argc, char * argv[]) {
-	ros::init(argc,argv,"occgrid_treasure");
+	ros::init(argc,argv,"occgrid_treasure_b");
 	OccupancyGridTreasure ogp;
 	cv::namedWindow( "OccGrid", CV_WINDOW_AUTOSIZE );
 	while (ros::ok()) {
