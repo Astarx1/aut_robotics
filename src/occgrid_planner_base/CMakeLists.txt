@@ -86,7 +86,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES occgrid_planner
+#  LIBRARIES occgrid_treasure
   CATKIN_DEPENDS cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf
 #  DEPENDS system_lib
 )
@@ -103,20 +103,23 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(occgrid_planner
-#   src/${PROJECT_NAME}/occgrid_planner.cpp
+# add_library(occgrid_treasure
+#   src/${PROJECT_NAME}/occgrid_treasure.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(occgrid_planner_b src/occgrid_planner.cpp)
+add_executable(occgrid_treasure_b src/occgrid_planner.cpp)
+add_executable(occgrid_treasure_b src/occgrid_treasure.cpp)
 ## Declare a cpp executable
 add_executable(occgrid_planner_b src/own_astar.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 #add_dependencies(occgrid_planner_b occgrid_planner_base_generate_messages_cpp)
 add_dependencies(occgrid_planner_b occgrid_planner_base_generate_messages_cpp)
+add_dependencies(occgrid_treasure_b occgrid_planner_base_generate_messages_cpp) #a verifier
 ## Specify libraries to link a library or executable target against
 target_link_libraries(occgrid_planner_b ${catkin_LIBRARIES})
+target_link_libraries(occgrid_treasure_b ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
 add_executable(path_follower_b src/path_follower.cpp)
