@@ -27,6 +27,7 @@ class OccupancyGridTreasure {
         ros::Subscriber og_sub_;
         ros::Subscriber target_sub_;        
         ros::Subscriber signal_sub_;
+       // ros::Subscriber target_sub_;        
         ros::Publisher path_pub_;
         tf::TransformListener listener_;
 
@@ -337,12 +338,16 @@ class OccupancyGridTreasure {
         }
         
 		void signal_callback(const std_msgs::Float32ConstPtr & msg){
+            if (!ready) {
+                return;
+            }
             if (!first) {
-                og_treasure_ =og_;
+                og_treasure_ = og_;
 
                 og_treasure_ = 0;
                 //ROS_INFO("Col %d ", og_treasure_.rows);
                 first = true;
+                return;
             }
             ROS_INFO("CALLLLLLLLLLBAAAAAAAAAAAAAAACCKKK");
 
@@ -371,7 +376,7 @@ class OccupancyGridTreasure {
             }*/
             for (int i=-5; i<= 5;i++){
                 for(int j=-5;j<=5;j++){
-                    if (og_treasure_(current.x+i,-current.y+j)<=signal_value*255){
+                    if (og_treasure_(current.x+i,-current.y+j) <= signal_value*255){
                         og_treasure_(current.x+i,-current.y+j) = signal_value*255;
                     }
                 }

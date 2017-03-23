@@ -17,7 +17,7 @@
 #include <geometry_msgs/Pose2D.h>
 #include <occgrid_planner/Trajectory.h>
 #include <occgrid_planner/TrajectoryElement.h>
-
+#include <std_msgs/Bool.h>
 
 class PathFollower {
     protected:
@@ -27,6 +27,7 @@ class PathFollower {
         ros::Subscriber traj_sub_;
         ros::Publisher twist_pub_;
         ros::Publisher pose2d_pub_;
+        ros::Publisher finished_pub_;
         double look_ahead_;
         double Kx_,Ky_,Ktheta_;
         double max_rot_speed_;
@@ -37,7 +38,7 @@ class PathFollower {
         ros::Publisher target_pub_;
         ros::Subscriber target_sub_;
         geometry_msgs::PoseStamped goal_;
-
+        bool finished;
 
         std::string frame_id_, base_frame_;
 
@@ -79,6 +80,7 @@ class PathFollower {
 
     public:
         PathFollower(): nh_("~") {
+            finished = false;
             nh_.param("base_link",base_frame_,std::string("/body"));
             nh_.param("look_ahead",look_ahead_,1.0);
             nh_.param("Kx",Kx_,1.0);
@@ -91,6 +93,7 @@ class PathFollower {
             traj_sub_ = nh_.subscribe<occgrid_planner::Trajectory>("traj",1,&PathFollower::traj_cb,this);
             twist_pub_ = nh_.advertise<geometry_msgs::Twist>("twistCommand",1);
             pose2d_pub_ = nh_.advertise<geometry_msgs::Pose2D>("error",1);
+            finished_pub_ = nh_.advertise<std_msgs::Bool>("finished",false);
 
 
             // STEP 3
@@ -122,6 +125,9 @@ class PathFollower {
                         it --;
                         final = true;
                     }
+                    else {
+                        finished = false;
+                    }
                     // Now broadcast the reference pose as a TF for
                     // visualization
                     tf::Transform transform;
@@ -152,6 +158,7 @@ class PathFollower {
                         // Finished
                         twist.linear.x = 0.0;
                         twist.angular.z = 0.0;
+                        finished = true;
                     } else {
                         twist.linear.x = it->second.twist.linear.x + Kx_ * error.x;
                         twist.linear.x = std::min(twist.linear.x,max_velocity_);
@@ -167,6 +174,10 @@ class PathFollower {
                     geometry_msgs::Twist twist;
                     twist_pub_.publish(twist);
                 }
+                std_msgs::Bool msgBool;
+                msgBool.data = finished;
+                finished_pub_.publish(msgBool);
+
                 rate.sleep();
             }
         }
