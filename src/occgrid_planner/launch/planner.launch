@@ -37,6 +37,7 @@
     <remap from="/treasure/occ_grid" to="/map"/>
     <remap from="/treasure/goal" to="/move_base_simple/goal"/>
     <remap from="~/metal" to="/vrep/metalDetector"/>
+    <remap from="~/point" to="/move_base_simple/goal"/>
   </node>
 
   <node pkg="topic_tools" type="mux" name="cmd_mux" 
@@ -62,7 +63,7 @@
     <param name="axis_angular" value="0" type="int"/>
     <param name="scale_linear" value="0.5" type="double"/>
     <param name="scale_angular" value="1.0" type="double"/>
-    <remap from="/teleop/joy" to="/joy"/>
+    <remap from="/teleop/joy" to="/joy"/>  
   </node> -->
 
 
