@@ -34,6 +34,7 @@ class OccupancyGridTreasure {
 		ros::Publisher point_pub_;
 		tf::TransformListener listener_;
 		geometry_msgs::PoseStamped my_own_pose;
+		
 
 		cv::Rect roi_;
 		cv::Mat_<uint8_t> og_, cropped_og_, og_treasure_, og_treasure_temp;
@@ -367,31 +368,33 @@ class OccupancyGridTreasure {
 			current.x = (transform.getOrigin().x())/(info_.resolution) + og_center_.x;
 			current.y = (transform.getOrigin().y()) /(info_.resolution) + og_center_.y; 
 
-			/*int x_shift = og_center_.x - prev_og_center_.x;
-			int y_shift = og_center_.y - prev_og_center_.y;
-
-			for (unsigned int j=0;j<msg->info.height;j++) {
-				for (unsigned int i=0;i<msg->info.width;i++) {
-					ROS_INFO("bwwwwwwwwaaaaaaaaaaaaaahhhhhhhhhhh");
-					og_treasure_temp(j, i) = og_treasure_(j-x_shift, i-y_shift);
-				}
-			}*/
+			
 			int min = INF;
-			for (int i=-5; i<= 5;i++){
-				for(int j=-5;j<=5;j++){
-					if ((j == 5 || i == 5) && mvt_Ready) {
-						bool accessible = og_(current.x+i-1,-current.y+j) == FREE || og_(current.x+i+1,-current.y+j) == FREE 
-										|| og_(current.x+i,-current.y+j-1) == FREE || og_(current.x+i,-current.y+j+1) == FREE;
-						bool interessant = og_treasure_(current.x+i-1,-current.y+j) == 0 || og_treasure_(current.x+i+1,-current.y+j) == 0 
-										|| og_treasure_(current.x+i,-current.y+j-1) == 0 || og_treasure_(current.x+i,-current.y+j+1) == 0; 
+			for (int i=-10; i<= 10;i++){
+				for(int j=-10;j<=10;j++){
+					if ((j == 10 || i == 10) && mvt_Ready) {
+						bool accessible = og_(current.y+j,current.x+i-1) == FREE || og_(current.y+j,current.x+i+1) == FREE 
+										|| og_(current.y+j-1,current.x+i) == FREE || og_(current.y+j+1,current.x+i) == FREE;
+						bool interessant = og_treasure_(current.y+j,current.x+i-1) == 0 || og_treasure_(current.y+j,current.x+i+1) == 0 
+										|| og_treasure_(current.y+j-1,current.x+i) == 0 || og_treasure_(current.y+j+1,current.x+i) == 0; 
 						if (accessible && interessant) {
+							
+							ros::Time now = ros::Time::now();
+							my_own_pose.header.stamp = now;
+							my_own_pose.header.frame_id = frame_id_;
+							my_own_pose.pose.orientation.x=1.0;
+							
 							my_own_pose.pose.position.x = current.x+i; 
 							my_own_pose.pose.position.y = current.y+j;
+							
+							
+							
+							ROS_INFO("on publie un goal");
 							point_pub_.publish(my_own_pose);
 						}
 					}
-					if (og_treasure_(current.x+i,-current.y+j) <= signal_value*255){
-						og_treasure_(current.x+i,-current.y+j) = signal_value*255;
+					if (og_treasure_(current.y+j,current.x+i) <= signal_value*255){
+						og_treasure_(current.y+j,current.x+i) = signal_value*255;
 					}
 				}
 			}
@@ -430,6 +433,8 @@ class OccupancyGridTreasure {
 			ROS_INFO("4 - le ROS INFO quand il cat, retombe toujours sur ses pattes");
 			path_pub_ = nh_.advertise<nav_msgs::Path>("path",1,true);
 			point_pub_ = nh_.advertise<geometry_msgs::PoseStamped> ("point", 1, true);
+			
+			
 		}
 };
 
