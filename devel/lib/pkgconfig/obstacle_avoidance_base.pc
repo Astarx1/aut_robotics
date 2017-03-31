@@ -1,0 +1,8 @@
+prefix=/home/GTL/ramuat/aut_robotics/devel
+
+Name: obstacle_avoidance_base
+Description: Description of obstacle_avoidance_base
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/GTL/ramuat/aut_robotics/devel/lib 
+Requires: geometry_msgs pcl_ros roscpp sensor_msgs std_msgs

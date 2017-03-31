@@ -1,2 +1,2 @@
 obstacle_avoidance:obstacle_avoidance_base:occgrid_planner:occgrid_planner_base:robot_control_base
--DCATKIN_DEVEL_PREFIX=/home/romain/LaDernierechance/devel -DCMAKE_INSTALL_PREFIX=/home/romain/LaDernierechance/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/GTL/ramuat/aut_robotics/devel -DCMAKE_INSTALL_PREFIX=/home/GTL/ramuat/aut_robotics/install -G Unix Makefiles

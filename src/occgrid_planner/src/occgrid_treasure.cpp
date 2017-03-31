@@ -373,10 +373,11 @@ class OccupancyGridTreasure {
 			for (int i=-10; i<= 10;i++){
 				for(int j=-10;j<=10;j++){
 					if ((j == 10 || i == 10) && mvt_Ready) {
-						bool accessible = og_(current.y+j,current.x+i-1) == FREE || og_(current.y+j,current.x+i+1) == FREE 
-										|| og_(current.y+j-1,current.x+i) == FREE || og_(current.y+j+1,current.x+i) == FREE;
+						bool accessible = og_(current.y+j,current.x+i) == FREE && (og_(current.y+j,current.x+i-1) == FREE || og_(current.y+j,current.x+i+1) == FREE 
+										|| og_(current.y+j-1,current.x+i) == FREE || og_(current.y+j+1,current.x+i) == FREE);
 						bool interessant = og_treasure_(current.y+j,current.x+i-1) == 0 || og_treasure_(current.y+j,current.x+i+1) == 0 
 										|| og_treasure_(current.y+j-1,current.x+i) == 0 || og_treasure_(current.y+j+1,current.x+i) == 0; 
+						
 						if (accessible && interessant) {
 							
 							ros::Time now = ros::Time::now();
@@ -384,13 +385,12 @@ class OccupancyGridTreasure {
 							my_own_pose.header.frame_id = frame_id_;
 							my_own_pose.pose.orientation.x=1.0;
 							
-							my_own_pose.pose.position.x = current.x+i; 
-							my_own_pose.pose.position.y = current.y+j;
+							my_own_pose.pose.position.x = (current.x+i)*info_.resolution - og_center_.x*info_.resolution; 
+							my_own_pose.pose.position.y = (current.y+j)*info_.resolution - og_center_.y*info_.resolution;
 							
-							
-							
-							ROS_INFO("on publie un goal");
+							ROS_INFO("on publie un goal : x = %f y=%f",my_own_pose.pose.position.x,my_own_pose.pose.position.y);
 							point_pub_.publish(my_own_pose);
+
 						}
 					}
 					if (og_treasure_(current.y+j,current.x+i) <= signal_value*255){

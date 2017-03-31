@@ -53,6 +53,10 @@ class OccupancyGridPlanner {
             og_center_ = cv::Point3i(-info_.origin.position.x/info_.resolution,
                     -info_.origin.position.y/info_.resolution,0);
 
+            if (!ready) {
+				cv::circle(og_,P2(og_center_),10,FREE,-10);
+            }
+            
             // Some variables to select the useful bounding box 
             unsigned int maxx=0, minx=msg->info.width, 
                          maxy=0, miny=msg->info.height;
@@ -182,7 +186,7 @@ class OccupancyGridPlanner {
                 return;
             }
             // Only accept target which are FREE in the grid (HW, Step 5).
-            if (og_(P2(target)) != FREE) {
+            if (og_(P2(target)) != FREE || og_(P2(target)) != UNKNOWN) {
                 ROS_ERROR("Invalid target point: occupancy = %d",og_(P2(target)));
                 return;
             }
