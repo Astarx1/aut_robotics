@@ -34,8 +34,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/hdf5/openmpi"
   "/usr/include/jsoncpp"
   "/usr/include/libxml2"
-  "/opt/ros/kinetic/include/opencv-3.2.0"
-  "/opt/ros/kinetic/include/opencv-3.2.0/opencv"
+  "/opt/ros/kinetic/include/opencv-3.1.0-dev/opencv"
+  "/opt/ros/kinetic/include/opencv-3.1.0-dev"
   )
 
 # Targets to which this target links.

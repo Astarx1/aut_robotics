@@ -170,6 +170,21 @@ obstacle_avoidance/fast:
 .PHONY : obstacle_avoidance/fast
 
 # Convenience name for target.
+obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule:
+	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule
+.PHONY : obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+topic_tools_generate_messages_nodejs: obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule
+
+.PHONY : topic_tools_generate_messages_nodejs
+
+# fast build rule for target.
+topic_tools_generate_messages_nodejs/fast:
+	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/build.make obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/build
+.PHONY : topic_tools_generate_messages_nodejs/fast
+
+# Convenience name for target.
 obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_py.dir/rule:
 	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_py.dir/rule
 .PHONY : obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_py.dir/rule
@@ -230,51 +245,6 @@ topic_tools_generate_messages_cpp/fast:
 .PHONY : topic_tools_generate_messages_cpp/fast
 
 # Convenience name for target.
-obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule
-.PHONY : obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-topic_tools_generate_messages_nodejs: obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/rule
-
-.PHONY : topic_tools_generate_messages_nodejs
-
-# fast build rule for target.
-topic_tools_generate_messages_nodejs/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/build.make obstacle_avoidance/CMakeFiles/topic_tools_generate_messages_nodejs.dir/build
-.PHONY : topic_tools_generate_messages_nodejs/fast
-
-# Convenience name for target.
-obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_eus.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-.PHONY : obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_eus: obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-
-.PHONY : std_srvs_generate_messages_eus
-
-# fast build rule for target.
-std_srvs_generate_messages_eus/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_eus.dir/build
-.PHONY : std_srvs_generate_messages_eus/fast
-
-# Convenience name for target.
-obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
-.PHONY : obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_cpp: obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
-
-.PHONY : std_srvs_generate_messages_cpp
-
-# fast build rule for target.
-std_srvs_generate_messages_cpp/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_cpp.dir/build
-.PHONY : std_srvs_generate_messages_cpp/fast
-
-# Convenience name for target.
 obstacle_avoidance/CMakeFiles/nodelet_generate_messages_lisp.dir/rule:
 	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/nodelet_generate_messages_lisp.dir/rule
 .PHONY : obstacle_avoidance/CMakeFiles/nodelet_generate_messages_lisp.dir/rule
@@ -318,21 +288,6 @@ bond_generate_messages_nodejs: obstacle_avoidance/CMakeFiles/bond_generate_messa
 bond_generate_messages_nodejs/fast:
 	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/bond_generate_messages_nodejs.dir/build.make obstacle_avoidance/CMakeFiles/bond_generate_messages_nodejs.dir/build
 .PHONY : bond_generate_messages_nodejs/fast
-
-# Convenience name for target.
-obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-.PHONY : obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_nodejs: obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-.PHONY : std_srvs_generate_messages_nodejs
-
-# fast build rule for target.
-std_srvs_generate_messages_nodejs/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
-.PHONY : std_srvs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 obstacle_avoidance/CMakeFiles/nodelet_generate_messages_eus.dir/rule:
@@ -410,21 +365,6 @@ dynamic_reconfigure_gencfg/fast:
 .PHONY : dynamic_reconfigure_gencfg/fast
 
 # Convenience name for target.
-obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_py.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-.PHONY : obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_py: obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-
-.PHONY : std_srvs_generate_messages_py
-
-# fast build rule for target.
-std_srvs_generate_messages_py/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_py.dir/build.make obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_py.dir/build
-.PHONY : std_srvs_generate_messages_py/fast
-
-# Convenience name for target.
 obstacle_avoidance/CMakeFiles/bond_generate_messages_py.dir/rule:
 	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/bond_generate_messages_py.dir/rule
 .PHONY : obstacle_avoidance/CMakeFiles/bond_generate_messages_py.dir/rule
@@ -453,21 +393,6 @@ dynamic_reconfigure_generate_messages_cpp: obstacle_avoidance/CMakeFiles/dynamic
 dynamic_reconfigure_generate_messages_cpp/fast:
 	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make obstacle_avoidance/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_cpp/fast
-
-# Convenience name for target.
-obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-.PHONY : obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_lisp: obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-.PHONY : std_srvs_generate_messages_lisp
-
-# fast build rule for target.
-std_srvs_generate_messages_lisp/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make obstacle_avoidance/CMakeFiles/std_srvs_generate_messages_lisp.dir/build
-.PHONY : std_srvs_generate_messages_lisp/fast
 
 # Convenience name for target.
 obstacle_avoidance/CMakeFiles/pcl_ros_gencfg.dir/rule:
@@ -687,27 +612,22 @@ help:
 	@echo "... test"
 	@echo "... install/local"
 	@echo "... obstacle_avoidance"
+	@echo "... topic_tools_generate_messages_nodejs"
 	@echo "... topic_tools_generate_messages_py"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_eus"
 	@echo "... topic_tools_generate_messages_cpp"
-	@echo "... topic_tools_generate_messages_nodejs"
-	@echo "... std_srvs_generate_messages_eus"
-	@echo "... std_srvs_generate_messages_cpp"
 	@echo "... nodelet_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... bond_generate_messages_nodejs"
-	@echo "... std_srvs_generate_messages_nodejs"
 	@echo "... nodelet_generate_messages_eus"
 	@echo "... pcl_msgs_generate_messages_nodejs"
 	@echo "... nodelet_generate_messages_cpp"
 	@echo "... dynamic_reconfigure_generate_messages_nodejs"
 	@echo "... edit_cache"
 	@echo "... dynamic_reconfigure_gencfg"
-	@echo "... std_srvs_generate_messages_py"
 	@echo "... bond_generate_messages_py"
 	@echo "... dynamic_reconfigure_generate_messages_cpp"
-	@echo "... std_srvs_generate_messages_lisp"
 	@echo "... pcl_ros_gencfg"
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_eus"
