@@ -6,29 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_attitude_to_tf/src/imu_attitude_to_tf_node.cpp
+/home/romain/LaDernierechance/src/hector_slam/hector_imu_attitude_to_tf/src/imu_attitude_to_tf_node.cpp
 ros/ros.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_attitude_to_tf/src/ros/ros.h
+/home/romain/LaDernierechance/src/hector_slam/hector_imu_attitude_to_tf/src/ros/ros.h
 tf/transform_broadcaster.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_attitude_to_tf/src/tf/transform_broadcaster.h
+/home/romain/LaDernierechance/src/hector_slam/hector_imu_attitude_to_tf/src/tf/transform_broadcaster.h
 sensor_msgs/Imu.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_attitude_to_tf/src/sensor_msgs/Imu.h
-
-/opt/ros/kinetic/include/XmlRpcDecl.h
-ros/macros.h
--
-
-/opt/ros/kinetic/include/XmlRpcValue.h
-XmlRpcDecl.h
-/opt/ros/kinetic/include/XmlRpcDecl.h
-map
--
-string
--
-vector
--
-time.h
--
+/home/romain/LaDernierechance/src/hector_slam/hector_imu_attitude_to_tf/src/sensor_msgs/Imu.h
 
 /opt/ros/kinetic/include/geometry_msgs/Point.h
 string
@@ -415,8 +399,8 @@ common.h
 /opt/ros/kinetic/include/ros/master.h
 forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
 
@@ -527,7 +511,7 @@ common.h
 /opt/ros/kinetic/include/ros/common.h
 boost/bind.hpp
 -
-XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
 -
 
 /opt/ros/kinetic/include/ros/param.h
@@ -535,8 +519,8 @@ forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 vector
 -
 map
@@ -1213,4 +1197,20 @@ ros/ros.h
 /opt/ros/kinetic/include/tf2_ros/ros/ros.h
 geometry_msgs/TransformStamped.h
 /opt/ros/kinetic/include/tf2_ros/geometry_msgs/TransformStamped.h
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
+ros/macros.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+xmlrpcpp/XmlRpcDecl.h
+/opt/ros/kinetic/include/xmlrpcpp/xmlrpcpp/XmlRpcDecl.h
+map
+-
+string
+-
+vector
+-
+time.h
+-
 

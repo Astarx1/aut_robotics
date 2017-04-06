@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 let geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
@@ -16,37 +19,52 @@ let geometry_msgs = _finder('geometry_msgs');
 //-----------------------------------------------------------
 
 class GetSearchPositionRequest {
-  constructor() {
-    this.ooi_pose = new geometry_msgs.msg.PoseStamped();
-    this.distance = 0.0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.ooi_pose = null;
+      this.distance = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('ooi_pose')) {
+        this.ooi_pose = initObj.ooi_pose
+      }
+      else {
+        this.ooi_pose = new geometry_msgs.msg.PoseStamped();
+      }
+      if (initObj.hasOwnProperty('distance')) {
+        this.distance = initObj.distance
+      }
+      else {
+        this.distance = 0.0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetSearchPositionRequest
     // Serialize message field [ooi_pose]
-    bufferInfo = geometry_msgs.msg.PoseStamped.serialize(obj.ooi_pose, bufferInfo);
+    bufferOffset = geometry_msgs.msg.PoseStamped.serialize(obj.ooi_pose, buffer, bufferOffset);
     // Serialize message field [distance]
-    bufferInfo = _serializer.float32(obj.distance, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.float32(obj.distance, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetSearchPositionRequest
-    let tmp;
     let len;
-    let data = new GetSearchPositionRequest();
+    let data = new GetSearchPositionRequest(null);
     // Deserialize message field [ooi_pose]
-    tmp = geometry_msgs.msg.PoseStamped.deserialize(buffer);
-    data.ooi_pose = tmp.data;
-    buffer = tmp.buffer;
+    data.ooi_pose = geometry_msgs.msg.PoseStamped.deserialize(buffer, bufferOffset);
     // Deserialize message field [distance]
-    tmp = _deserializer.float32(buffer);
-    data.distance = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.distance = _deserializer.float32(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += geometry_msgs.msg.PoseStamped.getMessageSize(object.ooi_pose);
+    return length + 4;
   }
 
   static datatype() {
@@ -116,33 +134,66 @@ class GetSearchPositionRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetSearchPositionRequest(null);
+    if (msg.ooi_pose !== undefined) {
+      resolved.ooi_pose = geometry_msgs.msg.PoseStamped.Resolve(msg.ooi_pose)
+    }
+    else {
+      resolved.ooi_pose = new geometry_msgs.msg.PoseStamped()
+    }
+
+    if (msg.distance !== undefined) {
+      resolved.distance = msg.distance;
+    }
+    else {
+      resolved.distance = 0.0
+    }
+
+    return resolved;
+    }
 };
 
 class GetSearchPositionResponse {
-  constructor() {
-    this.search_pose = new geometry_msgs.msg.PoseStamped();
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.search_pose = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('search_pose')) {
+        this.search_pose = initObj.search_pose
+      }
+      else {
+        this.search_pose = new geometry_msgs.msg.PoseStamped();
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetSearchPositionResponse
     // Serialize message field [search_pose]
-    bufferInfo = geometry_msgs.msg.PoseStamped.serialize(obj.search_pose, bufferInfo);
-    return bufferInfo;
+    bufferOffset = geometry_msgs.msg.PoseStamped.serialize(obj.search_pose, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetSearchPositionResponse
-    let tmp;
     let len;
-    let data = new GetSearchPositionResponse();
+    let data = new GetSearchPositionResponse(null);
     // Deserialize message field [search_pose]
-    tmp = geometry_msgs.msg.PoseStamped.deserialize(buffer);
-    data.search_pose = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.search_pose = geometry_msgs.msg.PoseStamped.deserialize(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += geometry_msgs.msg.PoseStamped.getMessageSize(object.search_pose);
+    return length;
   }
 
   static datatype() {
@@ -211,9 +262,26 @@ class GetSearchPositionResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetSearchPositionResponse(null);
+    if (msg.search_pose !== undefined) {
+      resolved.search_pose = geometry_msgs.msg.PoseStamped.Resolve(msg.search_pose)
+    }
+    else {
+      resolved.search_pose = new geometry_msgs.msg.PoseStamped()
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: GetSearchPositionRequest,
-  Response: GetSearchPositionResponse
+  Response: GetSearchPositionResponse,
+  md5sum() { return 'a28d7c2840927c12082b304156df4111'; },
+  datatype() { return 'hector_nav_msgs/GetSearchPosition'; }
 };

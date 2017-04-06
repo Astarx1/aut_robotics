@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/devel
+prefix=/home/romain/LaDernierechance/devel
 
 Name: hector_map_tools
 Description: Description of hector_map_tools
 Version: 0.3.5
-Cflags: -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_tools/include
-Libs: -L/home/GTL/ramuat/aut_robotics/devel/lib 
+Cflags: -I/home/romain/LaDernierechance/src/hector_slam/hector_map_tools/include
+Libs: -L/home/romain/LaDernierechance/devel/lib 
 Requires: nav_msgs

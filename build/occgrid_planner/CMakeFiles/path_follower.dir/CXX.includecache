@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/GTL/ramuat/aut_robotics/devel/include/occgrid_planner/Trajectory.h
+/home/romain/LaDernierechance/devel/include/occgrid_planner/Trajectory.h
 string
 -
 vector
@@ -26,7 +26,7 @@ std_msgs/Header.h
 occgrid_planner/TrajectoryElement.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/occgrid_planner/TrajectoryElement.h
+/home/romain/LaDernierechance/devel/include/occgrid_planner/TrajectoryElement.h
 string
 -
 vector
@@ -48,7 +48,7 @@ geometry_msgs/Pose.h
 geometry_msgs/Twist.h
 -
 
-/home/GTL/ramuat/aut_robotics/src/occgrid_planner/src/path_follower.cpp
+/home/romain/LaDernierechance/src/occgrid_planner/src/path_follower.cpp
 vector
 -
 string
@@ -1485,4 +1485,20 @@ tf2_ros/buffer.h
 /opt/ros/kinetic/include/tf2_ros/tf2_ros/buffer.h
 boost/thread.hpp
 /opt/ros/kinetic/include/tf2_ros/boost/thread.hpp
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
+ros/macros.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+xmlrpcpp/XmlRpcDecl.h
+/opt/ros/kinetic/include/xmlrpcpp/xmlrpcpp/XmlRpcDecl.h
+map
+-
+string
+-
+vector
+-
+time.h
+-
 

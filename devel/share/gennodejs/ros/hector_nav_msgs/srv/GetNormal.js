@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 let geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
@@ -16,30 +19,41 @@ let geometry_msgs = _finder('geometry_msgs');
 //-----------------------------------------------------------
 
 class GetNormalRequest {
-  constructor() {
-    this.point = new geometry_msgs.msg.PointStamped();
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.point = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('point')) {
+        this.point = initObj.point
+      }
+      else {
+        this.point = new geometry_msgs.msg.PointStamped();
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetNormalRequest
     // Serialize message field [point]
-    bufferInfo = geometry_msgs.msg.PointStamped.serialize(obj.point, bufferInfo);
-    return bufferInfo;
+    bufferOffset = geometry_msgs.msg.PointStamped.serialize(obj.point, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetNormalRequest
-    let tmp;
     let len;
-    let data = new GetNormalRequest();
+    let data = new GetNormalRequest(null);
     // Deserialize message field [point]
-    tmp = geometry_msgs.msg.PointStamped.deserialize(buffer);
-    data.point = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.point = geometry_msgs.msg.PointStamped.deserialize(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += geometry_msgs.msg.PointStamped.getMessageSize(object.point);
+    return length;
   }
 
   static datatype() {
@@ -91,33 +105,57 @@ class GetNormalRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetNormalRequest(null);
+    if (msg.point !== undefined) {
+      resolved.point = geometry_msgs.msg.PointStamped.Resolve(msg.point)
+    }
+    else {
+      resolved.point = new geometry_msgs.msg.PointStamped()
+    }
+
+    return resolved;
+    }
 };
 
 class GetNormalResponse {
-  constructor() {
-    this.normal = new geometry_msgs.msg.Vector3();
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.normal = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('normal')) {
+        this.normal = initObj.normal
+      }
+      else {
+        this.normal = new geometry_msgs.msg.Vector3();
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetNormalResponse
     // Serialize message field [normal]
-    bufferInfo = geometry_msgs.msg.Vector3.serialize(obj.normal, bufferInfo);
-    return bufferInfo;
+    bufferOffset = geometry_msgs.msg.Vector3.serialize(obj.normal, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetNormalResponse
-    let tmp;
     let len;
-    let data = new GetNormalResponse();
+    let data = new GetNormalResponse(null);
     // Deserialize message field [normal]
-    tmp = geometry_msgs.msg.Vector3.deserialize(buffer);
-    data.normal = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.normal = geometry_msgs.msg.Vector3.deserialize(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 24;
   }
 
   static datatype() {
@@ -151,9 +189,26 @@ class GetNormalResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetNormalResponse(null);
+    if (msg.normal !== undefined) {
+      resolved.normal = geometry_msgs.msg.Vector3.Resolve(msg.normal)
+    }
+    else {
+      resolved.normal = new geometry_msgs.msg.Vector3()
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: GetNormalRequest,
-  Response: GetNormalResponse
+  Response: GetNormalResponse,
+  md5sum() { return '134adf3dd9201d61a4857acd73cf22f6'; },
+  datatype() { return 'hector_nav_msgs/GetNormal'; }
 };

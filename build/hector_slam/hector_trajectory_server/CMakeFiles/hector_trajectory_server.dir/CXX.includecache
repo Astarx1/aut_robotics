@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetRecoveryInfo.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetRecoveryInfo.h
 ros/service_traits.h
 -
 hector_nav_msgs/GetRecoveryInfoRequest.h
@@ -14,7 +14,7 @@ hector_nav_msgs/GetRecoveryInfoRequest.h
 hector_nav_msgs/GetRecoveryInfoResponse.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetRecoveryInfoRequest.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetRecoveryInfoRequest.h
 string
 -
 vector
@@ -30,7 +30,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetRecoveryInfoResponse.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetRecoveryInfoResponse.h
 string
 -
 vector
@@ -52,7 +52,7 @@ geometry_msgs/PoseStamped.h
 geometry_msgs/PoseStamped.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetRobotTrajectory.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetRobotTrajectory.h
 ros/service_traits.h
 -
 hector_nav_msgs/GetRobotTrajectoryRequest.h
@@ -60,7 +60,7 @@ hector_nav_msgs/GetRobotTrajectoryRequest.h
 hector_nav_msgs/GetRobotTrajectoryResponse.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetRobotTrajectoryRequest.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetRobotTrajectoryRequest.h
 string
 -
 vector
@@ -76,7 +76,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetRobotTrajectoryResponse.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetRobotTrajectoryResponse.h
 string
 -
 vector
@@ -94,23 +94,23 @@ ros/message_operations.h
 nav_msgs/Path.h
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server/src/hector_trajectory_server.cpp
+/home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server/src/hector_trajectory_server.cpp
 cstdio
 -
 ros/ros.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server/src/ros/ros.h
+/home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server/src/ros/ros.h
 ros/console.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server/src/ros/console.h
+/home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server/src/ros/console.h
 nav_msgs/Path.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server/src/nav_msgs/Path.h
+/home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server/src/nav_msgs/Path.h
 std_msgs/String.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server/src/std_msgs/String.h
+/home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server/src/std_msgs/String.h
 geometry_msgs/Quaternion.h
 -
 geometry_msgs/PoseStamped.h
 -
 tf/transform_listener.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server/src/tf/transform_listener.h
+/home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server/src/tf/transform_listener.h
 hector_nav_msgs/GetRobotTrajectory.h
 -
 hector_nav_msgs/GetRecoveryInfo.h
@@ -118,22 +118,6 @@ hector_nav_msgs/GetRecoveryInfo.h
 tf/tf.h
 -
 algorithm
--
-
-/opt/ros/kinetic/include/XmlRpcDecl.h
-ros/macros.h
--
-
-/opt/ros/kinetic/include/XmlRpcValue.h
-XmlRpcDecl.h
-/opt/ros/kinetic/include/XmlRpcDecl.h
-map
--
-string
--
-vector
--
-time.h
 -
 
 /opt/ros/kinetic/include/geometry_msgs/Point.h
@@ -587,8 +571,8 @@ common.h
 /opt/ros/kinetic/include/ros/master.h
 forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
 
@@ -699,7 +683,7 @@ common.h
 /opt/ros/kinetic/include/ros/common.h
 boost/bind.hpp
 -
-XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
 -
 
 /opt/ros/kinetic/include/ros/param.h
@@ -707,8 +691,8 @@ forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 vector
 -
 map
@@ -1509,4 +1493,20 @@ tf2_ros/buffer.h
 /opt/ros/kinetic/include/tf2_ros/tf2_ros/buffer.h
 boost/thread.hpp
 /opt/ros/kinetic/include/tf2_ros/boost/thread.hpp
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
+ros/macros.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+xmlrpcpp/XmlRpcDecl.h
+/opt/ros/kinetic/include/xmlrpcpp/xmlrpcpp/XmlRpcDecl.h
+map
+-
+string
+-
+vector
+-
+time.h
+-
 

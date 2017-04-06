@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/install
+prefix=/home/romain/LaDernierechance/install
 
 Name: hector_slam_launch
 Description: Description of hector_slam_launch
 Version: 0.3.5
 Cflags: 
-Libs: -L/home/GTL/ramuat/aut_robotics/install/lib 
+Libs: -L/home/romain/LaDernierechance/install/lib 
 Requires: 

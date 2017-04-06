@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"hector_map_server\"
 
-CXX_INCLUDES = -I/home/GTL/ramuat/aut_robotics/devel/include -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_tools/include -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_marker_drawing/include -I/opt/ros/kinetic/include -I/usr/include/eigen3 
+CXX_INCLUDES = -I/home/romain/LaDernierechance/devel/include -I/home/romain/LaDernierechance/src/hector_slam/hector_map_tools/include -I/home/romain/LaDernierechance/src/hector_slam/hector_marker_drawing/include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 
 

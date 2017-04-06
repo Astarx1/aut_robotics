@@ -208,7 +208,7 @@ namespace serialization
       stream.next(m.search_pose);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct GetSearchPositionResponse_
 
 } // namespace serialization

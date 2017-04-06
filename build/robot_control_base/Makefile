@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/GTL/ramuat/aut_robotics/src
+CMAKE_SOURCE_DIR = /home/romain/LaDernierechance/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/GTL/ramuat/aut_robotics/build
+CMAKE_BINARY_DIR = /home/romain/LaDernierechance/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -91,14 +91,25 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
 
 # Special rule for the target install/local
 install/local: preinstall
@@ -124,14 +135,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/GTL/ramuat/aut_robotics/build/CMakeFiles /home/GTL/ramuat/aut_robotics/build/robot_control_base/CMakeFiles/progress.marks
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/GTL/ramuat/aut_robotics/build/CMakeFiles 0
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/romain/LaDernierechance/build/CMakeFiles /home/romain/LaDernierechance/build/robot_control_base/CMakeFiles/progress.marks
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/romain/LaDernierechance/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/clean
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/clean
 .PHONY : clean
 
 # The main clean target
@@ -141,22 +152,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/preinstall
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/preinstall
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/rule
 .PHONY : robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/rule
 
 # Convenience name for target.
@@ -166,7 +177,7 @@ robot_control_base_gencfg: robot_control_base/CMakeFiles/robot_control_base_genc
 
 # fast build rule for target.
 robot_control_base_gencfg/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/build.make robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/build.make robot_control_base/CMakeFiles/robot_control_base_gencfg.dir/build
 .PHONY : robot_control_base_gencfg/fast
 
 # Help Target
@@ -178,8 +189,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... install"
 	@echo "... rebuild_cache"
-	@echo "... robot_control_base_gencfg"
 	@echo "... edit_cache"
+	@echo "... robot_control_base_gencfg"
+	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... test"
 .PHONY : help
@@ -193,6 +205,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

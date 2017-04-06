@@ -191,7 +191,7 @@ namespace serialization
       stream.next(m.point);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct GetNormalRequest_
 
 } // namespace serialization

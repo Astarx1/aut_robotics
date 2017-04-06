@@ -230,7 +230,7 @@ namespace serialization
       stream.next(m.req_pose);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct GetRecoveryInfoResponse_
 
 } // namespace serialization

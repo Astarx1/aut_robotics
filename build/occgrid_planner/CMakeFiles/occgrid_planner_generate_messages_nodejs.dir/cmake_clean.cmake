@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/occgrid_planner_generate_messages_nodejs"
-  "/home/GTL/ramuat/aut_robotics/devel/share/gennodejs/ros/occgrid_planner/msg/Trajectory.js"
-  "/home/GTL/ramuat/aut_robotics/devel/share/gennodejs/ros/occgrid_planner/msg/TrajectoryElement.js"
+  "/home/romain/LaDernierechance/devel/share/gennodejs/ros/occgrid_planner/msg/TrajectoryElement.js"
+  "/home/romain/LaDernierechance/devel/share/gennodejs/ros/occgrid_planner/msg/Trajectory.js"
 )
 
 # Per-language clean rules from dependency scanning.

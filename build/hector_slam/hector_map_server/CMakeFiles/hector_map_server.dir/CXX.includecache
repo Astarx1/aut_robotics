@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetDistanceToObstacle.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetDistanceToObstacle.h
 ros/service_traits.h
 -
 hector_nav_msgs/GetDistanceToObstacleRequest.h
@@ -14,7 +14,7 @@ hector_nav_msgs/GetDistanceToObstacleRequest.h
 hector_nav_msgs/GetDistanceToObstacleResponse.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetDistanceToObstacleRequest.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetDistanceToObstacleRequest.h
 string
 -
 vector
@@ -32,7 +32,7 @@ ros/message_operations.h
 geometry_msgs/PointStamped.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetDistanceToObstacleResponse.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetDistanceToObstacleResponse.h
 string
 -
 vector
@@ -50,7 +50,7 @@ ros/message_operations.h
 geometry_msgs/PointStamped.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetSearchPosition.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetSearchPosition.h
 ros/service_traits.h
 -
 hector_nav_msgs/GetSearchPositionRequest.h
@@ -58,7 +58,7 @@ hector_nav_msgs/GetSearchPositionRequest.h
 hector_nav_msgs/GetSearchPositionResponse.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetSearchPositionRequest.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetSearchPositionRequest.h
 string
 -
 vector
@@ -76,7 +76,7 @@ ros/message_operations.h
 geometry_msgs/PoseStamped.h
 -
 
-/home/GTL/ramuat/aut_robotics/devel/include/hector_nav_msgs/GetSearchPositionResponse.h
+/home/romain/LaDernierechance/devel/include/hector_nav_msgs/GetSearchPositionResponse.h
 string
 -
 vector
@@ -94,35 +94,35 @@ ros/message_operations.h
 geometry_msgs/PoseStamped.h
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/hector_map_server.cpp
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/hector_map_server.cpp
 stdio.h
 -
 stdlib.h
 -
 ros/ros.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/ros/ros.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/ros/ros.h
 ros/console.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/ros/console.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/ros/console.h
 nav_msgs/MapMetaData.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/nav_msgs/MapMetaData.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/nav_msgs/MapMetaData.h
 nav_msgs/OccupancyGrid.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/nav_msgs/OccupancyGrid.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/nav_msgs/OccupancyGrid.h
 boost/thread.hpp
 -
 tf/transform_listener.h
 -
 nav_msgs/GetMap.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/nav_msgs/GetMap.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/nav_msgs/GetMap.h
 hector_marker_drawing/HectorDrawings.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/hector_marker_drawing/HectorDrawings.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/hector_marker_drawing/HectorDrawings.h
 hector_map_tools/HectorMapTools.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/hector_map_tools/HectorMapTools.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/hector_map_tools/HectorMapTools.h
 hector_nav_msgs/GetDistanceToObstacle.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/hector_nav_msgs/GetDistanceToObstacle.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/hector_nav_msgs/GetDistanceToObstacle.h
 hector_nav_msgs/GetSearchPosition.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_server/src/hector_nav_msgs/GetSearchPosition.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_server/src/hector_nav_msgs/GetSearchPosition.h
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_tools/include/hector_map_tools/HectorMapTools.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_tools/include/hector_map_tools/HectorMapTools.h
 nav_msgs/OccupancyGrid.h
 -
 nav_msgs/MapMetaData.h
@@ -130,38 +130,22 @@ nav_msgs/MapMetaData.h
 Eigen/Core
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/DrawInterface.h
+/home/romain/LaDernierechance/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/DrawInterface.h
 Eigen/Core
 -
 string
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/HectorDrawings.h
+/home/romain/LaDernierechance/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/HectorDrawings.h
 DrawInterface.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/DrawInterface.h
+/home/romain/LaDernierechance/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/DrawInterface.h
 ros/ros.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/ros/ros.h
+/home/romain/LaDernierechance/src/hector_slam/hector_marker_drawing/include/hector_marker_drawing/ros/ros.h
 Eigen/Geometry
 -
 Eigen/Dense
 -
 visualization_msgs/MarkerArray.h
--
-
-/opt/ros/kinetic/include/XmlRpcDecl.h
-ros/macros.h
--
-
-/opt/ros/kinetic/include/XmlRpcValue.h
-XmlRpcDecl.h
-/opt/ros/kinetic/include/XmlRpcDecl.h
-map
--
-string
--
-vector
--
-time.h
 -
 
 /opt/ros/kinetic/include/geometry_msgs/Point.h
@@ -675,8 +659,8 @@ common.h
 /opt/ros/kinetic/include/ros/master.h
 forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
 
@@ -787,7 +771,7 @@ common.h
 /opt/ros/kinetic/include/ros/common.h
 boost/bind.hpp
 -
-XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
 -
 
 /opt/ros/kinetic/include/ros/param.h
@@ -795,8 +779,8 @@ forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 vector
 -
 map
@@ -1642,6 +1626,22 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 visualization_msgs/Marker.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
+ros/macros.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+xmlrpcpp/XmlRpcDecl.h
+/opt/ros/kinetic/include/xmlrpcpp/xmlrpcpp/XmlRpcDecl.h
+map
+-
+string
+-
+vector
+-
+time.h
 -
 
 /usr/include/eigen3/Eigen/Cholesky

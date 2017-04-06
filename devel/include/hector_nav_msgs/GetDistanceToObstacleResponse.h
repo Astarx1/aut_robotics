@@ -201,7 +201,7 @@ namespace serialization
       stream.next(m.end_point);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct GetDistanceToObstacleResponse_
 
 } // namespace serialization

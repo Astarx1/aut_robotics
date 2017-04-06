@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/GTL/ramuat/aut_robotics/src/hector_slam/hector_trajectory_server
-# Build directory: /home/GTL/ramuat/aut_robotics/build/hector_slam/hector_trajectory_server
+# Source directory: /home/romain/LaDernierechance/src/hector_slam/hector_trajectory_server
+# Build directory: /home/romain/LaDernierechance/build/hector_slam/hector_trajectory_server
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

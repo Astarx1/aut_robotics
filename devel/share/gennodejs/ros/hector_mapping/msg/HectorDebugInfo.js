@@ -5,49 +5,61 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 let HectorIterData = require('./HectorIterData.js');
 
 //-----------------------------------------------------------
 
 class HectorDebugInfo {
-  constructor() {
-    this.iterData = [];
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.iterData = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('iterData')) {
+        this.iterData = initObj.iterData
+      }
+      else {
+        this.iterData = [];
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type HectorDebugInfo
-    // Serialize the length for message field [iterData]
-    bufferInfo = _serializer.uint32(obj.iterData.length, bufferInfo);
     // Serialize message field [iterData]
+    // Serialize the length for message field [iterData]
+    bufferOffset = _serializer.uint32(obj.iterData.length, buffer, bufferOffset);
     obj.iterData.forEach((val) => {
-      bufferInfo = HectorIterData.serialize(val, bufferInfo);
+      bufferOffset = HectorIterData.serialize(val, buffer, bufferOffset);
     });
-    return bufferInfo;
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type HectorDebugInfo
-    let tmp;
     let len;
-    let data = new HectorDebugInfo();
-    // Deserialize array length for message field [iterData]
-    tmp = _deserializer.uint32(buffer);
-    len = tmp.data;
-    buffer = tmp.buffer;
+    let data = new HectorDebugInfo(null);
     // Deserialize message field [iterData]
+    // Deserialize array length for message field [iterData]
+    len = _deserializer.uint32(buffer, bufferOffset);
     data.iterData = new Array(len);
     for (let i = 0; i < len; ++i) {
-      tmp = HectorIterData.deserialize(buffer);
-      data.iterData[i] = tmp.data;
-      buffer = tmp.buffer;
+      data.iterData[i] = HectorIterData.deserialize(buffer, bufferOffset)
     }
-    return {
-      data: data,
-      buffer: buffer
-    }
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += 104 * object.iterData.length;
+    return length + 4;
   }
 
   static datatype() {
@@ -75,6 +87,24 @@ class HectorDebugInfo {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new HectorDebugInfo(null);
+    if (msg.iterData !== undefined) {
+      resolved.iterData = new Array(msg.iterData.length);
+      for (let i = 0; i < resolved.iterData.length; ++i) {
+        resolved.iterData[i] = HectorIterData.Resolve(msg.iterData[i]);
+      }
+    }
+    else {
+      resolved.iterData = []
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = HectorDebugInfo;

@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/devel
+prefix=/home/romain/LaDernierechance/devel
 
 Name: hector_map_server
 Description: Description of hector_map_server
 Version: 0.3.5
 Cflags: 
-Libs: -L/home/GTL/ramuat/aut_robotics/devel/lib 
+Libs: -L/home/romain/LaDernierechance/devel/lib 
 Requires: 

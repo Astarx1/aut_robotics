@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"hector_geotiff\"
 
-CXX_INCLUDES = -isystem /usr/include/qt4 -isystem /usr/include/qt4/QtGui -isystem /usr/include/qt4/QtCore -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/include -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/include/hector_geotiff -I/home/GTL/ramuat/aut_robotics/devel/include -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_tools/include -I/opt/ros/kinetic/include -I/usr/include/eigen3 
+CXX_INCLUDES = -isystem /usr/include/qt4 -isystem /usr/include/qt4/QtGui -isystem /usr/include/qt4/QtCore -I/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/include -I/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/include/hector_geotiff -I/home/romain/LaDernierechance/devel/include -I/home/romain/LaDernierechance/src/hector_slam/hector_map_tools/include -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 
 

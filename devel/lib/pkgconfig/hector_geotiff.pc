@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/devel
+prefix=/home/romain/LaDernierechance/devel
 
 Name: hector_geotiff
 Description: Description of hector_geotiff
 Version: 0.3.5
-Cflags: -I/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/include -I/usr/include/eigen3
-Libs: -L/home/GTL/ramuat/aut_robotics/devel/lib -lgeotiff_writer -l:/usr/lib/x86_64-linux-gnu/libQtGui.so -l:/usr/lib/x86_64-linux-gnu/libQtCore.so
+Cflags: -I/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/include -I/usr/include/eigen3
+Libs: -L/home/romain/LaDernierechance/devel/lib -lgeotiff_writer -l:/usr/lib/x86_64-linux-gnu/libQtGui.so -l:/usr/lib/x86_64-linux-gnu/libQtCore.so
 Requires: hector_map_tools hector_nav_msgs nav_msgs pluginlib roscpp std_msgs

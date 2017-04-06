@@ -1,8 +1,8 @@
-# Install script for directory: /home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping
+# Install script for directory: /home/romain/LaDernierechance/src/hector_slam/hector_mapping
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/GTL/ramuat/aut_robotics/install")
+  set(CMAKE_INSTALL_PREFIX "/home/romain/LaDernierechance/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,67 +34,83 @@ endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/msg" TYPE FILE FILES
-    "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/msg/HectorDebugInfo.msg"
-    "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/msg/HectorIterData.msg"
+    "/home/romain/LaDernierechance/src/hector_slam/hector_mapping/msg/HectorDebugInfo.msg"
+    "/home/romain/LaDernierechance/src/hector_slam/hector_mapping/msg/HectorIterData.msg"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/cmake" TYPE FILE FILES "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mapping-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/cmake" TYPE FILE FILES "/home/romain/LaDernierechance/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mapping-msg-paths.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/devel/include/hector_mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/devel/include/hector_mapping")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/devel/share/roseus/ros/hector_mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/devel/share/roseus/ros/hector_mapping")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/devel/share/common-lisp/ros/hector_mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/devel/share/common-lisp/ros/hector_mapping")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/devel/share/gennodejs/ros/hector_mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/devel/share/gennodejs/ros/hector_mapping")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  execute_process(COMMAND "/usr/bin/python" -m compileall "/home/GTL/ramuat/aut_robotics/devel/lib/python2.7/dist-packages/hector_mapping")
+  execute_process(COMMAND "/usr/bin/python" -m compileall "/home/romain/LaDernierechance/devel/lib/python2.7/dist-packages/hector_mapping")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/devel/lib/python2.7/dist-packages/hector_mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/devel/lib/python2.7/dist-packages/hector_mapping")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mapping.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/romain/LaDernierechance/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mapping.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/cmake" TYPE FILE FILES "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mapping-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/cmake" TYPE FILE FILES "/home/romain/LaDernierechance/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mapping-msg-extras.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/cmake" TYPE FILE FILES
-    "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mappingConfig.cmake"
-    "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mappingConfig-version.cmake"
+    "/home/romain/LaDernierechance/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mappingConfig.cmake"
+    "/home/romain/LaDernierechance/build/hector_slam/hector_mapping/catkin_generated/installspace/hector_mappingConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping" TYPE FILE FILES "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping" TYPE FILE FILES "/home/romain/LaDernierechance/src/hector_slam/hector_mapping/package.xml")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hector_mapping" TYPE EXECUTABLE FILES "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_mapping/CMakeFiles/CMakeRelink.dir/hector_mapping")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping")
+    file(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping"
+         RPATH "")
+  endif()
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hector_mapping" TYPE EXECUTABLE FILES "/home/romain/LaDernierechance/devel/lib/hector_mapping/hector_mapping")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping"
+         OLD_RPATH "/opt/ros/kinetic/lib:"
+         NEW_RPATH "")
+    if(CMAKE_INSTALL_DO_STRIP)
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_mapping/hector_mapping")
+    endif()
+  endif()
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/hector_mapping" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/include/hector_mapping/" FILES_MATCHING REGEX "/[^/]*\\.h$" REGEX "/\\.svn$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/hector_mapping" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/src/hector_slam/hector_mapping/include/hector_mapping/" FILES_MATCHING REGEX "/[^/]*\\.h$" REGEX "/\\.svn$" EXCLUDE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/launch/" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/launch/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_mapping/launch/" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/src/hector_slam/hector_mapping/launch/")
 endif()
 

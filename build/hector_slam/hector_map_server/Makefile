@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/GTL/ramuat/aut_robotics/src
+CMAKE_SOURCE_DIR = /home/romain/LaDernierechance/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/GTL/ramuat/aut_robotics/build
+CMAKE_BINARY_DIR = /home/romain/LaDernierechance/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -91,14 +91,25 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
 
 # Special rule for the target install/local
 install/local: preinstall
@@ -124,14 +135,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/GTL/ramuat/aut_robotics/build/CMakeFiles /home/GTL/ramuat/aut_robotics/build/hector_slam/hector_map_server/CMakeFiles/progress.marks
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/GTL/ramuat/aut_robotics/build/CMakeFiles 0
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/romain/LaDernierechance/build/CMakeFiles /home/romain/LaDernierechance/build/hector_slam/hector_map_server/CMakeFiles/progress.marks
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/romain/LaDernierechance/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/clean
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/clean
 .PHONY : clean
 
 # The main clean target
@@ -141,22 +152,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/preinstall
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/preinstall
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/rule
 .PHONY : hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/rule
 
 # Convenience name for target.
@@ -166,13 +177,8 @@ hector_map_server: hector_slam/hector_map_server/CMakeFiles/hector_map_server.di
 
 # fast build rule for target.
 hector_map_server/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build
 .PHONY : hector_map_server/fast
-
-# Manual pre-install relink rule for target.
-hector_map_server/preinstall:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/preinstall
-.PHONY : hector_map_server/preinstall
 
 src/hector_map_server.o: src/hector_map_server.cpp.o
 
@@ -180,7 +186,7 @@ src/hector_map_server.o: src/hector_map_server.cpp.o
 
 # target to build an object file
 src/hector_map_server.cpp.o:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/src/hector_map_server.cpp.o
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/src/hector_map_server.cpp.o
 .PHONY : src/hector_map_server.cpp.o
 
 src/hector_map_server.i: src/hector_map_server.cpp.i
@@ -189,7 +195,7 @@ src/hector_map_server.i: src/hector_map_server.cpp.i
 
 # target to preprocess a source file
 src/hector_map_server.cpp.i:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/src/hector_map_server.cpp.i
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/src/hector_map_server.cpp.i
 .PHONY : src/hector_map_server.cpp.i
 
 src/hector_map_server.s: src/hector_map_server.cpp.s
@@ -198,7 +204,7 @@ src/hector_map_server.s: src/hector_map_server.cpp.s
 
 # target to generate assembly for a file
 src/hector_map_server.cpp.s:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/src/hector_map_server.cpp.s
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/build.make hector_slam/hector_map_server/CMakeFiles/hector_map_server.dir/src/hector_map_server.cpp.s
 .PHONY : src/hector_map_server.cpp.s
 
 # Help Target
@@ -210,8 +216,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... install"
 	@echo "... rebuild_cache"
-	@echo "... hector_map_server"
 	@echo "... edit_cache"
+	@echo "... hector_map_server"
+	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... test"
 	@echo "... src/hector_map_server.o"
@@ -228,6 +235,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

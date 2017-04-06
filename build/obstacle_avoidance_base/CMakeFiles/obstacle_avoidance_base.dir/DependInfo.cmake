@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/GTL/ramuat/aut_robotics/src/obstacle_avoidance_base/src/obstacle_avoidance.cpp" "/home/GTL/ramuat/aut_robotics/build/obstacle_avoidance_base/CMakeFiles/obstacle_avoidance_base.dir/src/obstacle_avoidance.cpp.o"
+  "/home/romain/LaDernierechance/src/obstacle_avoidance_base/src/obstacle_avoidance.cpp" "/home/romain/LaDernierechance/build/obstacle_avoidance_base/CMakeFiles/obstacle_avoidance_base.dir/src/obstacle_avoidance.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -18,6 +18,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/opt/ros/kinetic/include"
+  "/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/pcl-1.7"
   "/usr/include/eigen3"
   "/usr/include/ni"
@@ -34,8 +35,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/hdf5/openmpi"
   "/usr/include/jsoncpp"
   "/usr/include/libxml2"
-  "/opt/ros/kinetic/include/opencv-3.1.0-dev/opencv"
-  "/opt/ros/kinetic/include/opencv-3.1.0-dev"
+  "/opt/ros/kinetic/include/opencv-3.2.0-dev"
+  "/opt/ros/kinetic/include/opencv-3.2.0-dev/opencv"
   )
 
 # Targets to which this target links.

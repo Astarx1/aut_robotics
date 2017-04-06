@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/install
+prefix=/home/romain/LaDernierechance/install
 
 Name: hector_compressed_map_transport
 Description: Description of hector_compressed_map_transport
 Version: 0.3.5
 Cflags: 
-Libs: -L/home/GTL/ramuat/aut_robotics/install/lib 
+Libs: -L/home/romain/LaDernierechance/install/lib 
 Requires: 

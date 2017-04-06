@@ -5,70 +5,97 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
 class HectorIterData {
-  constructor() {
-    this.hessian = new Array(9).fill(0);
-    this.conditionNum = 0.0;
-    this.determinant = 0.0;
-    this.conditionNum2d = 0.0;
-    this.determinant2d = 0.0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.hessian = null;
+      this.conditionNum = null;
+      this.determinant = null;
+      this.conditionNum2d = null;
+      this.determinant2d = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('hessian')) {
+        this.hessian = initObj.hessian
+      }
+      else {
+        this.hessian = new Array(9).fill(0);
+      }
+      if (initObj.hasOwnProperty('conditionNum')) {
+        this.conditionNum = initObj.conditionNum
+      }
+      else {
+        this.conditionNum = 0.0;
+      }
+      if (initObj.hasOwnProperty('determinant')) {
+        this.determinant = initObj.determinant
+      }
+      else {
+        this.determinant = 0.0;
+      }
+      if (initObj.hasOwnProperty('conditionNum2d')) {
+        this.conditionNum2d = initObj.conditionNum2d
+      }
+      else {
+        this.conditionNum2d = 0.0;
+      }
+      if (initObj.hasOwnProperty('determinant2d')) {
+        this.determinant2d = initObj.determinant2d
+      }
+      else {
+        this.determinant2d = 0.0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type HectorIterData
+    // Check that the constant length array field [hessian] has the right length
+    if (obj.hessian.length !== 9) {
+      throw new Error('Unable to serialize array field hessian - length must be 9')
+    }
     // Serialize message field [hessian]
-    obj.hessian.forEach((val) => {
-      bufferInfo = _serializer.float64(val, bufferInfo);
-    });
+    bufferOffset = _arraySerializer.float64(obj.hessian, buffer, bufferOffset, 9);
     // Serialize message field [conditionNum]
-    bufferInfo = _serializer.float64(obj.conditionNum, bufferInfo);
+    bufferOffset = _serializer.float64(obj.conditionNum, buffer, bufferOffset);
     // Serialize message field [determinant]
-    bufferInfo = _serializer.float64(obj.determinant, bufferInfo);
+    bufferOffset = _serializer.float64(obj.determinant, buffer, bufferOffset);
     // Serialize message field [conditionNum2d]
-    bufferInfo = _serializer.float64(obj.conditionNum2d, bufferInfo);
+    bufferOffset = _serializer.float64(obj.conditionNum2d, buffer, bufferOffset);
     // Serialize message field [determinant2d]
-    bufferInfo = _serializer.float64(obj.determinant2d, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.float64(obj.determinant2d, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type HectorIterData
-    let tmp;
     let len;
-    let data = new HectorIterData();
-    len = 9;
+    let data = new HectorIterData(null);
     // Deserialize message field [hessian]
-    for (let i = 0; i < len; ++i) {
-      tmp = _deserializer.float64(buffer);
-      data.hessian[i] = tmp.data;
-      buffer = tmp.buffer;
-    }
+    data.hessian = _arrayDeserializer.float64(buffer, bufferOffset, 9)
     // Deserialize message field [conditionNum]
-    tmp = _deserializer.float64(buffer);
-    data.conditionNum = tmp.data;
-    buffer = tmp.buffer;
+    data.conditionNum = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [determinant]
-    tmp = _deserializer.float64(buffer);
-    data.determinant = tmp.data;
-    buffer = tmp.buffer;
+    data.determinant = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [conditionNum2d]
-    tmp = _deserializer.float64(buffer);
-    data.conditionNum2d = tmp.data;
-    buffer = tmp.buffer;
+    data.conditionNum2d = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [determinant2d]
-    tmp = _deserializer.float64(buffer);
-    data.determinant2d = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.determinant2d = _deserializer.float64(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 104;
   }
 
   static datatype() {
@@ -93,6 +120,49 @@ class HectorIterData {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new HectorIterData(null);
+    if (msg.hessian !== undefined) {
+      resolved.hessian = msg.hessian;
+    }
+    else {
+      resolved.hessian = new Array(9).fill(0)
+    }
+
+    if (msg.conditionNum !== undefined) {
+      resolved.conditionNum = msg.conditionNum;
+    }
+    else {
+      resolved.conditionNum = 0.0
+    }
+
+    if (msg.determinant !== undefined) {
+      resolved.determinant = msg.determinant;
+    }
+    else {
+      resolved.determinant = 0.0
+    }
+
+    if (msg.conditionNum2d !== undefined) {
+      resolved.conditionNum2d = msg.conditionNum2d;
+    }
+    else {
+      resolved.conditionNum2d = 0.0
+    }
+
+    if (msg.determinant2d !== undefined) {
+      resolved.determinant2d = msg.determinant2d;
+    }
+    else {
+      resolved.determinant2d = 0.0
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = HectorIterData;

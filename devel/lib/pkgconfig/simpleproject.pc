@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/devel
+prefix=/home/romain/LaDernierechance/devel
 
 Name: simpleproject
 Description: Description of simpleproject
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/GTL/ramuat/aut_robotics/devel/lib 
+Libs: -L/home/romain/LaDernierechance/devel/lib 
 Requires: cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf

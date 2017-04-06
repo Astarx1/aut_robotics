@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/include/hector_geotiff/geotiff_writer.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/include/hector_geotiff/geotiff_writer.h
 map_writer_interface.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/include/hector_geotiff/map_writer_interface.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/include/hector_geotiff/map_writer_interface.h
 Eigen/Geometry
 -
 nav_msgs/OccupancyGrid.h
@@ -26,23 +26,23 @@ QtGui/QPen
 hector_map_tools/HectorMapTools.h
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/include/hector_geotiff/map_writer_interface.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/include/hector_geotiff/map_writer_interface.h
 vector
 -
 Eigen/Core
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/src/geotiff_saver.cpp
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/src/geotiff_saver.cpp
 cstdio
 -
 ros/ros.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/src/ros/ros.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/src/ros/ros.h
 ros/console.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/src/ros/console.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/src/ros/console.h
 nav_msgs/GetMap.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/src/nav_msgs/GetMap.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/src/nav_msgs/GetMap.h
 geometry_msgs/Quaternion.h
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_geotiff/src/geometry_msgs/Quaternion.h
+/home/romain/LaDernierechance/src/hector_slam/hector_geotiff/src/geometry_msgs/Quaternion.h
 Eigen/Geometry
 -
 QtGui/QApplication
@@ -52,28 +52,12 @@ hector_map_tools/HectorMapTools.h
 hector_geotiff/geotiff_writer.h
 -
 
-/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_map_tools/include/hector_map_tools/HectorMapTools.h
+/home/romain/LaDernierechance/src/hector_slam/hector_map_tools/include/hector_map_tools/HectorMapTools.h
 nav_msgs/OccupancyGrid.h
 -
 nav_msgs/MapMetaData.h
 -
 Eigen/Core
--
-
-/opt/ros/kinetic/include/XmlRpcDecl.h
-ros/macros.h
--
-
-/opt/ros/kinetic/include/XmlRpcValue.h
-XmlRpcDecl.h
-/opt/ros/kinetic/include/XmlRpcDecl.h
-map
--
-string
--
-vector
--
-time.h
 -
 
 /opt/ros/kinetic/include/geometry_msgs/Point.h
@@ -365,8 +349,8 @@ common.h
 /opt/ros/kinetic/include/ros/master.h
 forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
 
@@ -477,7 +461,7 @@ common.h
 /opt/ros/kinetic/include/ros/common.h
 boost/bind.hpp
 -
-XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
 -
 
 /opt/ros/kinetic/include/ros/param.h
@@ -485,8 +469,8 @@ forwards.h
 /opt/ros/kinetic/include/ros/forwards.h
 common.h
 /opt/ros/kinetic/include/ros/common.h
-XmlRpcValue.h
-/opt/ros/kinetic/include/ros/XmlRpcValue.h
+xmlrpcpp/XmlRpcValue.h
+/opt/ros/kinetic/include/ros/xmlrpcpp/XmlRpcValue.h
 vector
 -
 map
@@ -852,6 +836,22 @@ ros/serialization.h
 ros/builtin_message_traits.h
 -
 ros/message_operations.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
+ros/macros.h
+-
+
+/opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+xmlrpcpp/XmlRpcDecl.h
+/opt/ros/kinetic/include/xmlrpcpp/xmlrpcpp/XmlRpcDecl.h
+map
+-
+string
+-
+vector
+-
+time.h
 -
 
 /usr/include/eigen3/Eigen/Cholesky

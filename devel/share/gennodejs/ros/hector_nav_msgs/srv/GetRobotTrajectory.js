@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
@@ -16,23 +19,28 @@ let nav_msgs = _finder('nav_msgs');
 //-----------------------------------------------------------
 
 class GetRobotTrajectoryRequest {
-  constructor() {
-  }
-
-  static serialize(obj, bufferInfo) {
-    // Serializes a message object of type GetRobotTrajectoryRequest
-    return bufferInfo;
-  }
-
-  static deserialize(buffer) {
-    //deserializes a message object of type GetRobotTrajectoryRequest
-    let tmp;
-    let len;
-    let data = new GetRobotTrajectoryRequest();
-    return {
-      data: data,
-      buffer: buffer
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
     }
+    else {
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type GetRobotTrajectoryRequest
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type GetRobotTrajectoryRequest
+    let len;
+    let data = new GetRobotTrajectoryRequest(null);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 0;
   }
 
   static datatype() {
@@ -57,33 +65,52 @@ class GetRobotTrajectoryRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetRobotTrajectoryRequest(null);
+    return resolved;
+    }
 };
 
 class GetRobotTrajectoryResponse {
-  constructor() {
-    this.trajectory = new nav_msgs.msg.Path();
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.trajectory = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('trajectory')) {
+        this.trajectory = initObj.trajectory
+      }
+      else {
+        this.trajectory = new nav_msgs.msg.Path();
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetRobotTrajectoryResponse
     // Serialize message field [trajectory]
-    bufferInfo = nav_msgs.msg.Path.serialize(obj.trajectory, bufferInfo);
-    return bufferInfo;
+    bufferOffset = nav_msgs.msg.Path.serialize(obj.trajectory, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetRobotTrajectoryResponse
-    let tmp;
     let len;
-    let data = new GetRobotTrajectoryResponse();
+    let data = new GetRobotTrajectoryResponse(null);
     // Deserialize message field [trajectory]
-    tmp = nav_msgs.msg.Path.deserialize(buffer);
-    data.trajectory = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.trajectory = nav_msgs.msg.Path.deserialize(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += nav_msgs.msg.Path.getMessageSize(object.trajectory);
+    return length;
   }
 
   static datatype() {
@@ -158,9 +185,26 @@ class GetRobotTrajectoryResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetRobotTrajectoryResponse(null);
+    if (msg.trajectory !== undefined) {
+      resolved.trajectory = nav_msgs.msg.Path.Resolve(msg.trajectory)
+    }
+    else {
+      resolved.trajectory = new nav_msgs.msg.Path()
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: GetRobotTrajectoryRequest,
-  Response: GetRobotTrajectoryResponse
+  Response: GetRobotTrajectoryResponse,
+  md5sum() { return 'c7bd40129c5786fc26351edbd33b8d33'; },
+  datatype() { return 'hector_nav_msgs/GetRobotTrajectory'; }
 };

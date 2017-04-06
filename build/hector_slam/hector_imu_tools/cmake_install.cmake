@@ -1,8 +1,8 @@
-# Install script for directory: /home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_tools
+# Install script for directory: /home/romain/LaDernierechance/src/hector_slam/hector_imu_tools
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/GTL/ramuat/aut_robotics/install")
+  set(CMAKE_INSTALL_PREFIX "/home/romain/LaDernierechance/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,25 +33,41 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_imu_tools/catkin_generated/installspace/hector_imu_tools.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/romain/LaDernierechance/build/hector_slam/hector_imu_tools/catkin_generated/installspace/hector_imu_tools.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_imu_tools/cmake" TYPE FILE FILES
-    "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_imu_tools/catkin_generated/installspace/hector_imu_toolsConfig.cmake"
-    "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_imu_tools/catkin_generated/installspace/hector_imu_toolsConfig-version.cmake"
+    "/home/romain/LaDernierechance/build/hector_slam/hector_imu_tools/catkin_generated/installspace/hector_imu_toolsConfig.cmake"
+    "/home/romain/LaDernierechance/build/hector_slam/hector_imu_tools/catkin_generated/installspace/hector_imu_toolsConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_imu_tools" TYPE FILE FILES "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_tools/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_imu_tools" TYPE FILE FILES "/home/romain/LaDernierechance/src/hector_slam/hector_imu_tools/package.xml")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools" TYPE EXECUTABLE FILES "/home/GTL/ramuat/aut_robotics/build/hector_slam/hector_imu_tools/CMakeFiles/CMakeRelink.dir/pose_and_orientation_to_imu_node")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node")
+    file(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node"
+         RPATH "")
+  endif()
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools" TYPE EXECUTABLE FILES "/home/romain/LaDernierechance/devel/lib/hector_imu_tools/pose_and_orientation_to_imu_node")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node"
+         OLD_RPATH "/opt/ros/kinetic/lib:"
+         NEW_RPATH "")
+    if(CMAKE_INSTALL_DO_STRIP)
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hector_imu_tools/pose_and_orientation_to_imu_node")
+    endif()
+  endif()
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_imu_tools/launch/" TYPE DIRECTORY FILES "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_imu_tools/launch/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hector_imu_tools/launch/" TYPE DIRECTORY FILES "/home/romain/LaDernierechance/src/hector_slam/hector_imu_tools/launch/")
 endif()
 

@@ -67,14 +67,14 @@ set(hector_mapping_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(hector_mapping_SOURCE_PREFIX /home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping)
-  set(hector_mapping_DEVEL_PREFIX /home/GTL/ramuat/aut_robotics/devel)
+  set(hector_mapping_SOURCE_PREFIX /home/romain/LaDernierechance/src/hector_slam/hector_mapping)
+  set(hector_mapping_DEVEL_PREFIX /home/romain/LaDernierechance/devel)
   set(hector_mapping_INSTALL_PREFIX "")
   set(hector_mapping_PREFIX ${hector_mapping_DEVEL_PREFIX})
 else()
   set(hector_mapping_SOURCE_PREFIX "")
   set(hector_mapping_DEVEL_PREFIX "")
-  set(hector_mapping_INSTALL_PREFIX /home/GTL/ramuat/aut_robotics/install)
+  set(hector_mapping_INSTALL_PREFIX /home/romain/LaDernierechance/install)
   set(hector_mapping_PREFIX ${hector_mapping_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(hector_mapping_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/GTL/ramuat/aut_robotics/devel/include;/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/include;/usr/include/eigen3 " STREQUAL " ")
+if(NOT "/home/romain/LaDernierechance/devel/include;/home/romain/LaDernierechance/src/hector_slam/hector_mapping/include;/usr/include/eigen3 " STREQUAL " ")
   set(hector_mapping_INCLUDE_DIRS "")
-  set(_include_dirs "/home/GTL/ramuat/aut_robotics/devel/include;/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/include;/usr/include/eigen3")
+  set(_include_dirs "/home/romain/LaDernierechance/devel/include;/home/romain/LaDernierechance/src/hector_slam/hector_mapping/include;/usr/include/eigen3")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/GTL/ramuat/aut_robotics/devel/include;/home/GTL/ramuat/aut_robotic
         message(FATAL_ERROR "Project 'hector_mapping' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'Johannes Meyer <meyer@fsr.tu-darmstadt.de>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'hector_mapping' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_mapping/${idir}'.  Ask the maintainer 'Johannes Meyer <meyer@fsr.tu-darmstadt.de>' to fix it.")
+      message(FATAL_ERROR "Project 'hector_mapping' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/romain/LaDernierechance/src/hector_slam/hector_mapping/${idir}'.  Ask the maintainer 'Johannes Meyer <meyer@fsr.tu-darmstadt.de>' to fix it.")
     endif()
     _list_append_unique(hector_mapping_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/GTL/ramuat/aut_robotics/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/romain/LaDernierechance/devel/lib;/home/romain/LaDernierechance/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

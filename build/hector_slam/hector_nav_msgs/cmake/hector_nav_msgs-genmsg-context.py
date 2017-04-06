@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_nav_msgs/srv/GetDistanceToObstacle.srv;/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_nav_msgs/srv/GetRecoveryInfo.srv;/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_nav_msgs/srv/GetRobotTrajectory.srv;/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_nav_msgs/srv/GetSearchPosition.srv;/home/GTL/ramuat/aut_robotics/src/hector_slam/hector_nav_msgs/srv/GetNormal.srv"
+services_str = "/home/romain/LaDernierechance/src/hector_slam/hector_nav_msgs/srv/GetDistanceToObstacle.srv;/home/romain/LaDernierechance/src/hector_slam/hector_nav_msgs/srv/GetRecoveryInfo.srv;/home/romain/LaDernierechance/src/hector_slam/hector_nav_msgs/srv/GetRobotTrajectory.srv;/home/romain/LaDernierechance/src/hector_slam/hector_nav_msgs/srv/GetSearchPosition.srv;/home/romain/LaDernierechance/src/hector_slam/hector_nav_msgs/srv/GetNormal.srv"
 pkg_name = "hector_nav_msgs"
 dependencies_str = "nav_msgs;std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

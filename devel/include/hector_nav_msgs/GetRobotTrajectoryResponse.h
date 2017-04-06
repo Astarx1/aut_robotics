@@ -214,7 +214,7 @@ namespace serialization
       stream.next(m.trajectory);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct GetRobotTrajectoryResponse_
 
 } // namespace serialization

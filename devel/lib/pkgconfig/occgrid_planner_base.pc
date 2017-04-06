@@ -1,8 +1,8 @@
-prefix=/home/GTL/ramuat/aut_robotics/devel
+prefix=/home/romain/LaDernierechance/devel
 
 Name: occgrid_planner_base
 Description: Description of occgrid_planner_base
 Version: 0.0.0
-Cflags: -I/home/GTL/ramuat/aut_robotics/devel/include
-Libs: -L/home/GTL/ramuat/aut_robotics/devel/lib 
+Cflags: -I/home/romain/LaDernierechance/devel/include
+Libs: -L/home/romain/LaDernierechance/devel/lib 
 Requires: cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf

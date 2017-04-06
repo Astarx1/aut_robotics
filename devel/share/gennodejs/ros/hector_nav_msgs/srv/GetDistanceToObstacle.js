@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 let geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
@@ -16,30 +19,41 @@ let geometry_msgs = _finder('geometry_msgs');
 //-----------------------------------------------------------
 
 class GetDistanceToObstacleRequest {
-  constructor() {
-    this.point = new geometry_msgs.msg.PointStamped();
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.point = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('point')) {
+        this.point = initObj.point
+      }
+      else {
+        this.point = new geometry_msgs.msg.PointStamped();
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetDistanceToObstacleRequest
     // Serialize message field [point]
-    bufferInfo = geometry_msgs.msg.PointStamped.serialize(obj.point, bufferInfo);
-    return bufferInfo;
+    bufferOffset = geometry_msgs.msg.PointStamped.serialize(obj.point, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetDistanceToObstacleRequest
-    let tmp;
     let len;
-    let data = new GetDistanceToObstacleRequest();
+    let data = new GetDistanceToObstacleRequest(null);
     // Deserialize message field [point]
-    tmp = geometry_msgs.msg.PointStamped.deserialize(buffer);
-    data.point = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.point = geometry_msgs.msg.PointStamped.deserialize(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += geometry_msgs.msg.PointStamped.getMessageSize(object.point);
+    return length;
   }
 
   static datatype() {
@@ -96,40 +110,70 @@ class GetDistanceToObstacleRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetDistanceToObstacleRequest(null);
+    if (msg.point !== undefined) {
+      resolved.point = geometry_msgs.msg.PointStamped.Resolve(msg.point)
+    }
+    else {
+      resolved.point = new geometry_msgs.msg.PointStamped()
+    }
+
+    return resolved;
+    }
 };
 
 class GetDistanceToObstacleResponse {
-  constructor() {
-    this.distance = 0.0;
-    this.end_point = new geometry_msgs.msg.PointStamped();
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.distance = null;
+      this.end_point = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('distance')) {
+        this.distance = initObj.distance
+      }
+      else {
+        this.distance = 0.0;
+      }
+      if (initObj.hasOwnProperty('end_point')) {
+        this.end_point = initObj.end_point
+      }
+      else {
+        this.end_point = new geometry_msgs.msg.PointStamped();
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type GetDistanceToObstacleResponse
     // Serialize message field [distance]
-    bufferInfo = _serializer.float32(obj.distance, bufferInfo);
+    bufferOffset = _serializer.float32(obj.distance, buffer, bufferOffset);
     // Serialize message field [end_point]
-    bufferInfo = geometry_msgs.msg.PointStamped.serialize(obj.end_point, bufferInfo);
-    return bufferInfo;
+    bufferOffset = geometry_msgs.msg.PointStamped.serialize(obj.end_point, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type GetDistanceToObstacleResponse
-    let tmp;
     let len;
-    let data = new GetDistanceToObstacleResponse();
+    let data = new GetDistanceToObstacleResponse(null);
     // Deserialize message field [distance]
-    tmp = _deserializer.float32(buffer);
-    data.distance = tmp.data;
-    buffer = tmp.buffer;
+    data.distance = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [end_point]
-    tmp = geometry_msgs.msg.PointStamped.deserialize(buffer);
-    data.end_point = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.end_point = geometry_msgs.msg.PointStamped.deserialize(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += geometry_msgs.msg.PointStamped.getMessageSize(object.end_point);
+    return length + 4;
   }
 
   static datatype() {
@@ -185,9 +229,33 @@ class GetDistanceToObstacleResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new GetDistanceToObstacleResponse(null);
+    if (msg.distance !== undefined) {
+      resolved.distance = msg.distance;
+    }
+    else {
+      resolved.distance = 0.0
+    }
+
+    if (msg.end_point !== undefined) {
+      resolved.end_point = geometry_msgs.msg.PointStamped.Resolve(msg.end_point)
+    }
+    else {
+      resolved.end_point = new geometry_msgs.msg.PointStamped()
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: GetDistanceToObstacleRequest,
-  Response: GetDistanceToObstacleResponse
+  Response: GetDistanceToObstacleResponse,
+  md5sum() { return 'db18115f41079cd33136cf1e23b216ad'; },
+  datatype() { return 'hector_nav_msgs/GetDistanceToObstacle'; }
 };

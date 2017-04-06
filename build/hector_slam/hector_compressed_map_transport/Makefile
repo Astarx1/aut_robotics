@@ -48,23 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/GTL/ramuat/aut_robotics/src
+CMAKE_SOURCE_DIR = /home/romain/LaDernierechance/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/GTL/ramuat/aut_robotics/build
+CMAKE_BINARY_DIR = /home/romain/LaDernierechance/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # Special rule for the target install
 install: preinstall
@@ -78,10 +68,21 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -100,6 +101,27 @@ test/fast: test
 
 .PHONY : test/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
+
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -111,27 +133,16 @@ install/local/fast: install/local
 
 .PHONY : install/local/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/GTL/ramuat/aut_robotics/build/CMakeFiles /home/GTL/ramuat/aut_robotics/build/hector_slam/hector_compressed_map_transport/CMakeFiles/progress.marks
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/GTL/ramuat/aut_robotics/build/CMakeFiles 0
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/romain/LaDernierechance/build/CMakeFiles /home/romain/LaDernierechance/build/hector_slam/hector_compressed_map_transport/CMakeFiles/progress.marks
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/romain/LaDernierechance/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/clean
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/clean
 .PHONY : clean
 
 # The main clean target
@@ -141,22 +152,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/preinstall
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/preinstall
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
 .PHONY : hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -166,12 +177,12 @@ sensor_msgs_generate_messages_eus: hector_slam/hector_compressed_map_transport/C
 
 # fast build rule for target.
 sensor_msgs_generate_messages_eus/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
 .PHONY : sensor_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
 .PHONY : hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -181,12 +192,12 @@ sensor_msgs_generate_messages_py: hector_slam/hector_compressed_map_transport/CM
 
 # fast build rule for target.
 sensor_msgs_generate_messages_py/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
 .PHONY : sensor_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
 .PHONY : hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -196,12 +207,12 @@ sensor_msgs_generate_messages_nodejs: hector_slam/hector_compressed_map_transpor
 
 # fast build rule for target.
 sensor_msgs_generate_messages_nodejs/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
 .PHONY : sensor_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
 .PHONY : hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -211,12 +222,12 @@ sensor_msgs_generate_messages_lisp: hector_slam/hector_compressed_map_transport/
 
 # fast build rule for target.
 sensor_msgs_generate_messages_lisp/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
 .PHONY : sensor_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
 .PHONY : hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -226,12 +237,12 @@ sensor_msgs_generate_messages_cpp: hector_slam/hector_compressed_map_transport/C
 
 # fast build rule for target.
 sensor_msgs_generate_messages_cpp/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
 .PHONY : sensor_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
 hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/rule:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/rule
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/rule
 .PHONY : hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/rule
 
 # Convenience name for target.
@@ -241,13 +252,8 @@ map_to_image_node: hector_slam/hector_compressed_map_transport/CMakeFiles/map_to
 
 # fast build rule for target.
 map_to_image_node/fast:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build
 .PHONY : map_to_image_node/fast
-
-# Manual pre-install relink rule for target.
-map_to_image_node/preinstall:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f CMakeFiles/Makefile2 hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/preinstall
-.PHONY : map_to_image_node/preinstall
 
 src/map_to_image_node.o: src/map_to_image_node.cpp.o
 
@@ -255,7 +261,7 @@ src/map_to_image_node.o: src/map_to_image_node.cpp.o
 
 # target to build an object file
 src/map_to_image_node.cpp.o:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/src/map_to_image_node.cpp.o
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/src/map_to_image_node.cpp.o
 .PHONY : src/map_to_image_node.cpp.o
 
 src/map_to_image_node.i: src/map_to_image_node.cpp.i
@@ -264,7 +270,7 @@ src/map_to_image_node.i: src/map_to_image_node.cpp.i
 
 # target to preprocess a source file
 src/map_to_image_node.cpp.i:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/src/map_to_image_node.cpp.i
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/src/map_to_image_node.cpp.i
 .PHONY : src/map_to_image_node.cpp.i
 
 src/map_to_image_node.s: src/map_to_image_node.cpp.s
@@ -273,7 +279,7 @@ src/map_to_image_node.s: src/map_to_image_node.cpp.s
 
 # target to generate assembly for a file
 src/map_to_image_node.cpp.s:
-	cd /home/GTL/ramuat/aut_robotics/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/src/map_to_image_node.cpp.s
+	cd /home/romain/LaDernierechance/build && $(MAKE) -f hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/build.make hector_slam/hector_compressed_map_transport/CMakeFiles/map_to_image_node.dir/src/map_to_image_node.cpp.s
 .PHONY : src/map_to_image_node.cpp.s
 
 # Help Target
@@ -282,8 +288,8 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... list_install_components"
 	@echo "... install"
+	@echo "... rebuild_cache"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... sensor_msgs_generate_messages_nodejs"
@@ -292,8 +298,9 @@ help:
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... test"
 	@echo "... map_to_image_node"
+	@echo "... list_install_components"
+	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... rebuild_cache"
 	@echo "... src/map_to_image_node.o"
 	@echo "... src/map_to_image_node.i"
 	@echo "... src/map_to_image_node.s"
@@ -308,6 +315,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/GTL/ramuat/aut_robotics/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/romain/LaDernierechance/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

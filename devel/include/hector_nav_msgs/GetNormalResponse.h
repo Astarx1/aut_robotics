@@ -174,7 +174,7 @@ namespace serialization
       stream.next(m.normal);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct GetNormalResponse_
 
 } // namespace serialization
