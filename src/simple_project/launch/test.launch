@@ -2,10 +2,10 @@
 
 <launch>
 	<!--<node pkg="topic_tools" type="mux" name="cmd_mux" args="/vrep/twistCommand /teleop/twistCommand /mux/autoCommand">
-	</node>
+</node>-->
 
-	<node respawn="false" pkg="joy" type="joy_node" name="joy" >
-		<param name="dev" type="string" value="/dev/input/js0" />
+	<!--<node respawn="false" pkg="joy" type="joy_node" name="joy" >
+		<param name="dev" type="string" value="/dev/input/js1" />
 		<param name="deadzone" value="0.12" />
 		<param name="autorepeat_rate" value="10.0" />
 	</node>
@@ -20,13 +20,14 @@
 
 	<node pkg="vrep_ros_teleop" type="teleop.py" name="teleop">
 		<param name="axis_linear_x" value="1" type="int"/>
-		<param name="axis_angular" value="0" type="int"/>
+		<param name="axis_angular" value="1" type="int"/>
 		<param name="scale_linear" value="0.5" type="double"/>
 		<param name="scale_angular" value="1.0" type="double"/>
 		<remap from="/teleop/joy" to="/joy"/>
-	</node>
+		<remap from="/teleop/twistCommand" to="/vrep/twistCommand"/>
+	</node>-->
 
-	<node name="gmapping" pkg="gmapping" type="slam_gmapping" args="scan:=/scan" output="screen">
+	<!--<node name="gmapping" pkg="gmapping" type="slam_gmapping" args="scan:=/scan" output="screen">
 		<param name="linearUpdate" value="0.1" />
 		<param name="angularUpdate" value="0.05" />
 		<param name="xmin" value="-20" />
@@ -34,18 +35,24 @@
 		<param name="xmax" value="20" />
 		<param name="ymax" value="20" />
 		<param name="maxUrange" value="6" />
-	</node>-->
+	</node>
 	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pc_laser">
-     <param name="min_height" value="-1.0" />
-     <param name="max_height" value="1.0" />
-     <param name="range_min" value="0.20" />
-     <param name="range_max" value="10.0" />
-     <param name="use_inf" value="false" />
+		<param name="base_frame" value="/body"/>
+		<param name="odom_frame" value="/odom"/>
 
-     <remap from="cloud_in" to="/vrep/hokuyoSensor" />
-   </node>
+	     <param name="min_height" value="-1.0" />
+	     <param name="max_height" value="1.0" />
+	     <param name="range_min" value="0.20" />
+	     <param name="range_max" value="10.0" />
+	     <param name="use_inf" value="false" />
 
-	<include file="$(find hector_slam_launch)/launch/tutorial.launch" />
+		 <remap from="cloud_in" to="/vrep/hokuyoSensor" />
+	</node>
+
+	<include file="$(find hector_slam_launch)/launch/tutorial.launch" />-->
+
+	<include file="$(find vrep_ros_teleop)/launch/teleop.launch"/>
+
 	<!--<node pkg="hector_slam_launch" name="hector_slam_launch" type="tutorial">
 	</node>-->
 </launch>
