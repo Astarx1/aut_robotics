@@ -1,8 +1,0 @@
-prefix=/home/romain/LaDernierechance/devel
-
-Name: simpleproject
-Description: Description of simpleproject
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/romain/LaDernierechance/devel/lib 
-Requires: cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf

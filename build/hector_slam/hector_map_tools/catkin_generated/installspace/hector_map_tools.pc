@@ -1,8 +1,0 @@
-prefix=/home/romain/LaDernierechance/install
-
-Name: hector_map_tools
-Description: Description of hector_map_tools
-Version: 0.3.5
-Cflags: -I/home/romain/LaDernierechance/install/include
-Libs: -L/home/romain/LaDernierechance/install/lib 
-Requires: nav_msgs

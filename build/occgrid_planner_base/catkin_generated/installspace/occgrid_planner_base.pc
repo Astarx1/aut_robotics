@@ -1,8 +1,0 @@
-prefix=/home/romain/LaDernierechance/install
-
-Name: occgrid_planner_base
-Description: Description of occgrid_planner_base
-Version: 0.0.0
-Cflags: -I/home/romain/LaDernierechance/install/include
-Libs: -L/home/romain/LaDernierechance/install/lib 
-Requires: cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf
