@@ -59,7 +59,13 @@
 	
 	<include file="$(find hector_slam_launch)/launch/tuto2.launch" /> 
 
-	<include file="$(find hector_slam_launch)/launch/geotiff_mapper.launch"/>
+	<node pkg="simpleproject" type="mapping_simple" name="mapping_simple" output="screen">
+		<remap from="/mapping_simple/map" to="/map"/>
+		<remap from="/mapping_simple/map_data" to="/map_metadata"/>
+	</node>
+
+	<!--<include file="$(find hector_geotiff)/launch/geotiff_mapper_only.launch"/> -->
+	
 	<!--<node pkg="hector_slam_launch" name="hector_slam_launch" type="tutorial">
 	</node>-->
 </launch>

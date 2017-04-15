@@ -119,12 +119,12 @@ include_directories(
 #target_link_libraries(occgrid_treasure ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
-#add_executable(path_follower src/path_follower.cpp)
+add_executable(mapping_simple src/recherche.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 #add_dependencies(path_follower occgrid_planner_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
-#target_link_libraries(path_follower ${catkin_LIBRARIES})
+target_link_libraries(mapping_simple ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
 #add_executable(path_optimizer src/path_optimizer.cpp)

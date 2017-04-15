@@ -114,7 +114,7 @@ class OccupancyGridTreasure {
 			cv::cvtColor(og_, og_rgb_, CV_GRAY2RGB);
 			// Compute a sub-image that covers only the useful part of the
 			// grid.
-			cropped_og_ = cv::Mat_<uint8_t>(og_,roi_);
+			cv::Mat_<uint8_t> cropped_og_ = cv::Mat_<uint8_t>(og_,roi_);
 			if ((w > WIN_SIZE) || (h > WIN_SIZE)) {
 				// The occupancy grid is too large to display. We need to scale
 				// it first.

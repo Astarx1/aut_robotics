@@ -12,8 +12,6 @@ def joy_cb(value):
 	global initialized
 	joy_value = value
 	initialized = True
-	rospy.loginfo("joystick value received :D")
-
 
 def talker():
 	global joy_value
@@ -30,18 +28,14 @@ def talker():
 		twist = Twist()
 		if initialized:
 			twist.linear.x = joy_value.axes[axis_linear] * scale_linear
-			rospy.loginfo("Different de 0 !!!")
 			twist.angular.z = joy_value.axes[axis_angular] * scale_angular
 		else:
 			twist.linear.x = 0
 			twist.angular.z = 0
-			rospy.loginfo(" 0 !!!")
-
 
 		if (twist.linear.x < 0):
 			twist.angular.z = - twist.angular.z
 		pub.publish(twist)
-		rospy.loginfo("Sent !")
 
 if __name__ == '__main__':
 	try:
