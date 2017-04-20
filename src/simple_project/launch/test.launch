@@ -52,8 +52,8 @@
 		<param name="ymax" value="15"/>
 	</node>-->
 
-	<node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
-	</node>
+	<!--<node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
+	</node>-->
   
 	<include file="$(find vrep_ros_teleop)/launch/teleop.launch"/>
 	
@@ -61,7 +61,9 @@
 
 	<node pkg="simpleproject" type="mapping_simple" name="mapping_simple" output="screen">
 		<remap from="/mapping_simple/map" to="/map"/>
+		<remap from="/mapping_simple/odom" to="/slam_out_pose"/>
 		<remap from="/mapping_simple/map_data" to="/map_metadata"/>
+		<remap from="/mapping_simple/signal" to="/vrep/metalDetector" />
 	</node>
 
 	<!--<include file="$(find hector_geotiff)/launch/geotiff_mapper_only.launch"/> -->
