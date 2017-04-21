@@ -3,7 +3,9 @@
  * 		- MapMetaDataConstPtr map_data
  * 		- OccupancyGridConstPtr msg
  */
- 
+
+#include <vector>
+
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
@@ -55,6 +57,8 @@ class Mapping_simple {
 		bool size_changed, map_initialized, resize;
 		cv::Mat_<cv::Vec3b> old_resized_signal;
 		
+		std::vector <mPoint> passages;
+
 		void Map_callback(const nav_msgs::OccupancyGrid msg) {
 			cv::Mat_<uint8_t> BeforeErosion = cv::Mat_<uint8_t>(msg.info.height, msg.info.width, 0xFF);
 			maxx = msg.info.width; maxy = msg.info.height; 
