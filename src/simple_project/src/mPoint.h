@@ -5,7 +5,8 @@ class mPoint {
 protected:
 
 public:
-	float x,y;
+	float x, y;
+	int etat;
 	mPoint (float nx, float ny) {
 		x = nx;
 		y = ny;

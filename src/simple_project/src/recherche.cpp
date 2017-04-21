@@ -5,6 +5,8 @@
  */
 
 #include <vector>
+#include <cmath>
+#include "mPoint.h"
 
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
@@ -22,6 +24,12 @@
 
 #define WIN_SIZE 800
 #define MAP_RESOLUTION 0.025
+
+#define DISTANCE_NEW_POINTS 1
+#define DISTANCE_MIN_NEW_POINTS 1
+#define DISTANCE_ARRIVEE 0.3
+
+#define INF 8000000
 
 int pceil (float a) {
 	int b = 0;
@@ -47,7 +55,7 @@ class Mapping_simple {
 		ros::Publisher twist_publish;
 		nav_msgs::MapMetaData infos;
 		
-		cv::Mat_<uint8_t> erodedMap, signalMap;
+		cv::Mat_<uint8_t> erodedMap, signalMap, passagesMap;
 		cv::Mat_<cv::Vec3b> coloredMap, coloredSignalMap;
 		geometry_msgs::Pose pose;
 		
@@ -58,12 +66,14 @@ class Mapping_simple {
 		cv::Mat_<cv::Vec3b> old_resized_signal;
 		
 		std::vector <mPoint> passages;
-
+		int index_objective;
+		
+		float min_distance;
+		
 		void Map_callback(const nav_msgs::OccupancyGrid msg) {
 			cv::Mat_<uint8_t> BeforeErosion = cv::Mat_<uint8_t>(msg.info.height, msg.info.width, 0xFF);
 			maxx = msg.info.width; maxy = msg.info.height; 
 			minx = 0; miny = 0;
-			ROS_INFO("Map_callback");
 						
 			for (unsigned int j=0;j < msg.info.height;j++) {
 				for (unsigned int i=0;i < msg.info.width;i++) {
@@ -73,6 +83,9 @@ class Mapping_simple {
 							BeforeErosion(j,i) = FREE; 
 							break;
 						case 100: 
+							float y;
+							if ((y = hypot((pose.position.x-msg.info.origin.position.x)/msg.info.resolution,(pose.position.y-msg.info.origin.position.y)/msg.info.resolution)) < min_distance)
+								min_distance = y;
 							BeforeErosion(j,i) = OCCUPIED; 
 							break;
 						case -1: 
@@ -99,24 +112,7 @@ class Mapping_simple {
 			unsigned int w = maxx - minx;
 			unsigned int h = maxy - miny;
 			
-			// Affichage de la map erodee
 			cv::cvtColor(erodedMap, coloredMap, CV_GRAY2RGB);
-			/*cv::Mat_<cv::Vec3b> cropped_og = cv::Mat_<cv::Vec3b>(coloredMap,cv::Rect(minx,miny,w,h));
-
-			if ((w > WIN_SIZE) || (h > WIN_SIZE)) {
-				double ratio = w / ((double)h);
-				cv::Size new_size;
-				if (ratio >= 1) {
-					new_size = cv::Size(WIN_SIZE,WIN_SIZE/ratio);
-				} else {
-					new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE);
-				}
-				cv::Mat_<cv::Vec3b> resized_og;
-				cv::resize(cropped_og,resized_og,new_size);
-				cv::imshow( "Map", resized_og);
-			} else {
-				cv::imshow( "Map", coloredMap);
-			}*/
 			
 			double ratio = w / ((double)h);
 			cv::Size new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE); 
@@ -138,83 +134,26 @@ class Mapping_simple {
 			if (!map_initialized)
 				return;
 				
-			if(!size_changed) {
-				int x = initial_x + pceil(pose.position.x/(4*MAP_RESOLUTION));
-				int y = initial_y + pceil(pose.position.y/(4*MAP_RESOLUTION));
+			int x = initial_x + pceil(pose.position.x/(4*MAP_RESOLUTION));
+			int y = initial_y + pceil(pose.position.y/(4*MAP_RESOLUTION));
 				
-				int x_real = initial_x + pceil(pose.position.x/(MAP_RESOLUTION));
-				int y_real = initial_y + pceil(pose.position.y/(MAP_RESOLUTION));
+			int x_real = initial_x + pceil(pose.position.x/(MAP_RESOLUTION));
+			int y_real = initial_y + pceil(pose.position.y/(MAP_RESOLUTION));
 				
-				//ROS_INFO("Size didn't change : %d (%d + %d), %d (%d + %d) -> %f", x, initial_x, pceil(pose.position.x/MAP_RESOLUTION), y, initial_y, pceil(pose.position.x/MAP_RESOLUTION), (msg->data*255));
-
-				for (int i = x-5; i < x+5; i++)
-					for (int j = y-5; j < y+5; j++) {
-						if (i >= 0 && j >= 0 && i < infos.width && j < infos.height)
-							signalMap.at<uint8_t>(i,j) = (uint8_t) (msg->data*255);	
-					}
+			for (int i = x-5; i < x+5; i++)
+				for (int j = y-5; j < y+5; j++) {
+					if (i >= 0 && j >= 0 && i < infos.width && j < infos.height)
+						signalMap.at<uint8_t>(i,j) = (uint8_t) (msg->data*255);	
+				}
 		
 				
-				//cv::cvtColor(signalMap, coloredSignalMap, CV_GRAY2RGB);
-				unsigned int w = maxx - minx;
-				unsigned int h = maxy - miny;
-				
-				/*cv::Mat_<cv::Vec3b> cropped_signal = cv::Mat_<cv::Vec3b>(coloredSignalMap,cv::Rect(minx,miny,w,h));
+			unsigned int w = maxx - minx;
+			unsigned int h = maxy - miny;
 
-				//if ((w > WIN_SIZE) || (h > WIN_SIZE)) {
-				if(true) {
-					double ratio = w / ((double)h);
-					cv::Size new_size;
-					if (ratio >= 1) {
-						new_size = cv::Size(WIN_SIZE,WIN_SIZE/ratio);
-					} else {
-						new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE);
-					}
-					cv::Mat_<cv::Vec3b> resized_signal;
-					cv::resize(cropped_signal,resized_signal,new_size);
-					if (resize) {
-						double diff_resiz = cv::norm (old_resized_signal-resized_signal);
-						ROS_INFO("Difference : %f", diff_resiz);
-					}
-					old_resized_signal = resized_signal;
-					resize = true;
-					cv::imshow( "t", resized_signal);
-				} /*else {
-					cv::imshow( "SignalMap", resized_og);
-				}	*/
-				double ratio = w / ((double)h);
-				cv::Size new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE); 
-				cv::resize(signalMap,coloredSignalMap,new_size);
-				//cv::namedWindow( "signalMap", CV_WINDOW_AUTOSIZE );
-				cv::imshow( "signalMap", coloredSignalMap);
-				
-				for (int a = 4; a < 50; a++) 
-					for (int i = -a; i < a; ++i) {
-						if (erodedMap.at<uint8_t>(x_real + a, y_real + i) == FREE) {
-							
-						}
-						if (erodedMap.at<uint8_t>(x_real - a, y_real + i) == FREE) {
-							
-						}
-						if (erodedMap.at<uint8_t>(x_real - i, y_real + a) == FREE) {
-							
-						}
-						if (erodedMap.at<uint8_t>(x_real + i, y_real - a) == FREE) {
-							
-						}
-					}
-			}
-			
-			else {
-				if (resize) {
-					;
-				}
-				else {
-					
-					resize = true;
-				}
-				ROS_INFO("Signal created %d, %d. Middle : %d, %d", infos.width, infos.height, initial_x, initial_y);
-				size_changed = false;
-			}
+			double ratio = w / ((double)h);
+			cv::Size new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE); 
+			cv::resize(signalMap,coloredSignalMap,new_size);
+			cv::imshow( "signalMap", coloredSignalMap);
 		}
 		
 		void publish_turning (float angle) {
@@ -224,10 +163,54 @@ class Mapping_simple {
 		void publish_straight () {
 			
 		}
-		
+		 
 		void Pose_out_callback(geometry_msgs::PoseStamped msg) {
 			pose = msg.pose;
-			ROS_INFO("Maj pose");
+			
+			bool point1 = true; bool point2 = true; bool point3 = true; bool point4 = true;
+						
+			for (int i = 0; i < passages.size(); ++i) {
+				if (hypot(passages[i].x - (pose.position.x+DISTANCE_NEW_POINTS),passages[i].y - (pose.position.y)) < DISTANCE_MIN_NEW_POINTS)
+					point1 = false;
+					
+				if (hypot(passages[i].x - (pose.position.x-DISTANCE_NEW_POINTS),passages[i].y - (pose.position.y)) < DISTANCE_MIN_NEW_POINTS)
+					point2 = false;
+					
+				if (hypot(passages[i].x - (pose.position.x),passages[i].y - (pose.position.y+DISTANCE_NEW_POINTS)) < DISTANCE_MIN_NEW_POINTS)
+					point3 = false;
+					
+				if (hypot(passages[i].x - (pose.position.x),passages[i].y - (pose.position.y-DISTANCE_NEW_POINTS)) < DISTANCE_MIN_NEW_POINTS)
+					point4 = false;
+			} 
+			
+			if (point1)  {
+				passages.push_back(mPoint(pose.position.x+DISTANCE_NEW_POINTS, pose.position.y));
+				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
+			}
+			if (point2) {
+				passages.push_back(mPoint(pose.position.x-DISTANCE_NEW_POINTS, pose.position.y));
+			}
+			if (point3) {
+				passages.push_back(mPoint(pose.position.x, pose.position.y+DISTANCE_NEW_POINTS));
+			}
+			if (point4) {
+				passages.push_back(mPoint(pose.position.x, pose.position.y-DISTANCE_NEW_POINTS));
+			}
+			
+			double min = INF;
+			double tmp; 
+			
+			if (hypot(passages[index_objective].x - pose.position.x, passages[index_objective].y - pose.position.y) < DISTANCE_ARRIVEE) {
+				passages[index_objective].etat == 2;
+			}
+
+			if (passages[index_objective].etat == 2) {
+				for (int i = 0; i < passages.size(); ++i) {
+					if ((tmp = hypot(passages[i].x - pose.position.x,passages[i].y - pose.position.y) < min && hypot(passages[i].x - pose.position.x,passages[i].y - pose.position.y)) > DISTANCE_MIN_NEW_POINTS && passages[index_objective].etat == 1)
+						index_objective = i;
+				} 
+				passages[index_objective].etat == 1;
+			}
 		}
 		
 		void Map_Data_callback(const nav_msgs::MapMetaDataConstPtr & msg) {
@@ -247,6 +230,7 @@ class Mapping_simple {
 			resize = false;
 			ROS_INFO("LE PROBLEME EST LA");
 			signalMap = cv::Mat_<uint8_t> (2048, 2048); 
+			passagesMap = cv::Mat_<uint8_t> (2048, 2048); 
 		}
 };
 
@@ -254,7 +238,7 @@ int main(int argc, char * argv[]) {
 	ros::init(argc,argv,"Mapping_simple");
 	Mapping_simple ogp;
 	cv::namedWindow ("BeforeErosion", cv::WINDOW_AUTOSIZE );
-	cv::namedWindow( "Mapping_simple", CV_WINDOW_AUTOSIZE );
+	cv::namedWindow( "signalMap", CV_WINDOW_AUTOSIZE );
 	while (ros::ok()) {
 		ros::spinOnce();
 		if (cv::waitKey( 50 )== 'q') {
