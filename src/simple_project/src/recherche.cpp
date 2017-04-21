@@ -114,7 +114,7 @@ class Mapping_simple {
 				return;
 				
 			if(size_changed == false) {
-				
+				int mat_x = pose.position.x/infos.resolution;
 			}
 			else {
 				signalMap = erodedMap;
@@ -143,15 +143,15 @@ class Mapping_simple {
 };
 
 int main(int argc, char * argv[]) {
-    ros::init(argc,argv,"Mapping_simple");
-    Mapping_simple ogp;
+	ros::init(argc,argv,"Mapping_simple");
+	Mapping_simple ogp;
 	cv::namedWindow ("BeforeErosion", cv::WINDOW_AUTOSIZE );
-    cv::namedWindow( "Mapping_simple", CV_WINDOW_AUTOSIZE );
-    while (ros::ok()) {
-        ros::spinOnce();
-        if (cv::waitKey( 50 )== 'q') {
-            ros::shutdown();
-        }
-    }
+	cv::namedWindow( "Mapping_simple", CV_WINDOW_AUTOSIZE );
+	while (ros::ok()) {
+		ros::spinOnce();
+		if (cv::waitKey( 50 )== 'q') {
+			ros::shutdown();
+		}
+	}
 }
 
