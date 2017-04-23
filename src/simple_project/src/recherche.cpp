@@ -17,6 +17,7 @@
 #include <nav_msgs/MapMetaData.h>
 #include <geometry_msgs/Pose.h>
 #include <std_msgs/Float32.h>
+#include <geometry_msgs/Twist.h>
 
 #define FREE 0xFF
 #define UNKNOWN 0x80
@@ -267,6 +268,7 @@ class Mapping_simple {
 			map_topic = nh_.subscribe("map",false,&Mapping_simple::Map_callback,this);
 			signal_topic = nh_.subscribe("signal",false,&Mapping_simple::Signal_callback,this);
 			odom_topic = nh_.subscribe("odom",false,&Mapping_simple::Pose_out_callback,this);
+			twist_publish = n.advertise<std_msgs::String>("chatter", 1000);
 			prev_size_x, prev_size_y = 0;
 			size_changed = true;
 			map_initialized = false;
