@@ -15,7 +15,7 @@
 
 #include <nav_msgs/OccupancyGrid.h>
 #include <nav_msgs/MapMetaData.h>
-#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/Pose.h>
 #include <std_msgs/Float32.h>
 
 #define FREE 0xFF
@@ -24,6 +24,7 @@
 
 #define WIN_SIZE 800
 #define MAP_RESOLUTION 0.025
+#define SIGNAL_MAP_SIZE 2048
 
 #define DISTANCE_NEW_POINTS 1
 #define DISTANCE_MIN_NEW_POINTS 1
@@ -56,7 +57,7 @@ class Mapping_simple {
 		nav_msgs::MapMetaData infos;
 		
 		cv::Mat_<uint8_t> erodedMap, signalMap, passagesMap;
-		cv::Mat_<cv::Vec3b> coloredMap, coloredSignalMap;
+		cv::Mat_<cv::Vec3b> coloredMap, coloredSignalMap, coloredPassagesMap;
 		geometry_msgs::Pose pose;
 		
 		int minx, miny, maxx, maxy;
@@ -65,12 +66,15 @@ class Mapping_simple {
 		bool size_changed, map_initialized, resize;
 		cv::Mat_<cv::Vec3b> old_resized_signal;
 		
+		float x,y;
+		
 		std::vector <mPoint> passages;
 		int index_objective;
 		
 		float min_distance;
 		
 		void Map_callback(const nav_msgs::OccupancyGrid msg) {
+			//ROS_INFO("Maj Mapping");
 			cv::Mat_<uint8_t> BeforeErosion = cv::Mat_<uint8_t>(msg.info.height, msg.info.width, 0xFF);
 			maxx = msg.info.width; maxy = msg.info.height; 
 			minx = 0; miny = 0;
@@ -117,7 +121,6 @@ class Mapping_simple {
 			double ratio = w / ((double)h);
 			cv::Size new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE); 
 			cv::resize(coloredMap,coloredMap,new_size);
-			cv::namedWindow ("Map", cv::WINDOW_AUTOSIZE );
 			cv::imshow( "Map", coloredMap);
 			
 			if (msg.info.height != prev_size_y || msg.info.width != prev_size_x) {
@@ -131,29 +134,35 @@ class Mapping_simple {
 		}
 		
 		void Signal_callback(const std_msgs::Float32ConstPtr & msg) { 
+			//ROS_INFO("Update Signal - Entree");
 			if (!map_initialized)
 				return;
 				
-			int x = initial_x + pceil(pose.position.x/(4*MAP_RESOLUTION));
-			int y = initial_y + pceil(pose.position.y/(4*MAP_RESOLUTION));
-				
-			int x_real = initial_x + pceil(pose.position.x/(MAP_RESOLUTION));
-			int y_real = initial_y + pceil(pose.position.y/(MAP_RESOLUTION));
-				
-			for (int i = x-5; i < x+5; i++)
-				for (int j = y-5; j < y+5; j++) {
-					if (i >= 0 && j >= 0 && i < infos.width && j < infos.height)
-						signalMap.at<uint8_t>(i,j) = (uint8_t) (msg->data*255);	
+			int x = pceil(SIGNAL_MAP_SIZE/2) + pceil(pose.position.x/(4*MAP_RESOLUTION));
+			int y = pceil(SIGNAL_MAP_SIZE/2) + initial_y + pceil(pose.position.y/(4*MAP_RESOLUTION)); 
+			
+			//ROS_INFO("Update Signal - Debut boucle");
+			
+			float val = msg->data;
+			
+			for (int i = x-5 >= 0 ? x-5 : 0; i <= x+5 && i < SIGNAL_MAP_SIZE; i++)
+				for (int j = y-5 >= 0 ? y-5 : 0; j <= y+5 && j < SIGNAL_MAP_SIZE; j++) {
+					signalMap.at<uint8_t>(i,j) = (uint8_t) pceil (val*255);	
 				}
 		
-				
+			ROS_INFO("Update Signal - Affichage : Position [%d, %d] - Signal %d", x, y, (uint8_t) pceil (val*255));
+			
 			unsigned int w = maxx - minx;
 			unsigned int h = maxy - miny;
-
+			
+			cv::cvtColor(signalMap, coloredSignalMap, CV_GRAY2RGB);
+			
 			double ratio = w / ((double)h);
 			cv::Size new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE); 
-			cv::resize(signalMap,coloredSignalMap,new_size);
-			cv::imshow( "signalMap", coloredSignalMap);
+			cv::resize(coloredSignalMap,coloredSignalMap,new_size);
+			cv::imshow("signalMap", coloredSignalMap);
+			
+			//ROS_INFO("Update Signal - Sortie");
 		}
 		
 		void publish_turning (float angle) {
@@ -164,9 +173,11 @@ class Mapping_simple {
 			
 		}
 		 
-		void Pose_out_callback(geometry_msgs::PoseStamped msg) {
-			pose = msg.pose;
-			
+		void Pose_out_callback(geometry_msgs::Pose msg) {
+			//ROS_INFO("Maj Pose_out");
+			pose = msg;
+			x = msg.position.x;
+			y = msg.position.y;
 			bool point1 = true; bool point2 = true; bool point3 = true; bool point4 = true;
 						
 			for (int i = 0; i < passages.size(); ++i) {
@@ -183,39 +194,71 @@ class Mapping_simple {
 					point4 = false;
 			} 
 			
+			// ROS_INFO("Maj Pose_out - Ajout points");
+			
 			if (point1)  {
 				passages.push_back(mPoint(pose.position.x+DISTANCE_NEW_POINTS, pose.position.y));
 				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
 			if (point2) {
-				passages.push_back(mPoint(pose.position.x-DISTANCE_NEW_POINTS, pose.position.y));
+				passages.push_back(mPoint(pose.position.x-DISTANCE_NEW_POINTS, pose.position.y));				
+				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
 			if (point3) {
-				passages.push_back(mPoint(pose.position.x, pose.position.y+DISTANCE_NEW_POINTS));
+				passages.push_back(mPoint(pose.position.x, pose.position.y+DISTANCE_NEW_POINTS));				
+				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
 			if (point4) {
-				passages.push_back(mPoint(pose.position.x, pose.position.y-DISTANCE_NEW_POINTS));
+				passages.push_back(mPoint(pose.position.x, pose.position.y-DISTANCE_NEW_POINTS));				
+				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
+			
+			// ROS_INFO("Maj Pose_out - Affichage des objectifs");
+						
+			cv::cvtColor(passagesMap, coloredPassagesMap, CV_GRAY2RGB);
+			
+			cv::Size new_size = cv::Size(WIN_SIZE*0.7,WIN_SIZE*0.7); 
+			cv::resize(coloredPassagesMap,coloredPassagesMap,new_size);
+			cv::imshow("Objectifs", coloredPassagesMap);
+			
+			// ROS_INFO("Maj Pose_out - Maj du statut de l'objectif");
 			
 			double min = INF;
 			double tmp; 
 			
 			if (hypot(passages[index_objective].x - pose.position.x, passages[index_objective].y - pose.position.y) < DISTANCE_ARRIVEE) {
-				passages[index_objective].etat == 2;
+				passages[index_objective].etat = 2;
+				// ROS_INFO("Maj Pose_out - Objectif fini :)");
 			}
 
-			if (passages[index_objective].etat == 2) {
+			// ROS_INFO("Maj Pose_out - Changement d'objectif ?");
+			
+			int nb_objectifs = 0;
+			
+			for (int i = 0; i < passages.size(); ++i)
+				if (passages[i].etat == 0)
+					nb_objectifs++;
+			
+			//ROS_INFO("Maj Pose_out - Nombre objectifs restants : %d", nb_objectifs);
+			
+			if (passages[index_objective].etat == 2 && nb_objectifs > 0) {
+				//ROS_INFO("Maj Pose_out - Choix du nouvel objectif");
 				for (int i = 0; i < passages.size(); ++i) {
-					if ((tmp = hypot(passages[i].x - pose.position.x,passages[i].y - pose.position.y) < min && hypot(passages[i].x - pose.position.x,passages[i].y - pose.position.y)) > DISTANCE_MIN_NEW_POINTS && passages[index_objective].etat == 1)
+					if ((tmp = hypot(passages[i].x - pose.position.x,passages[i].y - pose.position.y) < min && hypot(passages[i].x - pose.position.x,passages[i].y - pose.position.y)) > DISTANCE_MIN_NEW_POINTS && passages[index_objective].etat == 0) {
 						index_objective = i;
+						ROS_INFO("Maj Pose_out - Nouvel objectif : %d -> [%f,%f]", i, passages[i].x, passages[i].y);
+						passages[i].etat = 1;
+					}
 				} 
 				passages[index_objective].etat == 1;
 			}
+				
+			//ROS_INFO("Maj Pose_out - Sortie");
 		}
 		
 		void Map_Data_callback(const nav_msgs::MapMetaDataConstPtr & msg) {
-			infos = *msg;
 			ROS_INFO("Maj Map_Data");
+			infos = *msg;
 		}
 		
 	public:
@@ -228,17 +271,19 @@ class Mapping_simple {
 			size_changed = true;
 			map_initialized = false;
 			resize = false;
-			ROS_INFO("LE PROBLEME EST LA");
-			signalMap = cv::Mat_<uint8_t> (2048, 2048); 
+			signalMap = cv::Mat_<uint8_t> (SIGNAL_MAP_SIZE, SIGNAL_MAP_SIZE); 
 			passagesMap = cv::Mat_<uint8_t> (2048, 2048); 
+			passages.push_back(mPoint(0,0));
+			index_objective = 0;
 		}
 };
 
 int main(int argc, char * argv[]) {
 	ros::init(argc,argv,"Mapping_simple");
 	Mapping_simple ogp;
-	cv::namedWindow ("BeforeErosion", cv::WINDOW_AUTOSIZE );
+	cv::namedWindow ("Map", cv::WINDOW_AUTOSIZE );
 	cv::namedWindow( "signalMap", CV_WINDOW_AUTOSIZE );
+	cv::namedWindow ("Objectifs", cv::WINDOW_AUTOSIZE );
 	while (ros::ok()) {
 		ros::spinOnce();
 		if (cv::waitKey( 50 )== 'q') {
