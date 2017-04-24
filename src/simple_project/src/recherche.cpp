@@ -134,11 +134,8 @@ class Mapping_simple {
 			if (!map_initialized)
 				return;
 				
-			int x = initial_x + pceil(pose.position.x/(4*MAP_RESOLUTION));
-			int y = initial_y + pceil(pose.position.y/(4*MAP_RESOLUTION));
-				
-			int x_real = initial_x + pceil(pose.position.x/(MAP_RESOLUTION));
-			int y_real = initial_y + pceil(pose.position.y/(MAP_RESOLUTION));
+			int x = 1024 + pceil(pose.position.x/(4*MAP_RESOLUTION));
+			int y = 1024 + pceil(pose.position.y/(4*MAP_RESOLUTION));
 				
 			for (int i = x-5; i < x+5; i++)
 				for (int j = y-5; j < y+5; j++) {
@@ -146,12 +143,9 @@ class Mapping_simple {
 						signalMap.at<uint8_t>(i,j) = (uint8_t) (msg->data*255);	
 				}
 		
-				
-			unsigned int w = maxx - minx;
-			unsigned int h = maxy - miny;
 
-			double ratio = w / ((double)h);
-			cv::Size new_size = cv::Size(WIN_SIZE*ratio,WIN_SIZE); 
+			//double ratio = w / ((double)h);
+			cv::Size new_size = cv::Size(WIN_SIZE*0.5,WIN_SIZE); 
 			cv::resize(signalMap,coloredSignalMap,new_size);
 			cv::imshow( "signalMap", coloredSignalMap);
 		}
@@ -185,7 +179,7 @@ class Mapping_simple {
 			
 			if (point1)  {
 				passages.push_back(mPoint(pose.position.x+DISTANCE_NEW_POINTS, pose.position.y));
-				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
+				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/(4*MAP_RESOLUTION)+256,passages[passages.size()-1].y/(4*MAP_RESOLUTION)+256), DISTANCE_MIN_NEW_POINTS/(8*MAP_RESOLUTION), 255);
 			}
 			if (point2) {
 				passages.push_back(mPoint(pose.position.x-DISTANCE_NEW_POINTS, pose.position.y));
@@ -211,6 +205,9 @@ class Mapping_simple {
 				} 
 				passages[index_objective].etat == 1;
 			}
+
+			cv::imshow( "Passages", passagesMap);
+
 		}
 		
 		void Map_Data_callback(const nav_msgs::MapMetaDataConstPtr & msg) {
@@ -230,7 +227,7 @@ class Mapping_simple {
 			resize = false;
 			ROS_INFO("LE PROBLEME EST LA");
 			signalMap = cv::Mat_<uint8_t> (2048, 2048); 
-			passagesMap = cv::Mat_<uint8_t> (2048, 2048); 
+			passagesMap = cv::Mat_<uint8_t> (512, 512); 
 		}
 };
 
@@ -239,6 +236,7 @@ int main(int argc, char * argv[]) {
 	Mapping_simple ogp;
 	cv::namedWindow ("BeforeErosion", cv::WINDOW_AUTOSIZE );
 	cv::namedWindow( "signalMap", CV_WINDOW_AUTOSIZE );
+	cv::namedWindow( "Passages", CV_WINDOW_AUTOSIZE );
 	while (ros::ok()) {
 		ros::spinOnce();
 		if (cv::waitKey( 50 )== 'q') {
