@@ -16,6 +16,19 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+# Groovy
+# #add dynamic reconfigure api
+# find_package(catkin REQUIRED dynamic_reconfigure)
+# generate_dynamic_reconfigure_options(cfg/GotoXY.xfg)
+# # make sure configure headers are build before node using them
+
+# Fuerte
+#add dynamic reconfigure api
+# Uncomment once we have the first task
+rosbuild_find_ros_package(dynamic_reconfigure)
+include(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake)
+gencfg()
+
 #uncomment if you have defined messages
 #rosbuild_genmsg()
 #uncomment if you have defined services
@@ -26,5 +39,5 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #target_link_libraries(${PROJECT_NAME} another_library)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
-rosbuild_add_executable(collision_avoidance src/collision_avoidance.cpp)
+#rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})

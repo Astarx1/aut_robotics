@@ -49,7 +49,6 @@
 
 	<!--<node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
 	</node>-->
-	
   
 	<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
 		<param name="base_frame" value="/body"/>
@@ -66,21 +65,21 @@
 		<param name="ymax" value="15"/>
 	</node>
 	
-	<include file="$(find vrep_ros_teleop)/launch/teleop.launch"/>
+	<!--<include file="$(find vrep_ros_teleop)/launch/teleop.launch"/>
 	
-	<!--<include file="$(find hector_slam_launch)/launch/tuto2.launch" /> -->
+	<include file="$(find hector_slam_launch)/launch/tuto2.launch" /> -->
 
-	
 	<node pkg="simpleproject" type="mapping_simple" name="mapping_simple" output="screen">
 		<remap from="/mapping_simple/map" to="/map"/>
 		<remap from="/mapping_simple/odom" to="/odom"/>
 		<remap from="/mapping_simple/scan" to="/scan"/>
 		<remap from="/mapping_simple/map_data" to="/map_metadata"/>
 		<remap from="/mapping_simple/signal" to="/vrep/metalDetector" />
+		<remap from="/mapping_simple/commande" to="/vrep/twistCommand" />
 	</node>
 
-  <node pkg="robot_control" type="bubble_odom.py" name="odom">
-  </node>
+	  <node pkg="robot_control" type="bubble_odom.py" name="odom">
+	  </node>
   
 	<!--<include file="$(find hector_geotiff)/launch/geotiff_mapper_only.launch"/> -->
 	

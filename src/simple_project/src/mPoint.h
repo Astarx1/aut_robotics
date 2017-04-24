@@ -10,6 +10,7 @@ public:
 	mPoint (float nx, float ny) {
 		x = nx;
 		y = ny;
+		etat = 0;
 	}
 };
 
