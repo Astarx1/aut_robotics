@@ -1,37 +1,30 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(collision_avoidance)
+cmake_minimum_required(VERSION 2.4.6)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-include_directories(SYSTEM)
+# Set the build type.  Options are:
+#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
+#  Debug          : w/ debug symbols, w/o optimization
+#  Release        : w/o debug symbols, w/ optimization
+#  RelWithDebInfo : w/ debug symbols, w/ optimization
+#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
+#set(ROS_BUILD_TYPE RelWithDebInfo)
 
-find_package(catkin REQUIRED COMPONENTS
-	pcl_ros
- 	roscpp
- 	joy
-)
+rosbuild_init()
 
-include_directories(${catkin_INCLUDE_DIRS})
-link_directories(${catkin_LIBRARY_DIRS})
-
-
-catkin_package(
-  LIBRARIES
-  CATKIN_DEPENDS
-  pcl_ros
-  roscpp
-  joy
-)
-
+#set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+#uncomment if you have defined messages
+#rosbuild_genmsg()
+#uncomment if you have defined services
+#rosbuild_gensrv()
 
-link_directories("/opt/ros/fuerte/lib")
-link_directories("/opt/ros/groovy/lib")
-link_directories("/opt/ros/hydro/lib")
-link_directories("/opt/ros/indigo/lib")
-link_directories("/opt/ros/jade/lib")
-link_directories("/opt/ros/kinetic/lib")
-
-add_executable(collision_avoidance src/coll_avoid.cpp)
-target_link_libraries(collision_avoidance ${catkin_LIBRARIES})
-target_link_libraries(collision_avoidance m)
+#common commands for building c++ executables and libraries
+#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
+#target_link_libraries(${PROJECT_NAME} another_library)
+#rosbuild_add_boost_directories()
+#rosbuild_link_boost(${PROJECT_NAME} thread)
+rosbuild_add_executable(collision_avoidance src/collision_avoidance.cpp)
+#target_link_libraries(example ${PROJECT_NAME})

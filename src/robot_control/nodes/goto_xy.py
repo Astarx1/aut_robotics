@@ -34,7 +34,7 @@ class GotoXY:
         self.goal_y = y
         print [self.goal_x, self.goal_y]
 
-        self.pose_sub = rospy.Subscriber("/move_base_simple/goal",PoseStamped,self.pose_cb)
+        self.pose_sub = rospy.Subscriber("goto",PoseStamped,self.pose_cb)
         self.twist_pub = rospy.Publisher("~twistCommand",Twist)
         self.marker_pub = rospy.Publisher("~goal_marker",Marker)
     
