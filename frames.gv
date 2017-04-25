@@ -1,0 +1,13 @@
+digraph G {
+"odom" -> "base_footprint"[label="Broadcaster: /mobile_base_nodelet_manager\nAverage rate: 50.149 Hz\nMost recent transform: 1493129203.229 ( 0.014 sec old)\nBuffer length: 4.925 sec\n"];
+"base_link" -> "wheel_left_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 4.995 Hz\nMost recent transform: 1493129203.168 ( 0.075 sec old)\nBuffer length: 4.805 sec\n"];
+"base_link" -> "wheel_right_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 4.995 Hz\nMost recent transform: 1493129203.168 ( 0.075 sec old)\nBuffer length: 4.805 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1493129203.243"[ shape=plaintext ] ;
+ }->"odom";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1493129203.243"[ shape=plaintext ] ;
+ }->"base_link";
+}

@@ -27,18 +27,31 @@
 		<remap from="/teleop/twistCommand" to="/vrep/twistCommand"/>
 	</node>-->
 	
-	   <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pc_laser">
+	   <!--<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pc_laser">
 		<param name="min_height" value="-1.0" />
 		<param name="max_height" value="1.0" />
 		<param name="range_min" value="0.20" />
 		<param name="range_max" value="10.0" />
 		<param name="use_inf" value="false" />
 
-		<remap from="cloud_in" to="/vrep/hokuyoSensor" />
-	  </node>
+		(<remap from="cloud_in" to="/scan" />)
+	  </node>-->
+
 	
-	<!--<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-		<param name="base_frame" value="/body"/>
+	
+	<!--
+	<node pkg="simpleproject" type="odom_simple" name="myodom" output="screen">
+		<remap from="/myodom/left" to="/vrep/leftWheelEncoder" />
+		<remap from="/myodom/right" to="/vrep/rightWheelEncoder" />
+	</node>
+	
+	-->
+
+	<!--<node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
+	</node>-->
+  
+	<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
+		<param name="base_frame" value="/base_link"/>
 		<param name="odom_frame" value="/odom"/>
 		<param name="maxURange" value="8.0"/>
 		<param name="maxRange" value="10.0"/>
@@ -50,22 +63,25 @@
 		<param name="ymin" value="-15"/>
 		<param name="xmax" value="15"/>
 		<param name="ymax" value="15"/>
-	</node>-->
-
-	<!--<node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
-	</node>-->
-  
-	<include file="$(find vrep_ros_teleop)/launch/teleop.launch"/>
+		<remap from="/slam_gmapping/scan" to="/scan" />
+	</node>
 	
-	<include file="$(find hector_slam_launch)/launch/tuto2.launch" /> 
+	<!--<include file="$(find vrep_ros_teleop)/launch/teleop.launch"/>
+	
+	<include file="$(find hector_slam_launch)/launch/tuto2.launch" /> -->
 
 	<node pkg="simpleproject" type="mapping_simple" name="mapping_simple" output="screen">
 		<remap from="/mapping_simple/map" to="/map"/>
-		<remap from="/mapping_simple/odom" to="/slam_out_pose"/>
+		<remap from="/mapping_simple/odom" to="/odom"/>
+		<remap from="/mapping_simple/scan" to="/scan"/>
 		<remap from="/mapping_simple/map_data" to="/map_metadata"/>
-		<remap from="/mapping_simple/signal" to="/vrep/metalDetector" />
+		<!-- <remap from="/mapping_simple/signal" to="" />-->
+		<remap from="/mapping_simple/commande" to="/cmd_vel_mux/input/teleop" />
 	</node>
 
+	<!--	  <node pkg="robot_control" type="bubble_odom.py" name="odom">
+	  </node> -->
+  
 	<!--<include file="$(find hector_geotiff)/launch/geotiff_mapper_only.launch"/> -->
 	
 	<!--<node pkg="hector_slam_launch" name="hector_slam_launch" type="tutorial">

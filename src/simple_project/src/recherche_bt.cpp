@@ -21,7 +21,7 @@
 #include <std_msgs/Float32.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/LaserScan.h>
-#include <geometry_msgs/Odometry.h>
+#include <nav_msgs/Odometry.h>
 
 #define FREE 0xFF
 #define UNKNOWN 0x80
@@ -203,12 +203,12 @@ class Mapping_simple {
 			
 		}
 		 
-		void Pose_out_callback(geometry_msgs::Odometry msg) {
+		void Pose_out_callback(nav_msgs::Odometry msg) {
 			//ROS_INFO("Maj Pose_out");
-			pose = msg.PoseWithCovariance.pose;
-			x = msg.PoseWithCovariance.pose.position.x;
-			y = msg.PoseWithCovariance.pose.position.y;
-			w = tf::getYaw(msg.orientation);
+			pose = msg.pose.pose;
+			x = pose.position.x;
+			y = pose.position.y;
+			w = tf::getYaw(pose.orientation);
 			//w = msg.orientation.w;
 			
 			bool point1 = true; bool point2 = true; bool point3 = true; bool point4 = true;

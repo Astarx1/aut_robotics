@@ -1,14 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(simpleproject)
+project(tb_slam)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cv_bridge
   geometry_msgs
-  nav_msgs
-  roscpp
   rospy
   sensor_msgs
   std_msgs
@@ -22,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -49,11 +46,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-#add_message_files(
-#  FILES
-#  TrajectoryElement.msg
-#  Trajectory.msg
-#)
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -70,10 +67,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  geometry_msgs   nav_msgs   sensor_msgs   std_msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   geometry_msgs#   sensor_msgs#   std_msgs
+# )
 
 ###################################
 ## catkin specific configuration ##
@@ -86,8 +83,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES occgrid_planner
-  CATKIN_DEPENDS cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf
+#  LIBRARIES rover_driver
+#  CATKIN_DEPENDS geometry_msgs rospy sensor_msgs std_msgs tf
 #  DEPENDS system_lib
 )
 
@@ -103,45 +100,37 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(occgrid_planner
-#   src/${PROJECT_NAME}/occgrid_planner.cpp
+# add_library(rover_driver
+#   src/${PROJECT_NAME}/rover_driver.cpp
 # )
 
 ## Declare a cpp executable
-#add_executable(occgrid_planner src/occgrid_planner.cpp)
-#add_executable(occgrid_treasure src/occgrid_treasure.cpp)
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-#add_dependencies(occgrid_planner occgrid_planner_generate_messages_cpp)
-#add_dependencies(occgrid_treasure occgrid_planner_base_generate_messages_cpp) #a verifier
-## Specify libraries to link a library or executable target against
-#target_link_libraries(occgrid_planner ${catkin_LIBRARIES})
-#target_link_libraries(occgrid_treasure ${catkin_LIBRARIES})
-
-## Declare a cpp executable
-add_executable(mapping_simple src/recherche.cpp)
-add_executable(odom_simple src/my_odom.cpp)
-add_executable(mapping_simple_bt src/recherche_bt.cpp)
+# add_executable(rover_driver_node src/rover_driver_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-#add_dependencies(path_follower occgrid_planner_generate_messages_cpp)
-## Specify libraries to link a library or executable target against
-target_link_libraries(mapping_simple ${catkin_LIBRARIES})
-target_link_libraries(odom_simple ${catkin_LIBRARIES})
-target_link_libraries(mapping_simple_bt ${catkin_LIBRARIES})
+# add_dependencies(rover_driver_node rover_driver_generate_messages_cpp)
 
-## Declare a cpp executable
-#add_executable(path_optimizer src/path_optimizer.cpp)
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-#add_dependencies(path_optimizer occgrid_planner_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
-#target_link_libraries(path_optimizer ${catkin_LIBRARIES})
+# target_link_libraries(rover_driver_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
 #############
+
+install(PROGRAMS
+  nodes/rover_mapping.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY src/tb_slam/
+  DESTINATION ${CATKIN_PACKAGE_PYTHON_DESTINATION}
+  USE_SOURCE_PERMISSIONS
+  PATTERN ".svn" EXCLUDE
+)
+
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
@@ -154,7 +143,7 @@ target_link_libraries(mapping_simple_bt ${catkin_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS occgrid_planner occgrid_planner_node
+# install(TARGETS rover_driver rover_driver_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -179,7 +168,7 @@ target_link_libraries(mapping_simple_bt ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_occgrid_planner.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_rover_driver.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

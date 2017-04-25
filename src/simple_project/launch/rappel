@@ -1,0 +1,3 @@
+roslaunch turtlebot_bringup minimal.launch
+roslaunch turtlebot_bringup 3dsensor.launch
+

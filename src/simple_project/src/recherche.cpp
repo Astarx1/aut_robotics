@@ -16,6 +16,7 @@
 #include <tf/transform_datatypes.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <nav_msgs/MapMetaData.h>
+#include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/Float32.h>
@@ -202,12 +203,12 @@ class Mapping_simple {
 			
 		}
 		 
-		void Pose_out_callback(geometry_msgs::Pose msg) {
+		void Pose_out_callback (nav_msgs::Odometry msg) {
 			//ROS_INFO("Maj Pose_out");
-			pose = msg;
-			x = msg.position.x;
-			y = msg.position.y;
-			w = tf::getYaw(msg.orientation);
+			pose = msg.pose.pose;
+			x = msg.pose.pose.position.x;
+			y = msg.pose.pose.position.y;
+			w = tf::getYaw(msg.pose.pose.orientation);
 			//w = msg.orientation.w;
 			
 			bool point1 = true; bool point2 = true; bool point3 = true; bool point4 = true;
