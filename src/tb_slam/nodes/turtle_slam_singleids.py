@@ -16,7 +16,8 @@ from numpy import mat,vstack,diag, zeros, eye
 from numpy.linalg import inv
 from math import atan2, hypot, pi, cos, sin, fmod, sqrt
 
-from ar_track_alvar.msg import AlvarMarkers
+#from ar_track_alvar.msg import AlvarMarkers
+from ar_track_alvar_msgs.msg import AlvarMarkers
 
 def norm_angle(x):
     return fmod(x+pi,2*pi)-pi
@@ -55,8 +56,9 @@ class BubbleSLAM:
         rospy.sleep(1.0);
         now = rospy.Time.now()
         lasttf = rospy.Time(0)
-        self.listener.waitForTransform(self.odom_frame,self.body_frame, now, rospy.Duration(5.0))
-        (trans,rot) = self.listener.lookupTransform(self.odom_frame,self.body_frame, lasttf)
+	print("Transform from %s to %s at %s"%(self.odom_frame,self.body_frame,str(now)))
+	# self.listener.waitForTransform(self.odom_frame,self.body_frame, now, rospy.Duration(5.0))
+	(trans,rot) = self.listener.lookupTransform(self.odom_frame,self.body_frame, lasttf)
 
     def predict(self, dt, dr):
         theta = self.X[2,0]
@@ -135,8 +137,8 @@ class BubbleSLAM:
         while not rospy.is_shutdown():
             now = rospy.Time.now()
             lasttf = now #rospy.Time(0)
-            self.listener.waitForTransform(self.odom_frame,self.body_frame, now, rospy.Duration(1.0))
-            (trans,rot) = self.listener.lookupTransform(self.odom_frame,self.body_frame, lasttf)
+            # self.listener.waitForTransform(self.odom_frame,self.body_frame, now, rospy.Duration(1.0))
+            (trans,rot) = self.listener.lookupTransform(self.odom_frame,self.body_frame, rospy.Time(0))
             new_odom = mat(self.listener.fromTranslationRotation(trans,rot))
             euler = tf.transformations.euler_from_quaternion(rot);
             deltar = euler[2]-self.lastr;

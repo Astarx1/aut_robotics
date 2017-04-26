@@ -1,19 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(simpleproject)
+project(wpa_cli)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cv_bridge
-  geometry_msgs
-  nav_msgs
-  roscpp
   rospy
-  sensor_msgs
   std_msgs
-  tf
-  wpa_cli
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -50,11 +44,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-#add_message_files(
-#  FILES
-#  TrajectoryElement.msg
-#  Trajectory.msg
-#)
+add_message_files(
+  FILES
+  Scan.msg
+  Network.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -73,7 +67,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  geometry_msgs   nav_msgs   sensor_msgs   std_msgs
+  std_msgs
 )
 
 ###################################
@@ -87,8 +81,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES occgrid_planner
-  CATKIN_DEPENDS cv_bridge geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf wpa_cli
+#  LIBRARIES wpa_cli
+  CATKIN_DEPENDS rospy std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -104,41 +98,21 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(occgrid_planner
-#   src/${PROJECT_NAME}/occgrid_planner.cpp
+# add_library(wpa_cli
+#   src/${PROJECT_NAME}/wpa_cli.cpp
 # )
 
 ## Declare a cpp executable
-#add_executable(occgrid_planner src/occgrid_planner.cpp)
-#add_executable(occgrid_treasure src/occgrid_treasure.cpp)
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-#add_dependencies(occgrid_planner occgrid_planner_generate_messages_cpp)
-#add_dependencies(occgrid_treasure occgrid_planner_base_generate_messages_cpp) #a verifier
-## Specify libraries to link a library or executable target against
-#target_link_libraries(occgrid_planner ${catkin_LIBRARIES})
-#target_link_libraries(occgrid_treasure ${catkin_LIBRARIES})
-
-## Declare a cpp executable
-add_executable(mapping_simple src/recherche.cpp)
-add_executable(odom_simple src/my_odom.cpp)
-add_executable(mapping_simple_bt src/recherche_bt.cpp)
+# add_executable(wpa_cli_node src/wpa_cli_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-#add_dependencies(path_follower occgrid_planner_generate_messages_cpp)
-## Specify libraries to link a library or executable target against
-target_link_libraries(mapping_simple ${catkin_LIBRARIES})
-target_link_libraries(odom_simple ${catkin_LIBRARIES})
-target_link_libraries(mapping_simple_bt ${catkin_LIBRARIES})
+# add_dependencies(wpa_cli_node wpa_cli_generate_messages_cpp)
 
-## Declare a cpp executable
-#add_executable(path_optimizer src/path_optimizer.cpp)
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-#add_dependencies(path_optimizer occgrid_planner_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
-#target_link_libraries(path_optimizer ${catkin_LIBRARIES})
+# target_link_libraries(wpa_cli_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -155,7 +129,7 @@ target_link_libraries(mapping_simple_bt ${catkin_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS occgrid_planner occgrid_planner_node
+# install(TARGETS wpa_cli wpa_cli_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -180,7 +154,7 @@ target_link_libraries(mapping_simple_bt ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_occgrid_planner.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_wpa_cli.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

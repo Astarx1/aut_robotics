@@ -8,8 +8,8 @@ from geometry_msgs.msg import Point, Pose, PoseStamped
 import tf
 import threading
 
-import ar_loc_base
-from ar_loc_base.rover_kinematics import *
+import rover_driver
+from rover_driver.rover_kinematics import *
 
 
 
@@ -22,8 +22,6 @@ class MappingKF(RoverKinematics):
         self.idx = {}
         self.pose_pub = rospy.Publisher("~pose",PoseStamped,queue_size=1)
         self.marker_pub = rospy.Publisher("~landmarks",MarkerArray,queue_size=1)
-        self.Q = 0.01*eye(3)
-        self.posMatrixId = {}
 
     def getRotation(self, theta):
         R = mat(zeros((2,2)))
@@ -46,35 +44,17 @@ class MappingKF(RoverKinematics):
         S = self.prepare_displacement_matrix(self.motor_state,motor_state,drive_cfg)
         self.motor_state.copy(motor_state)
         
-
+        # Implement Kalman prediction here
+        theta = self.X[2,0]
+        Rtheta = mat([[cos(theta), -sin(theta), 0], 
+                      [sin(theta),  cos(theta), 0],
+                      [         0,           0, 1]]);
+        DeltaX = iW*S
         # Update the state using odometry (same code as for the localisation
         # homework), but we only need to deal with a subset of the state:
         # TODO
         # self.X[0:3,0] = ...
         # self.P[0:3,0:3] = ...
-
-        tmpX = self.X[0:3,0]
-        tmpP = self.P[0:3,0:3]
-        
-        t = self.X[2,0]
-
-        RotateMatrix = mat([[cos(t), -sin(t), 0], 
-                            [sin(t),  cos(t), 0],
-                            [0, 0, 1]]);
-
-        DeltaX = iW*S
-        
-        tmpX = tmpX + RotateMatrix*DeltaX
-        
-        A = mat([[1,0, -sin(t)*DeltaX[0,0]-cos(t)*DeltaX[1,0]],
-                 [0,1,  cos(t)*DeltaX[0,0]-sin(t)*DeltaX[1,0]],
-                 [0,0,  1 ]])
-
-        tmpP = A * tmpP * A.T + self.Q
-
-        self.X[0:3,0] = tmpX
-        self.P[0:3,0:3] = tmpP
-
         self.lock.release()
         return (self.X,self.P)
 
@@ -88,35 +68,6 @@ class MappingKF(RoverKinematics):
         # TODO
         # self.X = ...
         # self.P = ...
-
-        (n,m) = self.X.shape
-
-        R = 0.01*mat(diag([uncertainty,uncertainty]))
-        theta = self.X[2,0]
-        Rmt = self.getRotation(-theta)
-
-        H = mat(zeros((0, n)))
-        if id in self.posMatrixId.keys():
-            posId = self.posMatrixId[id]
-            H = mat(zeros((2,n)))
-            H[0:2,0:2] = -Rmt 
-            H[0:2,2] = mat(vstack([-(self.X[posId+0,0]-self.X[0,0])*sin(theta) + (self.X[posId+1,0]-self.X[1,0])*cos(theta),
-                                   (self.X[posId+0,0]-self.X[0,0])*cos(theta) - (self.X[posId+1,0]-self.X[1,0])*sin(theta)]))
-            H[0:2,posId:posId+2] = Rmt
-            z = Rmt * (self.X[posId:posId+2,0] - self.X[0:2,0])
-            S = H * self.P * H.T + R
-            Kk = self.P * H.T * inv(S)
-            self.X = self.X + Kk * (Z - z)
-            self.P = (mat(eye(n)) - Kk * H) * self.P
-
-        else:
-            self.posMatrixId[id] = n 
-            posLm = self.X[0:2,0]+(R*Z)
-            self.X = numpy.concatenate((self.X, posLm))
-            Pn = [uncertainty]*eye(n+2)
-            Pn[0:n,0:n] = mat(self.P)
-            self.P = Pn
-
         self.lock.release()
         return (self.X,self.P)
 

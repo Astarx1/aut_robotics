@@ -7,36 +7,25 @@ from visualization_msgs.msg import Marker, MarkerArray
 import tf
 import threading
 
-import rover_driver_base
-from rover_driver_base.rover_kinematics import *
+import rover_driver
+from rover_driver.rover_kinematics import *
 
 class Landmark:
     def __init__(self, Z, X , R):
-        self.X = X
-
-        t = X[2,0]
-        
-        RotateMatrix = mat([[cos(t), -sin(t)],[sin(t), cos(t)]])
-        
-        self.L = mat([X[1,0],X[2,0]] + dot(RotateMatrix, Z))
-        self.P = R
-
-        print "Init Landmark [" + str(self.L[0,0]) + ", " + str(self.L[1,0]) + "]" 
+        # Initialise a landmark based on measurement Z, 
+        # current position X and uncertainty R
+        # TODO
+        self.L =vstack([0,0])
+        self.P =mat([[0,0],[0,0]])
 
     def update(self,Z, X, R):
-        self.X = X
-        self.P = R
-
-        t = X[2,0]
-
-        RotateMatrix = mat([[cos(t), -sin(t)],[sin(t), cos(t)]])
-
-        self.L = (mat(mat([X[0,0], X[1,0]]) + mat((RotateMatrix * Z).T))).T
-
-        print "Update Landmark " + str(self.L.T)
-
+        # Update the landmark based on measurement Z, 
+        # current position X and uncertainty R
+        # TODO
         return
         
+
+
 class MappingKF:
     def __init__(self):
         self.lock = threading.Lock()
@@ -45,12 +34,13 @@ class MappingKF:
 
     def update_ar(self, Z, X, Id, uncertainty):
         self.lock.acquire()
-        #print "Update: Z="+str(Z.T)+" X="+str(X.T)+" Id="+str(Id)
+        print "Update: Z="+str(Z.T)+" X="+str(X.T)+" Id="+str(Id)
         R = mat(diag([uncertainty,uncertainty]))
-        if Id in self.marker_list.keys():
-            self.marker_list[Id].update(Z,X,R)
-        else:
-            self.marker_list[Id] = Landmark(Z,X,R)
+        # Take care of the landmark Id observed as Z from X
+        # self.marker_list is expected to be a dictionary of Landmark
+        # such that current landmark can be retrieved as self.marker_list[Id] 
+        # At initialisation, self.marker_list is empty
+        # TODO
         self.lock.release()
 
 

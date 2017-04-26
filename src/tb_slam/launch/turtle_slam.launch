@@ -12,7 +12,7 @@
         <param name="ignore_id" value="False"/>
         <param name="target_frame" value="/ar_map"/>
         <param name="odom_frame" value="/odom"/>
-        <param name="body_frame" value="/base_link"/>
+        <param name="body_frame" value="/base_footprint"/>
         <!-- Expected precision of wheel displacement measurement (in meter) -->
         <param name="position_uncertainty" value="0.01"/>
         <param name="angular_uncertainty" value="0.01"/>

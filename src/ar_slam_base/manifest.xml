@@ -16,8 +16,7 @@
   <depend package="rospy"/>
   <depend package="tf"/>
   <depend package="ar_track_alvar"/>
-  <depend package="ar_loc_base"/>
-  <depend package="rover_driver_base"/>
+  <depend package="rover_driver"/>
 
 </package>
 

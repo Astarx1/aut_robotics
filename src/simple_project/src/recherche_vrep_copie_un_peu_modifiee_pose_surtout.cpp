@@ -22,8 +22,6 @@
 #include <std_msgs/Float32.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/LaserScan.h>
-#include <wpa_cli/Scan.h>
-#include <wpa_cli/Network.h>
 
 #define FREE 0xFF
 #define UNKNOWN 0x80
@@ -36,7 +34,7 @@
 #define SIGNAL_MAP_SIZE 2048
 
 #define DISTANCE_NEW_POINTS 2
-#define DISTANCE_MIN_NEW_POINTS 1
+#define DISTANCE_MIN_NEW_POINTS 2
 #define DISTANCE_ARRIVEE 0.5
 #define MIN_OBSTACLE_DISTANCE 0.5
 
@@ -44,15 +42,6 @@
 #define ANGULAR_SPEED 0.07
 
 #define INF 8000000
-
-float treat_scan (wpa_cli::Scan msg) {
-	int max = 0;
-	for (int i = 0; i < msg.networks.size(); ++i) {
-		if (msg.networks[i].level > max)
-			max = msg.networks[i].level;
-	}
-	return (max+100)/100;
-}
 
 float ptreshold (float dist) {
 	if (dist > 2)
@@ -174,9 +163,8 @@ class Mapping_simple {
 			}
 		}
 		
-		void Signal_callback(const wpa_cli::Scan & msg) { 
-			float val = treat_scan (msg);
-			
+		void Signal_callback(const std_msgs::Float32ConstPtr & msg) { 
+			//ROS_INFO("Update Signal - Entree");
 			if (!map_initialized)
 				return;
 			
@@ -184,6 +172,8 @@ class Mapping_simple {
 			int y = pceil(SIGNAL_MAP_SIZE/2) + initial_y + pceil(pose.position.y/(4*MAP_RESOLUTION)); 
 			
 			//ROS_INFO("Update Signal - Debut boucle");
+			
+			float val = msg->data;
 			
 			for (int i = x-5 >= 0 ? x-5 : 0; i <= x+5 && i < SIGNAL_MAP_SIZE; i++)
 				for (int j = y-5 >= 0 ? y-5 : 0; j <= y+5 && j < SIGNAL_MAP_SIZE; j++) {
@@ -278,7 +268,7 @@ class Mapping_simple {
 			
 			if ((dist2obj = phypot(passages[index_objective].x - pose.position.x, passages[index_objective].y - pose.position.y)) < DISTANCE_ARRIVEE || blocage > 0) {
 				passages[index_objective].etat = 2;
-				ROS_INFO("Maj Pose_out - Objectif %d/%d fini :)", index_objective, passages.size());
+				ROS_INFO("Maj Pose_out - Objectif %d fini :)", index_objective);
 			}
 			
 			float ang_err = std::atan2 (passages[index_objective].y - y, passages[index_objective].x - x) - w;
@@ -286,8 +276,7 @@ class Mapping_simple {
 			float Vang = wrapAngle (ang_err);
 			
 			printf("Maj Pose_out - Distance objectif : %f, Angular error %f (%f : %f-%f) - min_dist : %f\n", 
-					dist2obj, Vang, ang_err, std::atan2 (passages[index_objective].y - pose.position.y, 
-						passages[index_objective].x - pose.position.x), w, min_distance);
+					dist2obj, Vang, ang_err, std::atan2 (passages[index_objective].y - pose.position.y, passages[index_objective].x - pose.position.x), w, min_distance);
 				
 			// ROS_INFO("Maj Pose_out - Changement d'objectif ?");
 			
@@ -345,7 +334,7 @@ class Mapping_simple {
 		void Scan_callback(const sensor_msgs::LaserScan & msg) {
 			min_distance = INF;
 			for (int i = 0; i < msg.ranges.size(); ++i) {
-				if (msg.ranges[i] < min_distance && msg.ranges[i] > 0.1)
+				if (msg.ranges[i] < min_distance)
 					 min_distance = msg.ranges[i];
 			}
 			std_msgs::Float32 f32;
