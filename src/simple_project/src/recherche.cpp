@@ -213,14 +213,27 @@ class Mapping_simple {
 			
 		}
 		 
-		void Pose_out_callback (nav_msgs::Odometry msg) {
+		void Pose_out_callbackOdo (nav_msgs::Odometry msg) {
 			//ROS_INFO("Maj Pose_out");
 			pose = msg.pose.pose;
 			x = msg.pose.pose.position.x;
 			y = msg.pose.pose.position.y;
 			w = tf::getYaw(msg.pose.pose.orientation);
+			Position_managing();
 			//w = msg.orientation.w;
-			
+		}
+
+		void Pose_out_callback (const geometry_msgs::PoseStamped & msg) {
+			//ROS_INFO("Maj Pose_out");
+			pose = msg.pose;
+			x = msg.pose.position.x;
+			y = msg.pose.position.y;
+			w = tf::getYaw(msg.pose.orientation);
+			Position_managing();
+			//w = msg.orientation.w;
+		}
+
+		void Position_managing () {	
 			bool point1 = true; bool point2 = true; bool point3 = true; bool point4 = true;
 						
 			for (int i = 0; i < passages.size(); ++i) {

@@ -76,8 +76,10 @@
 
 	<node pkg="simpleproject" type="mapping_simple" name="mapping_simple" output="screen">
 		<remap from="/mapping_simple/map" to="/map"/>
-		<remap from="/mapping_simple/odom" to="/odom"/>
+		<!-- Need to change the callback function which takes an Odometry in recherche.cpp :
+		<remap from="/mapping_simple/odom" to="/odom"/>-->
 		<remap from="/mapping_simple/signal" to="/wpa_cli/scan"/>
+		<remap from="/mapping_simple/odom" to="/slam/pose"/>
 		<remap from="/mapping_simple/scan" to="/scan"/>
 		<remap from="/mapping_simple/map_data" to="/map_metadata"/>
 		<!-- <remap from="/mapping_simple/signal" to="" />-->
