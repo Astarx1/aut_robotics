@@ -48,8 +48,8 @@
 	-->
 
 	<!--<node pkg="robot_control_base" type="bubble_odom.py" name="odom" output="screen">
-	</node>-->
   
+	</node>-->
   	<include file="$(find wpa_cli)/launch/wpa_cli.launch" />
   	
 	<include file="$(find tb_slam)/launch/turtle_slam.launch" />

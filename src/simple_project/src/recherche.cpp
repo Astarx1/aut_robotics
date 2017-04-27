@@ -35,13 +35,13 @@
 #define MAP_RESOLUTION 0.025
 #define SIGNAL_MAP_SIZE 2048
 
-#define DISTANCE_NEW_POINTS 2
+#define DISTANCE_NEW_POINTS 1
 #define DISTANCE_MIN_NEW_POINTS 1
 #define DISTANCE_ARRIVEE 0.5
 #define MIN_OBSTACLE_DISTANCE 0.5
 
-#define LINEAR_SPEED 0.02
-#define ANGULAR_SPEED 0.07
+#define LINEAR_SPEED 0.04
+#define ANGULAR_SPEED 0.18
 
 #define INF 8000000
 
@@ -236,7 +236,7 @@ class Mapping_simple {
 		void Position_managing () {	
 			bool point1 = true; bool point2 = true; bool point3 = true; bool point4 = true;
 						
-			for (int i = 0; i < passages.size(); ++i) {
+			for (int i = 0; i < passages.size() ; ++i) {
 				if (phypot(passages[i].x - (pose.position.x+DISTANCE_NEW_POINTS),passages[i].y - (pose.position.y)) < DISTANCE_MIN_NEW_POINTS)
 					point1 = false;
 					
@@ -252,19 +252,19 @@ class Mapping_simple {
 			
 			// ROS_INFO("Maj Pose_out - Ajout points");
 			
-			if (point1)  {
+			if (point1 && passages.size() < 5)  {
 				passages.push_back(mPoint(pose.position.x+DISTANCE_NEW_POINTS, pose.position.y));
 				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/(4*MAP_RESOLUTION)+256,passages[passages.size()-1].y/(4*MAP_RESOLUTION)+256), DISTANCE_MIN_NEW_POINTS/(8*MAP_RESOLUTION), 255);
 			}
-			if (point2) {
+			if (point2 && passages.size() < 5) {
 				passages.push_back(mPoint(pose.position.x-DISTANCE_NEW_POINTS, pose.position.y));				
 				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
-			if (point3) {
+			if (point3 && passages.size() < 5) {
 				passages.push_back(mPoint(pose.position.x, pose.position.y+DISTANCE_NEW_POINTS));				
 				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
-			if (point4) {
+			if (point4 && passages.size() < 5) {
 				passages.push_back(mPoint(pose.position.x, pose.position.y-DISTANCE_NEW_POINTS));				
 				cv::circle(passagesMap, cv::Point(passages[passages.size()-1].x/MAP_RESOLUTION+1024,passages[passages.size()-1].y/MAP_RESOLUTION+1024), DISTANCE_MIN_NEW_POINTS/(2*MAP_RESOLUTION), 255);
 			}
